@@ -1,0 +1,27 @@
+#banner.page-header
+  .row
+    .col-lg-8.col-md-7.col-sm-6
+      h1 新着動画
+.container-fluid
+  - @latest_movies.each_slice(3) do |sliced_movies|
+    .row.o-3column
+      - sliced_movies.each do |movie|
+        .col-md-4.col-sm-4.col-xs-8
+          .row.text-center
+            = image_tag movie.mqdefault_url, alt: "タイトル"
+          .row
+            = "タイトルあああああ#{'あ' * rand(50)}"
+.page-header
+  .row
+    .col-lg-8.col-md-7.col-sm-6
+      h1 カテゴリ
+.container-fluid
+  h2 Apple
+  - @latest_movies.each_slice(3) do |sliced_movies|
+    .row.o-3column
+      - sliced_movies.each do |movie|
+        .col-md-4.col-sm-4.col-xs-8
+          .row.text-center
+            = image_tag movie.mqdefault_url, alt: "タイトル"
+          .row
+            = "タイトルあああああ#{'あ' * rand(50)}"
