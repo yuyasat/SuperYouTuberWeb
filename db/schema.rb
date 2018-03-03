@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180306000000) do
     t.string "name", null: false
     t.string "full_name", null: false
     t.integer "parent_id", default: 0, null: false
+    t.integer "display_order", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["parent_id"], name: "index_categories_on_parent_id"
@@ -46,6 +47,8 @@ ActiveRecord::Schema.define(version: 20180306000000) do
     t.string "url", null: false
     t.string "key", null: false
     t.integer "status", default: 1, null: false
+    t.string "title"
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  has_many :movie_categories, dependent: :destroy
+  has_many :movies, through: :movie_categories
   has_many :children, class_name: 'Category', foreign_key: :parent_id
   before_create :set_full_name, if: -> { full_name.blank? }
 
@@ -10,13 +12,10 @@ class Category < ApplicationRecord
     parent_id == 0
   end
 
-  def self.html_options
-    [['親なし（第１にする）', 0]] + Category.root.includes(:children).flat_map do |cat1|
-      [
-        ["（第１）#{cat1.name}", cat1.id]
-      ]+ cat1.children.map do |cat2|
-        ["（第２）#{cat2.name}", cat2.id]
-      end
+  def self.html_options(with_root: true)
+    root_option = with_root ? [['親なし（第１にする）', 0]] : []
+    root_option + Category.root.includes(:children).flat_map do |cat1|
+      [[cat1.name, cat1.id]]+ cat1.children.map { |cat2| ["　　#{cat2.name}", cat2.id] }
     end
   end
 

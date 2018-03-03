@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   namespace :admin do
-    resources :movies, only: %i(index show)
+    resources :movies, only: %i(index show create)
     resources :categories, only: %i(index show create)
   end
 

@@ -1,0 +1,49 @@
+.page-header
+  .row
+    .well.bs-component
+      = render 'admin/error_message'
+      = form_for([:admin, @movie], class: 'form-horizontal') do |f|
+        fieldset
+          legend 新規作成
+          .col-lg-6.col-md-6
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-lg-6.col-md-6.control-label for="movie_url" URL
+                = f.text_field :url, class: 'form-controll col-lg-6 col-md-6'
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-lg-6.col-md-6.control-label for="movie_key" = "動画キー（watch?v=*******）"
+                = f.text_field :key, class: 'form-controll col-lg-6 col-md-6', placeholder: "*******の箇所"
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-lg-6.col-md-6.control-label for="movie_title" タイトル
+                = f.text_field :title, class: 'form-controll col-lg-6 col-md-6'
+            .row
+              .form-group
+                label.col-lg-6.col-md-6.control-label for="movie_categories" カテゴリー
+                = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
+                  = cat_f.select :category_id, Category.html_options(with_root: false),
+                                 { include_blank: '選択してください' }, class: 'form-controll col-lg-6 col-md-6'
+          .col-lg-6.col-md-6
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-lg-2.col-md-2.control-label for="movie_description" 説明文
+                = f.text_area :description, class: 'form-controll col-lg-10 col-md-10', rows: 4
+            .row.text-right
+              .form-group
+                = f.submit '作成', class: 'btn btn-primary'
+
+table.table.table-striped.table-hover
+  thead
+    tr
+      th id
+      th サムネイル
+      th 動画キー
+      th カテゴリ
+  tbody
+    - @movies.each do |movie|
+      tr
+        td = movie.id
+        td = image_tag movie.default_url, alt: movie.title
+        td = link_to movie.key, movie.url, target: '_blank'
+        td = movie.categories.map(&:name).join(', ')
