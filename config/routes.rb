@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :movies, only: %i(index show)
-    resources :categories, only: %i(index show)
+    resources :categories, only: %i(index show create)
   end
 
   get '/404' => 'errors#render_404'

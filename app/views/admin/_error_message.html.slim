@@ -1,0 +1,11 @@
+- if flash[:error]
+  .row
+    .col-lg-12
+      .alert.alert-dismissible.alert-danger
+        = raw flash[:error]
+
+- if flash[:success]
+  .row
+    .col-lg-12
+      .alert.alert-dismissible.alert-success
+        = raw flash[:success]

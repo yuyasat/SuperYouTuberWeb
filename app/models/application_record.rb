@@ -3,6 +3,11 @@ class ApplicationRecord < ActiveRecord::Base
 
   scope :new_order, -> { order('id desc') }
 
+  def customized_error_full_messages
+    return '' if errors.blank?
+    errors.full_messages.join('<br>')
+  end
+
   def self.latest
     order(:id).last
   end
