@@ -5694,7 +5694,7 @@ tbody.collapse.in {
 
 .navbar {
   position: relative;
-  min-height: 80px;
+  min-height: 40px;
   margin-bottom: 24px;
   border: 1px solid transparent;
 }
@@ -5830,7 +5830,8 @@ tbody.collapse.in {
 
 .navbar-brand {
   float: left;
-  height: 80px;
+  height: 40px;
+  min-height: 40px;
   padding: 28px 15px;
   font-size: 20px;
   line-height: 24px;
@@ -8409,12 +8410,12 @@ a {
   .navbar-nav > li > a {
     padding-top: 7px;
     padding-bottom: 7px;
-    margin-top: 21px;
-    margin-bottom: 21px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     border-radius: 4px;
   }
   .navbar-nav > li > .dropdown-menu {
-    margin-top: -21px;
+    margin-top: 0px;
   }
   .navbar-nav > li:not(:last-child) {
     margin-right: 5px;
@@ -8453,7 +8454,7 @@ a {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 30px;
 }
 .o-3column .with-margin {
   padding: 0 20px;
@@ -8530,4 +8531,21 @@ a img {
 }
 a img:hover {
   opacity: .5;
+}
+li.dropdown:hover > ul.dropdown-menu {
+  display: block;
+}
+
+.navbar .navbar-collapse {
+  min-height: 40px !important
+}
+
+.navbar-brand {
+  height: 40px;
+  padding: 10px 15px;
+}
+
+.navbar-nav > li > a {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
 }
