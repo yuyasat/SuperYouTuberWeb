@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var path = require('path')
 
 module.exports = {
   entry: {
@@ -6,18 +7,23 @@ module.exports = {
     honoka: './src/javascripts/honoka.js',
   },
   output: {
-    path: '../app/assets/javascripts',
+    path: path.resolve(__dirname, '../../app/assets/javascripts'),
     filename: '[name].js'
   },
   plugins: [
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' })
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel?presets[]=es2015,presets[]=stage-2'
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015', 'stage-2']
+          }
+        }
       },
       {
         test: /\.vue$/,
@@ -37,6 +43,6 @@ module.exports = {
   resolve: {
     alias: {
       'vue': 'vue/dist/vue.common.js',
-    }
+    },
   }
 }
