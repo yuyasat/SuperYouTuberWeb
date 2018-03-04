@@ -1,0 +1,5 @@
+i.fas.fa-angle-double-right {
+  &:before {
+    @include fa("\f101");
+  }
+}

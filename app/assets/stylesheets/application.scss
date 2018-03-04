@@ -19,4 +19,6 @@ $legacy-support-for-ie7: false;
 $experimental-support-for-svg: true;
 
 @import
-  'common/honoka';
+  'common/honoka',
+  'common/mixins',
+  'common/fontawesome';
