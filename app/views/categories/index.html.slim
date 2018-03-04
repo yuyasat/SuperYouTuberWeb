@@ -1,0 +1,22 @@
+.page-header
+  .row.text-center
+    h1.h3 カテゴリ一覧
+  .col-lg-4.col-md-4.col-sm-4
+    .well.bs-component
+      - @root_category.each do |cat1|
+        .header-border = cat1.name
+  .col-lg-8.col-md-8.col-sm-8
+    - @category_movies.each do |cat1, movies|
+      h3.h4 = cat1.name
+
+      - movies.each_slice(5) do |sliced_movies|
+        .row.o-3column
+          - sliced_movies.each do |movie|
+            .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
+              .row.text-center
+                = image_tag movie.mqdefault_url, alt: movie.title
+              .row.movie-text
+                small = movie.title
+      .row.small.text-right
+        i.fas.fa-angle-double-right
+        = link_to '>> もっとみる', "/categories/1"

@@ -2714,7 +2714,7 @@ a.bg-danger:focus {
 .page-header {
   margin: 24px 0 16px;
 }
-.header-border {
+.header-border:not(:last-child) {
   border-bottom: 1px solid #eee;
 }
 
