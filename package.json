@@ -3,7 +3,7 @@
     "release": "webpack --config config/webpack.production.js",
     "build": "webpack --config config/webpack.development.js",
     "watch": "webpack --watch --config config/webpack.development.js",
-    "heroku-postbuild": "cd frontend; npm run release; cd ../"
+    "heroku-postbuild": "cd frontend; npm install; npm run release; cd ../"
   },
   "name": "lassi",
   "version": "1.0.0",
