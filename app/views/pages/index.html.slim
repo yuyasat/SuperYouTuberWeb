@@ -1,7 +1,7 @@
 #banner.page-header.header-border
   .row
     .col-lg-8.col-md-7.col-sm-6
-      h1 おすすめYoutuberの新着動画
+      h1.h4 おすすめYoutuberの新着動画
 .container-fluid
   - @latest_movies.each_slice(5) do |sliced_movies|
     .o-3column
@@ -10,11 +10,11 @@
           .row.text-center
             = image_tag movie.mqdefault_url, alt: movie.title
           .row
-            = movie.title
+            small = movie.title
 .page-header.header-border
   .row
     .col-lg-12.col-md-12.col-sm-6
-      h1 カテゴリ
+      h2.h4 カテゴリ
 .container-fluid
   - @category_movies.each do |cat1, movies|
     h3 = cat1.name
