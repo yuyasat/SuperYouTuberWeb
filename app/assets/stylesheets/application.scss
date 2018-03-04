@@ -19,6 +19,7 @@ $legacy-support-for-ie7: false;
 $experimental-support-for-svg: true;
 
 @import
+  'common/html5reset-1.6.1',
   'common/honoka',
   'common/mixins',
   'common/fontawesome';

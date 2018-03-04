@@ -2386,12 +2386,12 @@ textarea {
 }
 
 a {
-  color: #2196f3;
+  color: #000;
   text-decoration: none;
 }
 a:hover, a:focus {
-  color: #0a6ebd;
-  text-decoration: underline;
+  color: #000;
+  text-decoration: none;
 }
 a:focus {
   outline: 5px auto -webkit-focus-ring-color;
@@ -6098,8 +6098,6 @@ tbody.collapse.in {
   border-color: #eee;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: #fff;
-  background-color: #2196f3;
 }
 @media (max-width: 767px) {
   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
@@ -8517,7 +8515,19 @@ $screen-lg-min: 1200px;
     }
   }
 }
-
 a {
-  text-decoration: none;
+  backface-visibility: hidden;
+}
+a img {
+  opacity: 1;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+a img:hover {
+  opacity: .5;
 }
