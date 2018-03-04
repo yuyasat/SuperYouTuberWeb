@@ -9,7 +9,7 @@
         .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
           .row.text-center
             = image_tag movie.mqdefault_url, alt: movie.title
-          .row
+          .row.movie-text
             small = movie.title
 .page-header.header-border
   .row
@@ -17,12 +17,12 @@
       h2.h4 カテゴリ
 .container-fluid
   - @category_movies.each do |cat1, movies|
-    h3 = cat1.name
+    h3.h4 = cat1.name
     - movies.each_slice(5) do |sliced_movies|
       .row.o-3column
         - sliced_movies.each do |movie|
           .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
             .row.text-center
               = image_tag movie.mqdefault_url, alt: movie.title
-            .row
-              = movie.title
+            .row.movie-text
+              small = movie.title

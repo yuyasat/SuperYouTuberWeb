@@ -8463,6 +8463,15 @@ body {
 .o-3column {
   margin: 0 -20px;
 }
+.row.movie-text {
+  height: 50px;
+  margin-bottom: 10px;
+  line-height: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
 img {
   width:auto;
   height:auto;
