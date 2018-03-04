@@ -14,6 +14,15 @@ class Movie < ApplicationRecord
   validates :url, :key, presence: true
   validates :url, :key, uniqueness: true
 
+  def self.grouped_by_categories
+    Category.grouped_category_ids.map do |cat1, ids|
+      movies = Movie.joins(:movie_categories)
+                    .merge(MovieCategory.where(category: ids)).new_order.limit(10)
+      next if movies.blank?
+      [cat1, movies]
+    end.compact.to_h
+  end
+
   def default_url
     "http://i.ytimg.com/vi/#{key}/default.jpg"
   end

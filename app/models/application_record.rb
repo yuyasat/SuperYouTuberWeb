@@ -1,7 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  scope :new_order, -> { order('id desc') }
+  scope :new_order, -> { order("#{self.table_name}.id desc") }
 
   def customized_error_full_messages
     return '' if errors.blank?

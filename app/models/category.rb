@@ -12,6 +12,15 @@ class Category < ApplicationRecord
     parent_id == 0
   end
 
+  def self.grouped_category_ids
+    Category.root.eager_load({ children: :children }).map do |cat1|
+      category_ids = [cat1.id] + cat1.children.pluck(:id) + cat1.children.flat_map do |cat2|
+        cat2.children.pluck(:id)
+      end
+      [cat1, category_ids]
+    end.to_h
+  end
+
   def self.html_options(with_root: true)
     root_option = with_root ? [['親なし（第１にする）', 0]] : []
     root_option + Category.root.includes(:children).flat_map do |cat1|
