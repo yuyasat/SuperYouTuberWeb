@@ -815,6 +815,7 @@ if (typeof jQuery === 'undefined') {
 
     clearMenus()
 
+    var eventPrevent = $this.attr('data-event-prevent') === undefined || $this.attr('data-event-prevent')
     if (!isActive) {
       if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
         // if mobile we use a backdrop because click events don't delegate
@@ -827,7 +828,9 @@ if (typeof jQuery === 'undefined') {
       var relatedTarget = { relatedTarget: this }
       $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
 
-      if (e.isDefaultPrevented()) return
+      if (eventPrevent) {
+        if (e.isDefaultPrevented()) return
+      }
 
       $this
         .trigger('focus')
@@ -838,7 +841,7 @@ if (typeof jQuery === 'undefined') {
         .trigger($.Event('shown.bs.dropdown', relatedTarget))
     }
 
-    return false
+    return eventPrevent
   }
 
   Dropdown.prototype.keydown = function (e) {

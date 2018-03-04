@@ -10,7 +10,7 @@ header
       #navbar-main.navbar-collapse.collapse
         ul.nav.navbar-nav
           li.dropdown
-            a aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+            = link_to categories_path, 'area-expanded': false, data: { toggle: 'dropdown', 'event-prevent': false }, role: 'button' do
               | カテゴリ
               span.caret
             ul.dropdown-menu role="menu"
