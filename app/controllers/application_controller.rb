@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   http_basic_authenticate_with name: ENV['USER'], password: ENV['PASS'] if Rails.env.production?
 
+  before_action :set_categories
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   # Prevent CSRF attacks by raising an exception.
@@ -23,6 +24,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def set_categories
+    @top_categories = Category.root
+  end
 
   def clear_session_errors
     session[:errors] = []

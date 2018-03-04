@@ -13,9 +13,10 @@
           - sliced_movies.each do |movie|
             .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
               .row.text-center
-                = image_tag movie.mqdefault_url, alt: movie.title
+                = link_to movie.url, target: '_blank' do
+                  = image_tag movie.mqdefault_url, alt: movie.title
               .row.movie-text
-                small = movie.title
+                small = link_to movie.title, movie.url, target: '_blank'
       .row.small.text-right
         = link_to category_path(cat1) do
           i.fas.fa-angle-double-right

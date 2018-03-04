@@ -9,16 +9,10 @@ header
           span.icon-bar
       #navbar-main.navbar-collapse.collapse
         ul.nav.navbar-nav
-          li
-            a href="/"  Top
-          li.dropdown.active
-            a.dropdown-toggle aria-expanded="false" data-toggle="dropdown" href="#" role="button"
+          li.dropdown
+            a aria-expanded="false" data-toggle="dropdown" href="#" role="button"
               | カテゴリ
               span.caret
             ul.dropdown-menu role="menu"
-              li
-                a href="./bootstrap-ja.html"  Japanese Page
-              li
-                a href="./bootstrap.html"  English Page
-          li
-            a href="//github.com/windyakin/Honoka/wiki"  Wiki
+             - @top_categories.each do |cat1|
+               li = link_to cat1.name, category_path(cat1)
