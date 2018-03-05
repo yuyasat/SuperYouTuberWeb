@@ -361,7 +361,7 @@ DEPENDENCIES
   codecov
   database_cleaner
   devise
-  draper (>= 3.0.0.pre1)
+  draper
   enum_help
   factory_girl_rails
   gon
