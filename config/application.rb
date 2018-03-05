@@ -35,7 +35,7 @@ module AppVotematch4
       g.fixture_replacement :factory_girl, dir: "spec/factories"
     end
 
-    config.autoload_paths += Dir["#{Rails.root}/app/**/concerns"]
+    config.autoload_paths += Dir["#{Rails.root}/app/**/*"]
     config.autoload_paths += %W(#{config.root}/lib)
 
     config.time_zone = 'Asia/Tokyo'

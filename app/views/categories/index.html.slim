@@ -3,8 +3,12 @@
     h1.h3 カテゴリ一覧
   .col-lg-3.col-md-3.col-sm-3
     .well.bs-component
-      - @root_category.each do |cat1|
-        .header-border.small = cat1.name
+      ul
+        li カテゴリ一覧
+      ul
+        - @root_category.decorate.each do |cat1|
+          li.header-border.small
+            = link_to cat1.name, cat1.children_path
   .col-lg-9.col-md-9.col-sm-9
     - @category_movies.each do |cat1, movies|
       h3.h4 = cat1.name

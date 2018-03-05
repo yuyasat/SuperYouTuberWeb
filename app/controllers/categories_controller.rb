@@ -1,12 +1,11 @@
 class CategoriesController < ApplicationController
   def index
-    @root_category = Category.root.all
     @category_movies = Movie.grouped_by_categories(num: 10)
+    @root_category = Category.root.where(id: @category_movies.keys.map(&:id))
   end
 
   def show
-    params[:cat1]
-    params[:cat2]
-    params[:cat3]
+    @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id])
+    @movies = @category.belonging_movies
   end
 end

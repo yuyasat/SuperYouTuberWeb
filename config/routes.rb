@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root 'pages#index'
 
-  resources :categories, only: %i(index show)
+  resources :categories, only: %i(index show) do
+    collection do
+      get ':cat1/:cat2', action: :show
+      get ':cat1/:cat2/:cat3', action: :show
+    end
+  end
 
   namespace :admin do
     resources :movies, only: %i(index show create)

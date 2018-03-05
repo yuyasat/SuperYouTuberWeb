@@ -1,4 +1,6 @@
 class Category < ApplicationRecord
+  belongs_to :parent_category, class_name: 'Category', foreign_key: :parent_id
+
   has_many :movie_categories, dependent: :destroy
   has_many :movies, through: :movie_categories
   has_many :children, class_name: 'Category', foreign_key: :parent_id
@@ -12,12 +14,34 @@ class Category < ApplicationRecord
     parent_id == 0
   end
 
+  def secondary?
+    parent_category.root?
+  end
+
+  def tertiary?
+    parent_category && parent_category.parent_category.root?
+  end
+
+  def belonging_movies
+    Movie.where(
+      id: MovieCategory.where(category: children_category_ids).select('movie_categories.movie_id')
+    )
+  end
+
+  def ancestor_category_ids(category = self, result = [])
+    return result + [category.id] if category.root?
+    ancestor_category_ids(category.parent_category, result) + [category.id]
+  end
+
+  def children_category_ids(include_self: true)
+    (include_self ? [id] : []) +
+      children.pluck(:id) +
+      children.eager_load(:children).flat_map { |cat2| cat2.children.pluck(:id) }
+  end
+
   def self.grouped_category_ids
     Category.root.eager_load({ children: :children }).map do |cat1|
-      category_ids = [cat1.id] + cat1.children.pluck(:id) + cat1.children.flat_map do |cat2|
-        cat2.children.pluck(:id)
-      end
-      [cat1, category_ids]
+      [cat1, cat1.children_category_ids]
     end.to_h
   end
 
