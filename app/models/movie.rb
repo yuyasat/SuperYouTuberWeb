@@ -1,4 +1,6 @@
 class Movie < ApplicationRecord
+  paginates_per 50
+
   SIZES = {
     default: [120, 90],
     mqdefault: [320, 180],

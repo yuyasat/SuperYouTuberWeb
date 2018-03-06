@@ -28,3 +28,5 @@
                 = image_tag movie.mqdefault_url, alt: movie.title
             .row.movie-text
               small = link_to movie.title, movie.url, target: '_blank'
+    .row.text-right
+      = paginate @movies

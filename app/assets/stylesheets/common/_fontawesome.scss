@@ -1,5 +1,29 @@
-i.fas.fa-angle-double-right {
-  &:before {
-    @include fa("\f101");
+i {
+  &.fa {
+    &.fa-ellipsis-h {
+      &:before {
+        @include fa("\f141")
+      }
+    }
+    &.fa-angle-double-left {
+      &:before {
+        @include fa("\f100");
+      }
+    }
+    &.fa-angle-double-right {
+      &:before {
+        @include fa("\f101");
+      }
+    }
+    &.fa-angle-left {
+      &:before {
+        @include fa("\f104");
+      }
+    }
+    &.fa-angle-right {
+      &:before {
+        @include fa("\f105");
+      }
+    }
   }
 }

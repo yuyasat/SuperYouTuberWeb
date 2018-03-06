@@ -14,6 +14,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 gem 'slim-rails'
 gem 'draper'
+gem 'kaminari'
 gem 'gon'
 gem 'unicorn'
 gem 'activerecord-import'
