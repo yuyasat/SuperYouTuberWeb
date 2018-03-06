@@ -28,9 +28,9 @@ class Category < ApplicationRecord
     )
   end
 
-  def ancestor_category_ids(category = self, result = [])
-    return result + [category.id] if category.root?
-    ancestor_category_ids(category.parent_category, result) + [category.id]
+  def ancestor_categories(category = self, result = [], only_id: true)
+    return result + [only_id ? category.id : category] if category.root?
+    ancestor_categories(category.parent_category, result, only_id: only_id) + [only_id ? category.id : category]
   end
 
   def children_category_ids(include_self: true)

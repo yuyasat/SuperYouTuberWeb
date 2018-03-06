@@ -1,6 +1,13 @@
 .page-header
-  .row.text-center
-    h1.h3 ="#{@category.name}カテゴリの動画"
+  .row.breadcrumb
+    .small
+      ul.breadcrumb
+        li = link_to 'ホーム', root_path
+        - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
+          - if @category.id == cat.id
+            li = cat.name
+          - else
+            li = link_to cat.name, cat.path
   .col-lg-3.col-md-3.col-sm-3
     .well.bs-component
       ul
@@ -8,8 +15,10 @@
       ul
         - @category.children.decorate.each do |cat|
           li.header-border.small
-            = link_to cat.name, cat.children_path
+            = link_to cat.name, cat.path
   .col-lg-9.col-md-9.col-sm-9
+    .row.text-center
+      h1.h3 ="#{@category.name}カテゴリの動画"
     - @movies.each_slice(5) do |sliced_movies|
       .row.o-3column
         - sliced_movies.each do |movie|
