@@ -1,6 +1,6 @@
 .page-header
   .row
-    .well.bs-component
+    .well.bs-component#admin-create-movie
       = render 'admin/error_message'
       = form_for([:admin, @movie], class: 'form-horizontal') do |f|
         fieldset
@@ -8,16 +8,19 @@
           .col-lg-6.col-md-6
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-6.col-md-6.control-label for="movie_url" URL
-                = f.text_field :url, class: 'form-controll col-lg-6 col-md-6'
+                label.col-lg-4.col-md-4.control-label for="movie_url" URL
+                = f.text_field :url, class: 'small form-controll col-lg-8 col-md-8', 'v-model': 'movieUrl'
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-6.col-md-6.control-label for="movie_key" = "動画キー（watch?v=*******）"
-                = f.text_field :key, class: 'form-controll col-lg-6 col-md-6', placeholder: "*******の箇所"
+                label.col-lg-6.col-md-6.control-label for="movie_key"
+                  | 動画キー
+                  br
+                  |（watch?v=*******）
+                = f.text_field :key, class: 'small form-controll col-lg-6 col-md-6', placeholder: "*******の箇所", 'v-model': 'movieKey'
             .row{style="margin-bottom: 10px"}
               .form-group
                 label.col-lg-6.col-md-6.control-label for="movie_title" タイトル
-                = f.text_field :title, class: 'form-controll col-lg-6 col-md-6'
+                = f.text_field :title, class: 'small form-controll col-lg-6 col-md-6'
             .row
               .form-group
                 label.col-lg-6.col-md-6.control-label for="movie_categories" カテゴリー
@@ -47,3 +50,5 @@ table.table.table-striped.table-hover
         td = image_tag movie.default_url, alt: movie.title
         td = link_to movie.key, movie.url, target: '_blank'
         td = movie.categories.map(&:name).join(', ')
+
+= javascript_include_tag 'adminMovie'

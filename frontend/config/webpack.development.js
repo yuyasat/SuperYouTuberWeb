@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     application: './src/javascripts/application.js',
     honoka: './src/javascripts/honoka.js',
+    adminMovie: './src/javascripts/admin/Movie',
   },
   output: {
     path: path.resolve(__dirname, '../../app/assets/javascripts'),
