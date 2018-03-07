@@ -1,10 +1,9 @@
 class Admin::MoviesController < ApplicationController
+
   def index
     @movie = Movie.new
     @movies = Movie.new_order
-  end
-
-  def show
+    set_gon_attributes
   end
 
   def create
@@ -17,6 +16,22 @@ class Admin::MoviesController < ApplicationController
     redirect_to admin_movies_path, flash: message
   end
 
+  def edit
+    @movie = Movie.find(params[:id])
+    set_gon_attributes
+  end
+
+  def update
+    @movie = Movie.find(params[:id])
+    @movie.assign_attributes(movie_params.except(:movie_categories_attributes))
+    if @movie.category_changed?(movie_category_params.values.flat_map(&:values).map(&:to_i))
+      @movie.movie_categories.delete_all
+      @movie.movie_categories = movie_category_params.values.map { |p| MovieCategory.new(p) }
+    end
+    @movie.save!
+    redirect_to edit_admin_movie_path(@movie)
+  end
+
   private
 
   def movie_params
@@ -24,5 +39,14 @@ class Admin::MoviesController < ApplicationController
       :url, :key, :status, :title, :description,
       movie_categories_attributes: %i(category_id)
     )
+  end
+
+  def movie_category_params
+    movie_params[:movie_categories_attributes]
+  end
+
+  def set_gon_attributes
+    gon.movie = @movie
+    gon.movie_categories = @movie.categories
   end
 end

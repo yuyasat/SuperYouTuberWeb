@@ -25,6 +25,10 @@ class Movie < ApplicationRecord
     end.compact.to_h
   end
 
+  def category_changed?(new_category_ids)
+    (movie_categories.pluck(:category_id) - new_category_ids).present?
+  end
+
   def default_url
     "http://i.ytimg.com/vi/#{key}/default.jpg"
   end

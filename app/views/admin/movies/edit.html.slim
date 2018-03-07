@@ -1,0 +1,42 @@
+.page-header.text-center
+  .row
+    .well.bs-component.col-lg-10.col-md-10#admin-movie
+      = render 'admin/error_message'
+      = form_for([:admin, @movie], class: 'form-horizontal') do |f|
+        fieldset
+          legend 動画情報更新
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_url" URL
+              = f.text_field :url, class: 'small form-controll col-sm-8', 'v-model': 'url'
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_key"
+                | 動画キー
+                br
+                |（watch?v=*******）
+              = f.text_field :key, class: 'small form-controll col-sm-8', placeholder: "*******の箇所", 'v-model': 'key'
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_title" タイトル
+              = f.text_field :title, class: 'small form-controll col-sm-8', 'v-model': 'title'
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_categories" カテゴリー
+              = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
+                = cat_f.select :category_id, Category.html_options(with_root: false),
+                               { include_blank: '選択してください' },
+                               class: 'form-controll col-sm-8', 'v-model': 'category0'
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_description" 説明文
+              = f.text_area :description, class: 'form-controll col-sm-8', rows: 4, 'v-model': 'description'
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_description" サムネイル
+              img{v-bind:src='thumbnailUrl'}
+          .row.text-right
+            .form-group
+              = f.submit '更新', class: 'btn btn-primary'
+
+= javascript_include_tag 'adminMovie'

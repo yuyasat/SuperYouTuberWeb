@@ -1,42 +1,42 @@
 .page-header
   .row
-    .well.bs-component#admin-create-movie
+    .well.bs-component#admin-movie
       = render 'admin/error_message'
       = form_for([:admin, @movie], class: 'form-horizontal') do |f|
         fieldset
           legend 新規作成
-          .col-lg-6.col-md-6
+          .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-4.col-md-4.control-label for="movie_url" URL
-                = f.text_field :url, class: 'small form-controll col-lg-8 col-md-8', 'v-model': 'movieUrl'
+                label.col-xs-4.control-label for="movie_url" URL
+                = f.text_field :url, class: 'small form-controll col-xs-8', 'v-model': 'url'
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-6.col-md-6.control-label for="movie_key"
+                label.col-xs-6.control-label for="movie_key"
                   | 動画キー
                   br
                   |（watch?v=*******）
-                = f.text_field :key, class: 'small form-controll col-lg-6 col-md-6', placeholder: "*******の箇所", 'v-model': 'movieKey'
+                = f.text_field :key, class: 'small form-controll col-xs-6', placeholder: "*******の箇所", 'v-model': 'key'
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-6.col-md-6.control-label for="movie_title" タイトル
-                = f.text_field :title, class: 'small form-controll col-lg-6 col-md-6'
+                label.col-xs-6.control-label for="movie_title" タイトル
+                = f.text_field :title, class: 'small form-controll col-xs-6', 'v-model': 'title'
             .row
               .form-group
-                label.col-lg-6.col-md-6.control-label for="movie_categories" カテゴリー
+                label.col-xs-6.control-label for="movie_categories" カテゴリー
                 = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
                   = cat_f.select :category_id, Category.html_options(with_root: false),
-                                 { include_blank: '選択してください' }, class: 'form-controll col-lg-6 col-md-6'
-          .col-lg-6.col-md-6
+                                 { include_blank: '選択してください' }, class: 'form-controll col-xs-6'
+          .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-2.col-md-2.control-label for="movie_description" 説明文
-                = f.text_area :description, class: 'form-controll col-lg-10 col-md-10', rows: 4
+                label.col-xs-2.control-label for="movie_description" 説明文
+                = f.text_area :description, class: 'form-controll col-xs-10', rows: 4, 'v-model': 'description'
             .row.text-right
               .form-group
                 = f.submit '作成', class: 'btn btn-primary'
 
-table.table.table-striped.table-hover
+table.table.table-striped.table-hover.admin
   thead
     tr
       th id
@@ -46,9 +46,11 @@ table.table.table-striped.table-hover
   tbody
     - @movies.each do |movie|
       tr
-        td = movie.id
-        td = image_tag movie.default_url, alt: movie.title
-        td = link_to movie.key, movie.url, target: '_blank'
+        td = link_to movie.id, edit_admin_movie_path(movie)
+        td
+          = link_to movie.url, alt: movie.title, target: '_blank' do
+            = image_tag movie.default_url
+        td = movie.key
         td = movie.categories.map(&:name).join(', ')
 
 = javascript_include_tag 'adminMovie'
