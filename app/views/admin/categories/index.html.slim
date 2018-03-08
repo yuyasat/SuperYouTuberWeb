@@ -5,20 +5,20 @@
       = form_for([:admin, @category], class: 'form-horizontal') do |f|
         fieldset
           legend 新規作成
-          .col-lg-6.col-md-6
+          .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-6.col-md-6.control-label for="category_name" カテゴリ名（省略版）
-                = f.text_field :name, class: 'form-controll col-lg-6 col-md-6'
+                label.col-xs-6.control-label for="category_name" カテゴリ名（省略版）
+                = f.text_field :name, class: 'form-controll col-xs-6'
             .row
               .form-group
-                label.col-lg-6.col-md-6.control-label for="category_parent_id" 親カテゴリ
-                = f.select :parent_id, Category.html_options, class: 'form-controll col-lg-6 col-md-6'
-          .col-lg-6.col-md-6
+                label.col-xs-6.control-label for="category_parent_id" 親カテゴリ
+                = f.select :parent_id, Category.html_options, class: 'form-controll col-xs-6'
+          .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
-                label.col-lg-6.col-md-6control-label for="category_full_name" カテゴリ名（省略しない）
-                = f.text_field :full_name, class: 'form-controll col-lg-6 col-md-6'
+                label.col-xs-6.control-label for="category_full_name" カテゴリ名（省略しない）
+                = f.text_field :full_name, class: 'form-controll col-xs-6'
             .row.text-right
               .form-group
                 = f.submit '作成', class: 'btn btn-primary'
