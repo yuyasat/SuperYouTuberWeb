@@ -1,0 +1,20 @@
+= render 'index_new'
+
+.row
+  .col-lg-4
+    .bs-component
+      ul.nav.nav-tabs
+        li = link_to 'カテゴリー一覧', admin_categories_path
+        li.active = link_to '並び替え', sort_admin_categories_path
+
+      .tab-content
+        .tab-pane.fade.active.in#category-sort
+          p
+            = form_tag(sort_root_category_admin_categories_path, method: :post) do
+              .col-xs-6
+                .bs-component
+                category-sort-component
+                .text-right
+                  = submit_tag '更新', class: 'btn btn-default btn-md'
+
+  = javascript_include_tag 'adminCategoryShow'

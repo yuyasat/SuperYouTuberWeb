@@ -11,7 +11,13 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :movies, only: %i(index show create update)
-    resources :categories, only: %i(index show create update)
+    resources :categories, only: %i(index show create update) do
+      post :sort
+      collection do
+        post :sort_root_category
+        get 'sort', action: :index_sort
+      end
+    end
   end
 
   get '/404' => 'errors#render_404'

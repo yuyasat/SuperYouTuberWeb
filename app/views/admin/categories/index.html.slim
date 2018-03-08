@@ -1,38 +1,28 @@
-.page-header
-  .row
-    .well.bs-component
-      = render 'admin/error_message'
-      = form_for([:admin, @category], class: 'form-horizontal') do |f|
-        fieldset
-          legend 新規作成
-          .col-xs-6
-            .row{style="margin-bottom: 10px"}
-              .form-group
-                label.col-xs-6.control-label for="category_name" カテゴリ名（省略版）
-                = f.text_field :name, class: 'form-controll col-xs-6'
-            .row
-              .form-group
-                label.col-xs-6.control-label for="category_parent_id" 親カテゴリ
-                = f.select :parent_id, Category.html_options, class: 'form-controll col-xs-6'
-          .col-xs-6
-            .row{style="margin-bottom: 10px"}
-              .form-group
-                label.col-xs-6.control-label for="category_full_name" カテゴリ名（省略しない）
-                = f.text_field :full_name, class: 'form-controll col-xs-6'
-            .row.text-right
-              .form-group
-                = f.submit '作成', class: 'btn btn-primary'
+= render 'index_new'
 
-- @root_categories.each do |cat1|
-  .row
-    .col-lg-12
-      .bs-component
-        .panel.panel-default
-          .panel-heading = link_to cat1.name, admin_category_path(cat1)
-          .panel-body
-            - cat1.children.each do |cat2|
+.row
+  .col-lg-4
+    .bs-component
+      ul.nav.nav-tabs
+        li.active
+          a href="/admin/categories" カテゴリー一覧
+        li
+          a href="/admin/categories/sort" 並び替え
+
+      .tab-content
+        .tab-pane.fade.active.in
+          p
+            - @root_categories.each do |cat1|
               .row
-                .col-xs-12
-                  = link_to cat2.name, admin_category_path(cat2)
-                  - if cat2.children.present?
-                    = raw "（#{cat2.children.map { |cat3| link_to cat3.name, admin_category_path(cat3) }.join(', ')}）"
+                .col-lg-12
+                  .bs-component
+                    .panel.panel-default
+                      .panel-heading = link_to cat1.name, admin_category_path(cat1)
+                      .panel-body
+                        - cat1.children.each do |cat2|
+                          .row
+                            .col-xs-12
+                              = link_to cat2.name, admin_category_path(cat2)
+                              - if cat2.children.present?
+                                = raw "（#{cat2.children.map { |cat3| link_to cat3.name, admin_category_path(cat3) }.join(', ')}）"
+

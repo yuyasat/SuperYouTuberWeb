@@ -3,8 +3,9 @@ class Category < ApplicationRecord
 
   has_many :movie_categories, dependent: :destroy
   has_many :movies, through: :movie_categories
-  has_many :children, class_name: 'Category', foreign_key: :parent_id
+  has_many :children, -> { order(:display_order) }, class_name: 'Category', foreign_key: :parent_id
   before_create :set_full_name, if: -> { full_name.blank? }
+  before_create :set_display_order, unless: :root?
 
   validates :name, uniqueness: true
 
@@ -56,5 +57,10 @@ class Category < ApplicationRecord
 
   def set_full_name
     self.full_name = name
+  end
+
+  def set_display_order
+    return if parent_category.children.all? { |cat| cat.display_order.zero? }
+    self.display_order = parent_category.children.last.display_order + 1
   end
 end

@@ -4,7 +4,7 @@
       = render 'admin/error_message'
       = form_for([:admin, @category], class: 'form-horizontal') do |f|
         fieldset
-          legend カテゴリの更新
+          legend 新規作成
           .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
@@ -21,21 +21,5 @@
                 = f.text_field :full_name, class: 'form-controll col-xs-6'
             .row.text-right
               .form-group
-                = f.submit '更新', class: 'btn btn-primary'
+                = f.submit '作成', class: 'btn btn-primary'
 
-- if @category.children.present?
-  .row#category-sort
-    .bs-component
-      ul.nav.nav-tabs
-        li.active
-          a 並び替え
-      p
-        = form_tag(admin_category_sort_path(@category), method: :post) do
-          = hidden_field_tag :id, @category.id
-          .col-xs-6
-            .bs-component
-            category-sort-component
-            .text-right
-              = submit_tag '更新', class: 'btn btn-default btn-md'
-
-  = javascript_include_tag 'adminCategoryShow'

@@ -8554,10 +8554,16 @@ li.dropdown:hover > ul.dropdown-menu {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
 }
+
 .row.breadcrumb {
   margin-bottom: -35px;
 }
+
 table.admin a {
   color: #006bc4;
   text-decoration: underline;
+}
+
+.draggable-cursor:hover {
+  cursor: move;
 }
