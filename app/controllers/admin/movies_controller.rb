@@ -6,6 +6,11 @@ class Admin::MoviesController < ApplicationController
     set_gon_attributes
   end
 
+  def show
+    @movie = Movie.find(params[:id])
+    set_gon_attributes
+  end
+
   def create
     movie = Movie.new(movie_params)
     message = if movie.save
@@ -16,11 +21,6 @@ class Admin::MoviesController < ApplicationController
     redirect_to admin_movies_path, flash: message
   end
 
-  def edit
-    @movie = Movie.find(params[:id])
-    set_gon_attributes
-  end
-
   def update
     @movie = Movie.find(params[:id])
     @movie.assign_attributes(movie_params.except(:movie_categories_attributes))
@@ -29,7 +29,7 @@ class Admin::MoviesController < ApplicationController
       @movie.movie_categories = movie_category_params.values.map { |p| MovieCategory.new(p) }
     end
     @movie.save!
-    redirect_to edit_admin_movie_path(@movie)
+    redirect_to admin_movie_path(@movie)
   end
 
   private

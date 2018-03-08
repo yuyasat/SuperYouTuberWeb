@@ -5,6 +5,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def show
+    @category = Category.find(params[:id])
   end
 
   def create
@@ -15,6 +16,22 @@ class Admin::CategoriesController < ApplicationController
                 { error: category.customized_error_full_messages }
               end
     redirect_to admin_categories_path, flash: message
+  end
+
+  def update
+    category = Category.find(params[:id])
+    category.assign_attributes(category_params)
+    message = if category.changed?
+                if category.save
+                  { success: "#{category.name}を更新しました" }
+                else
+                  { error: category.customized_error_full_messages }
+                end
+              else
+                { error: '変更がありません' }
+              end
+
+    redirect_to admin_category_path(category), flash: message
   end
 
   private
