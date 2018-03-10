@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import 'babel-polyfill';
 
 import adminMovieStore from '../../stores/adminMovie'
 
@@ -16,6 +17,10 @@ window.adminMovieVm = new Vue({
     url: gon.movie.url || '',
     key: gon.movie.key || '',
     description: gon.movie.description || '',
+    existsChecked: false,
+    exists: gon.movie.id !== null ? true : false,
+    showError: false,
+    errorText: '',
   },
   computed: {
     movieUrl() {
@@ -43,10 +48,40 @@ window.adminMovieVm = new Vue({
       this.key = store.state.key
     },
     key() {
-      if (this.key.length !== 11) return
+      if (this.key.length > 11) {
+        this.errorText = 'キーが間違っています'
+        this.showError = true
+        return
+      } else if (this.key.length < 11) {
+        this.showError = false
+        return
+      }
       store.commit('setMovieUrl', { key: this.key })
       this.url = store.state.url
-      store.dispatch('getMovieInfo', { key: this.key })
-    }
-  },
+
+      const url = '/admin/api/movie_exists'
+      const config = {
+        method: 'get',
+        params: {
+          movie_key: this.key,
+        },
+      };
+      config.withCredentials = true;
+
+      const successFn = (res) => {
+        this.exists = res.data.exists
+        if (!res.data.exists) {
+          store.dispatch('getMovieInfo', { key: this.key })
+          this.showError = false
+        } else {
+          this.errorText = 'すでに登録されています'
+          this.showError = true
+        }
+      }
+      const errorFn = (error) => {
+        console.log(error)
+      }
+      axios.get(url, config).then(successFn).catch(errorFn);
+    },
+  }
 })

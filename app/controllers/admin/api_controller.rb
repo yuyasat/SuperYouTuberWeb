@@ -11,4 +11,8 @@ class Admin::ApiController < ApplicationController
     res = Typhoeus.get(url, params: parameters)
     render json: JSON.parse(res.body)
   end
+
+  def movie_exists
+    render json: { exists: Movie.exists?(key: params[:movie_key]) }
+  end
 end

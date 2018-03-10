@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     end
     namespace :api do
       get :movie_info
+      get :movie_exists
     end
   end
 
