@@ -6,4 +6,4 @@ tmp/*
 /coverage
 /app/assets/javascripts/*
 /public/assets/*
-
+.envrc
