@@ -57,6 +57,9 @@ table.table.table-striped.table-hover.admin
       th サムネイル
       th 動画キー
       th カテゴリ
+      th チャンネル
+      th 公開時刻
+      th 作成時刻
   tbody
     - @movies.each do |movie|
       tr
@@ -66,5 +69,8 @@ table.table.table-striped.table-hover.admin
             = image_tag movie.default_url
         td = movie.key
         td = movie.categories.map(&:name).join(', ')
+        td = movie.channel.present? ? link_to("#{movie.channel[0..8]}...", movie.channel_url, target: '_blank') : nil
+        td = movie.published_at&.strftime("%F %T")
+        td = movie.created_at.strftime("%F %T")
 
 = javascript_include_tag 'adminMovie'
