@@ -36,6 +36,7 @@ export default Vue.extend({
   },
   methods: {
     dragstart(category, e) {
+      e.dataTransfer.setData('text', category.name);
       this.draggingCategory = category
       e.target.style.opacity = 0.5;
     },
