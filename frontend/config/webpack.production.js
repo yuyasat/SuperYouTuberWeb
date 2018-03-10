@@ -45,5 +45,12 @@ module.exports = {
     alias: {
       'vue': 'vue/dist/vue.common.js',
     },
-  }
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    })
+  ],
 }
