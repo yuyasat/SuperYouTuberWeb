@@ -20,7 +20,19 @@
             .row{style="margin-bottom: 10px"}
               .form-group
                 label.col-xs-6.control-label for="movie_title" タイトル
-                = f.text_field :title, class: 'small form-controll col-xs-6', 'v-model': 'title'
+                = f.text_field :title, class: 'small form-controll col-xs-6', 'v-bind:value': 'title'
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-6.control-label for="movie_published_at" 公開日
+                .small
+                  = f.hidden_field :published_at, 'v-bind:value': 'publishedAt'
+                  | {{ publishedAt }}
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-6.control-label for="movie_channel" チェネルID
+                .small
+                  = f.hidden_field :channel, 'v-bind:value': 'channel'
+                  | {{ channel }}
             .row
               .form-group
                 label.col-xs-6.control-label for="movie_categories" カテゴリー

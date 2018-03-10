@@ -29,6 +29,10 @@ class Movie < ApplicationRecord
     (movie_categories.pluck(:category_id) - new_category_ids).present?
   end
 
+  def channel_url
+    "https://www.youtube.com/channel/#{channel}"
+  end
+
   def default_url
     "http://i.ytimg.com/vi/#{key}/default.jpg"
   end

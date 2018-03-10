@@ -1,4 +1,4 @@
-.page-header.text-center
+.page-header.text-center.admin
   .row
     .well.bs-component.col-lg-10.col-md-10#admin-movie
       = render 'admin/error_message'
@@ -19,7 +19,16 @@
           .row{style="margin-bottom: 10px"}
             .form-group
               label.col-sm-4.control-label for="movie_title" タイトル
-              = f.text_field :title, class: 'small form-controll col-sm-8', 'v-model': 'title'
+              = f.text_field :title, class: 'small form-controll col-sm-8', 'v-bind:value': 'title'
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_published_at" 公開日
+              .col-sm-8.small = @movie.published_at
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_channel" チャネルID
+              - if @movie.channel.present?
+                .col-sm-8.small = link_to @movie.channel, @movie.channel_url, target: '_blank'
           .row{style="margin-bottom: 10px"}
             .form-group
               label.col-sm-4.control-label for="movie_categories" カテゴリー

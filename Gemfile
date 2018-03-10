@@ -17,6 +17,7 @@ gem 'draper'
 gem 'kaminari'
 gem 'gon'
 gem 'unicorn'
+gem 'typhoeus'
 gem 'activerecord-import'
 gem 'enum_help'
 gem 'rails_12factor', group: :production

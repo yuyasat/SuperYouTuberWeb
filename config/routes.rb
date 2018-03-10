@@ -18,6 +18,9 @@ Rails.application.routes.draw do
         get 'sort', action: :index_sort
       end
     end
+    namespace :api do
+      get :movie_info
+    end
   end
 
   get '/404' => 'errors#render_404'

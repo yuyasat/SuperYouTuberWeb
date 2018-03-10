@@ -22,21 +22,27 @@ class Admin::MoviesController < ApplicationController
   end
 
   def update
-    @movie = Movie.find(params[:id])
-    @movie.assign_attributes(movie_params.except(:movie_categories_attributes))
-    if @movie.category_changed?(movie_category_params.values.flat_map(&:values).map(&:to_i))
-      @movie.movie_categories.delete_all
-      @movie.movie_categories = movie_category_params.values.map { |p| MovieCategory.new(p) }
+    movie = Movie.find(params[:id])
+    movie.assign_attributes(movie_params.except(:movie_categories_attributes))
+    ActiveRecord::Base.transaction do
+      if movie.category_changed?(movie_category_params.values.flat_map(&:values).map(&:to_i))
+        movie.movie_categories.delete_all
+        movie.movie_categories = movie_category_params.values.map { |p| MovieCategory.new(p) }
+      end
+      message = if movie.save
+                  { success: "#{movie.key}を更新しました" }
+                else
+                  { error: movie.customized_error_full_messages }
+                end
+      redirect_to admin_movie_path(movie), flash: message
     end
-    @movie.save!
-    redirect_to admin_movie_path(@movie)
   end
 
   private
 
   def movie_params
     params.require(:movie).permit(
-      :url, :key, :status, :title, :description,
+      :url, :key, :status, :title, :published_at, :channel, :description,
       movie_categories_attributes: %i(category_id)
     )
   end

@@ -1,24 +1,52 @@
 import Vue from 'vue'
-window.preapplyVm = new Vue({
+import Vuex from 'vuex'
+import axios from 'axios'
+
+import adminMovieStore from '../../stores/adminMovie'
+
+const Promise = require('es6-promise').polyfill();
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store(adminMovieStore)
+
+window.adminMovieVm = new Vue({
   el: '#admin-movie',
   data: {
     url: gon.movie.url || '',
     key: gon.movie.key || '',
-    title: gon.movie.title || '',
-    category0: gon.movie_categories[0] ? gon.movie_categories[0].id : '',
     description: gon.movie.description || '',
   },
   computed: {
+    movieUrl() {
+      return store.state.url
+    },
     thumbnailUrl() {
-      if (this.key)  return `http://i.ytimg.com/vi/${this.key}/mqdefault.jpg`
-    }
+      return store.getters.thumbnailUrl
+    },
+    title() {
+      return store.state.title
+    },
+    publishedAt() {
+      return store.state.publishedAt
+    },
+    channel() {
+      return store.state.channel
+    },
+    category0() {
+      return store.state.category0
+    },
   },
   watch: {
     url() {
-      this.key = this.url.split('v=').pop()
+      store.commit('setMovieKey', { url: this.url })
+      this.key = store.state.key
     },
     key() {
-      this.url = 'https://www.youtube.com/watch?v=' + this.key
+      if (this.key.length !== 11) return
+      store.commit('setMovieUrl', { key: this.key })
+      this.url = store.state.url
+      store.dispatch('getMovieInfo', { key: this.key })
     }
-  }
+  },
 })
