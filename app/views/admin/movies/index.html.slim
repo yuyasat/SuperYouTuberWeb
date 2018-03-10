@@ -21,6 +21,13 @@
               .form-group
                 label.col-xs-6.control-label for="movie_title" タイトル
                 = f.text_field :title, class: 'small form-controll col-xs-6', 'v-bind:value': 'title'
+            .row
+              .form-group
+                label.col-xs-6.control-label for="movie_categories" カテゴリー
+                = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
+                  = cat_f.select :category_id, Category.html_options(with_root: false),
+                                 { include_blank: '選択してください' }, class: 'form-controll col-xs-6'
+          .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
                 label.col-xs-6.control-label for="movie_published_at" 公開日
@@ -33,13 +40,6 @@
                 .small
                   = f.hidden_field :channel, 'v-bind:value': 'channel'
                   | {{ channel }}
-            .row
-              .form-group
-                label.col-xs-6.control-label for="movie_categories" カテゴリー
-                = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
-                  = cat_f.select :category_id, Category.html_options(with_root: false),
-                                 { include_blank: '選択してください' }, class: 'form-controll col-xs-6'
-          .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
                 label.col-xs-2.control-label for="movie_description" 説明文

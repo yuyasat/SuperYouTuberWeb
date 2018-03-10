@@ -38,6 +38,14 @@ class Admin::MoviesController < ApplicationController
     end
   end
 
+  def destroy
+    movie = Movie.find(params[:id])
+    movie.delete
+    redirect_to admin_movies_path, flash: { success: "#{movie.key}を削除しました" }
+  rescue => e
+    redirect_to admin_movie_path(movie), flash: { error: "#{movie.key}の削除に失敗しました" }
+  end
+
   private
 
   def movie_params

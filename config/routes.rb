@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :movies, only: %i(index show create update)
+    resources :movies, only: %i(index show create update destroy)
     resources :categories, only: %i(index show create update) do
       post :sort
       collection do
