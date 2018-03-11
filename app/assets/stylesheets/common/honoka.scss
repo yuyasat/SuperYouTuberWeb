@@ -8476,6 +8476,11 @@ body {
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
+
+.row.movie-published-at {
+  line-height: 1;
+  color: #777;
+}
 img {
   width:auto;
   height:auto;

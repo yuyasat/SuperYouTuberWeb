@@ -27,7 +27,7 @@ class Category < ApplicationRecord
   def related_categories_movies
     Movie.where(
       id: MovieCategory.where(category: all_children_categories).select('movie_categories.movie_id')
-    )
+    ).order(published_at: :desc)
   end
 
   def ancestor_categories(category = self, result = [], only_id: true)
@@ -48,7 +48,7 @@ class Category < ApplicationRecord
   end
 
   def self.grouped_category_ids
-    Category.root.eager_load(children: :children).map do |cat1|
+    Category.root.sort_by_display_order.eager_load(children: :children).map do |cat1|
       [cat1, cat1.all_children_categories]
     end.to_h
   end

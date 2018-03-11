@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_categories
-    @top_categories = Category.root
+    @top_categories = Category.root.sort_by_display_order
   end
 
   def clear_session_errors
