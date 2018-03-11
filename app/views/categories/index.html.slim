@@ -24,6 +24,8 @@
               .row.text-center
                 = link_to movie.url, target: '_blank' do
                   = image_tag movie.mqdefault_url, alt: movie.title
+              .row.movie-published-at.text-right
+                small = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
               .row.movie-text
                 small = link_to movie.title, movie.url, target: '_blank'
       .row.small.text-right
