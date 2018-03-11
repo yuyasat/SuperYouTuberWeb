@@ -6,6 +6,6 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id])
-    @movies = @category.belonging_movies.page(params[:page])
+    @movies = @category.related_categories_movies.page(params[:page])
   end
 end

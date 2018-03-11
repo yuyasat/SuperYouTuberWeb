@@ -13,7 +13,7 @@
       ul
         li = @category.name
       ul
-        - @category.children.decorate.each do |cat|
+        - @category.children.includes(:parent_category).decorate.each do |cat|
           li.header-border.small
             = link_to cat.name, cat.path
   .col-lg-9.col-md-9.col-sm-9

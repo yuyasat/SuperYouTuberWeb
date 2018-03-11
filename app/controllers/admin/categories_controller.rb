@@ -61,7 +61,7 @@ class Admin::CategoriesController < ApplicationController
 
   def set_instance_variables_for_index
     @category = Category.new
-    @root_categories = Category.root.includes(:children)
+    @root_categories = Category.root.eager_load(children: :children)
     gon.children_categories = @root_categories
   end
 
