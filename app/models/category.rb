@@ -3,13 +3,14 @@ class Category < ApplicationRecord
 
   has_many :movie_categories, dependent: :destroy
   has_many :movies, through: :movie_categories
-  has_many :children, -> { order(:display_order) }, class_name: 'Category', foreign_key: :parent_id
+  has_many :children, -> { order(:display_order, :created_at) }, class_name: 'Category', foreign_key: :parent_id
   before_create :set_full_name, if: -> { full_name.blank? }
-  before_create :set_display_order, unless: :root?
+  before_create :set_display_order
 
   validates :name, uniqueness: true
 
   scope :root, -> { where(parent_id: 0) }
+  scope :sort_by_display_order, -> { order(:display_order, :created_at) }
 
   def root?
     parent_id == 0
@@ -34,6 +35,12 @@ class Category < ApplicationRecord
     ancestor_categories(category.parent_category, result, only_id: only_id) + [only_id ? category.id : category]
   end
 
+  def children_categories(categories = [self], result = [])
+    children = categories.flat_map(&:children)
+    return categories + result if children.blank?
+    categories + children_categories(children, result)
+  end
+
   def children_category_ids(include_self: true)
     (include_self ? [id] : []) +
       children.pluck(:id) +
@@ -48,8 +55,16 @@ class Category < ApplicationRecord
 
   def self.html_options(with_root: true)
     root_option = with_root ? [['親なし（第１にする）', 0]] : []
-    root_option + Category.root.includes(:children).flat_map do |cat1|
-      [[cat1.name, cat1.id]]+ cat1.children.map { |cat2| ["　　#{cat2.name}", cat2.id] }
+    root_option + [].tap do |a|
+      Category.root.sort_by_display_order.includes(children: :children).each do |cat1|
+        a << [cat1.name, cat1.id]
+        cat1.children.each do |cat2|
+          a << ["　#{cat2.name}", cat2.id]
+          cat2.children.each do |cat3|
+            a << ["　　#{cat3.name}", cat3.id]
+          end
+        end
+      end
     end
   end
 
@@ -60,6 +75,10 @@ class Category < ApplicationRecord
   end
 
   def set_display_order
+    if root?
+      self.display_order = self.class.root.sort_by_display_order.last.display_order + 1
+      return
+    end
     return if parent_category.children.all? { |cat| cat.display_order.zero? }
     self.display_order = parent_category.children.last.display_order + 1
   end
