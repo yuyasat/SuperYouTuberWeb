@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180310000000) do
+ActiveRecord::Schema.define(version: 20180314000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 20180310000000) do
     t.string "channel"
   end
 
+  create_table "sns_accounts", id: :serial, force: :cascade do |t|
+    t.string "type", null: false
+    t.integer "video_artist_id", null: false
+    t.string "account", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["video_artist_id"], name: "index_sns_accounts_on_video_artist_id"
+  end
+
   create_table "tags", id: :serial, force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -83,6 +92,13 @@ ActiveRecord::Schema.define(version: 20180310000000) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "video_artists", id: :serial, force: :cascade do |t|
+    t.string "channel", null: false
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

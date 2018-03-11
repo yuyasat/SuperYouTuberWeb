@@ -1,0 +1,2 @@
+class InstagramAccount < SnsAccount
+end
