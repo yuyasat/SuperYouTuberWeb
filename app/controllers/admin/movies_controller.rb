@@ -2,7 +2,7 @@ class Admin::MoviesController < ApplicationController
 
   def index
     @movie = Movie.new
-    @movies = Movie.new_order
+    @movies = Movie.new_order.includes(:categories)
     set_gon_attributes
   end
 
