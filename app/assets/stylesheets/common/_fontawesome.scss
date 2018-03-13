@@ -2,7 +2,7 @@ i {
   &.fa {
     &.fa-ellipsis-h {
       &:before {
-        @include fa("\f141")
+        @include fa("\f141");
       }
     }
     &.fa-angle-double-left {
@@ -23,6 +23,21 @@ i {
     &.fa-angle-right {
       &:before {
         @include fa("\f105");
+      }
+    }
+    &.fa-check {
+      &:before {
+        @include fa("\f00c");
+      }
+    }
+    &.fa-save {
+      &:before {
+        @include fa("\f0c7");
+      }
+    }
+    &.fa-spinner {
+      &:before {
+        @include fa("\f110");
       }
     }
   }

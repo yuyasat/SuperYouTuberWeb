@@ -18,9 +18,11 @@ Rails.application.routes.draw do
         get 'sort', action: :index_sort
       end
     end
+    resources :video_artists, only: %i(index)
     namespace :api do
       get :movie_info
       get :movie_exists
+      post :video_artist
     end
   end
 

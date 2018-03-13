@@ -9,20 +9,20 @@
             .row{style="margin-bottom: 8px"}
               .form-group
                 label.col-xs-4.control-label.small for="movie_url" URL
-                = f.text_field :url, class: 'small form-controll col-xs-8 admin-movie', 'v-model': 'url'
+                = f.text_field :url, class: 'small form-controll col-xs-8 admin-text', 'v-model': 'url'
             .row{style="margin-bottom: 8px"}
               .form-group
                 label.col-xs-6.control-label.small for="movie_key"
                   | 動画キー
                   br
                   |（watch?v=*******）
-                = f.text_field :key, class: 'small form-controll col-xs-6 admin-movie', placeholder: "*******の箇所", 'v-model': 'key'
+                = f.text_field :key, class: 'small form-controll col-xs-6 admin-text', placeholder: "*******の箇所", 'v-model': 'key'
               .small.text-danger{v-if="showError"}
                 | {{ errorText }}
             .row{style="margin-bottom: 8px"}
               .form-group
                 label.col-xs-4.control-label.small for="movie_title" タイトル
-                = f.text_field :title, class: 'small form-controll col-xs-8 admin-movie', 'v-bind:value': 'title'
+                = f.text_field :title, class: 'small form-controll col-xs-8 admin-text', 'v-bind:value': 'title'
             .row
               .form-group
                 label.col-xs-4.control-label.small for="movie_categories" カテゴリ

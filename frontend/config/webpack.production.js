@@ -7,6 +7,7 @@ module.exports = {
     honoka: './src/javascripts/honoka.js',
     adminMovie: './src/javascripts/admin/Movie',
     adminCategoryShow: './src/javascripts/admin/Category/Show',
+    adminVideoArtist: './src/javascripts/admin/VideoArtist',
   },
   output: {
     path: path.resolve(__dirname, '../../app/assets/javascripts'),
