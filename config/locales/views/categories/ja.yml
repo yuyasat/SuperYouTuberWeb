@@ -1,0 +1,6 @@
+ja:
+  categories:
+    index:
+      title: カテゴリ一覧 - Super YouTuber
+    show:
+      title: カテゴリ一覧（%{category}） - Super YouTuber
