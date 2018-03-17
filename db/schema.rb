@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180314000000) do
+ActiveRecord::Schema.define(version: 20180316000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -99,6 +99,12 @@ ActiveRecord::Schema.define(version: 20180314000000) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "custom_url"
+    t.text "editor_description"
+    t.text "description"
+    t.string "default_thumbnail_url"
+    t.string "medium_thumbnail_url"
+    t.string "high_thumbnail_url"
   end
 
 end

@@ -1,0 +1,47 @@
+- content_for :title do
+  = t('.title', video_artist: @video_artist.title)
+
+.page-header
+  .row.breadcrumb
+    .small
+      ul.breadcrumb
+        li = link_to 'ホーム', root_path
+        li Youtubers
+        li = @video_artist.title
+.well.bs-component.well-white
+  .row
+    .col-xs-6
+      .col-xs-6
+        = image_tag @video_artist.medium_thumbnail_url
+      .col-xs-6
+        h1.h4 = @video_artist.title
+    .col-xs-6 = simple_format @video_artist.editor_description
+.row
+  .col-xs-5.text-center
+    h2.h4 = "#{@video_artist.title}のYoutube"
+    - @video_artist.movies.limit(10).each.with_index do |movie, i|
+      .row
+        .col-xs-12
+          .row.text-center
+            - if i == 0
+              iframe{id="myVideo" src="#{movie.embed_url(autoplay: true, mute: true)}" frameborder="0" allowfullscreen=""}
+            - else
+              iframe{id="myVideo" src="#{movie.embed_url}" frameborder="0" allowfullscreen=""}
+          .row.movie-published-at.text-right.video-artist
+            small = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
+          .row.movie-text.video-artist.text-left
+            small = link_to movie.title, movie.url, target: '_blank'
+  - if @video_artist.instagram
+    .col-xs-4
+      h2.h4 = "#{@video_artist.title}のInstagram"
+      = link_to @video_artist.instagram.url, target: '_blank' do
+        .well.bs-component.well-white
+          .row.video-artist-instagram-ogp
+            = image_tag @instagram_ogp.image_url, width: '50px'
+          .row.video-artist-instagram-description
+            = @instagram_ogp.description
+  - if @video_artist.twitter
+    .col-xs-3
+      h2.h4 = "#{@video_artist.title}のTwitter"
+      = link_to @video_artist.twitter.timeline_url, class: 'twitter-timeline' do
+        script async="async" charset="utf-8" src="https://platform.twitter.com/widgets.js"

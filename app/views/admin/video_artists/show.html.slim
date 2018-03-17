@@ -1,0 +1,35 @@
+.page-header.text-center.admin
+  .row
+    .well.bs-component.col-xs-10
+      = render 'admin/error_message'
+      = form_for([:admin, @video_artist], class: 'form-horizontal') do |f|
+        fieldset
+          legend Youtuber情報更新
+          .row
+            .form-group
+              label.col-xs-4.control-label for="video_artist_url" チャネルID
+              = f.hidden_field :channel
+              = @video_artist.channel
+          .row.admin-form
+            .form-group
+              label.col-xs-4.control-label for="video_artist_title" タイトル
+              = f.text_field :title, class: 'small form-controll col-xs-8 admin-text'
+          .row.admin-form
+            .form-group
+              label.col-xs-4.control-label.small for="video_artist_editor_description" 編集部説明文
+              = f.text_area :editor_description, class: 'small form-controll col-xs-8 admin-text', rows: 6
+          .row.admin-form
+            .form-group
+              label.col-xs-4.control-label.small for="video_artist_description" 説明文
+              = f.text_area :description, class: 'small form-controll col-xs-8 admin-text', rows: 6
+          .row.admin-form
+            .form-group
+              .text-right
+                = f.submit '更新', class: 'btn btn-primary'
+    .well.bs-component.col-xs-10
+      h2.h4 ="#{@video_artist.title}の関連ページ"
+      ul
+        li = link_to 'SuperYoutuberのYoutuberページ', video_artist_path(@video_artist.channel), target: '_blank'
+        li = link_to 'Youtubeページ', @video_artist.channel_url, target: '_blank'
+        li = link_to 'Twitterページ', @video_artist.twitter.url, target: '_blank' if @video_artist.twitter.present?
+        li = link_to 'Instagramページ', @video_artist.instagram.url, target: '_blank' if @video_artist.instagram.present?

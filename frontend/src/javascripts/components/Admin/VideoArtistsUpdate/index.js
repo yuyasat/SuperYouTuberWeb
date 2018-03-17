@@ -23,7 +23,7 @@ export default Vue.extend({
   `,
   data: function () {
     return {
-      video_artists: gon.video_artists,
+      video_artists: _.orderBy(gon.video_artists, 'id')
     }
   },
   components: {

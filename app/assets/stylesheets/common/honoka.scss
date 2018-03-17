@@ -8475,11 +8475,19 @@ body {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
+  &.video-artist {
+    margin: 0 auto;
+    max-width: 300px;
+  }
 }
 
 .row.movie-published-at {
   line-height: 1;
   color: #777;
+  &.video-artist {
+    max-width: 300px;
+    margin: 0 auto;
+  }
 }
 img {
   width:auto;
@@ -8572,7 +8580,21 @@ li.dropdown:hover > ul.dropdown-menu {
 .draggable-cursor:hover {
   cursor: move;
 }
-input.admin-text {
+input.admin-text, textarea.admin-text {
   padding-left: 3px;
   padding-right: 3px;
+}
+.well-white {
+  background-color: #fff;
+}
+.row.video-artist-instagram-ogp {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.row.video-artist-instagram-description {
+  padding: 4px;
+}
+.row.admin-form {
+  margin-bottom: 10px;
+  padding-right: 15px;
 }

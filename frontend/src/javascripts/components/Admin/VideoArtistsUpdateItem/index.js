@@ -5,7 +5,9 @@ import axios from 'axios'
 export default Vue.extend({
   template: `
     <div class="admin">
-      <div class="col-xs-1">{{ video_artist.id }}</div>
+      <div class="col-xs-1">
+        <a :href="adminUrl" target='_blank'>{{ video_artist.id }}</a>
+      </div>
       <div class="col-xs-3">
         <a :href="video_artist.channel_url" target="_blank">{{ video_artist.channel }}</a>
       </div>
@@ -30,8 +32,8 @@ export default Vue.extend({
   props: ['video_artist'],
   data: function() {
     return {
-      twitter: this.video_artist.twitter || '',
-      instagram: this.video_artist.instagram || '',
+      twitter: this.video_artist.twitter !== null ? this.video_artist.twitter.account : '',
+      instagram: this.video_artist.instagram !== null ? this.video_artist.instagram.account : '',
       twitterPersited: this.video_artist.twitter !== null,
       twitterLoading: false,
       instagramPersited: this.video_artist.instagram !== null,
@@ -44,6 +46,9 @@ export default Vue.extend({
     },
     isInstagramSaved() {
       return this.instagramPersited && !this.instagramLoading
+    },
+    adminUrl() {
+      return `/admin/video_artists/${this.video_artist.id}`
     },
   },
   methods: {
@@ -79,8 +84,8 @@ export default Vue.extend({
         this.twitterPersited = res.data.twitter !== null
         this.instagramLoading = false
         this.instagramPersited = res.data.instagram !== null
-        this.twitter = res.data.twitter
-        this.instagram = res.data.instagram
+        this.twitter = res.data.twitter.account
+        this.instagram = res.data.instagram.account
       }
       const errorFn = (error) => {
         console.log(error)

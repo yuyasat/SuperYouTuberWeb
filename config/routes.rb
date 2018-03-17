@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :video_artists, path: 'youtuber', only: %i(show)
+
   namespace :admin do
     resources :movies, only: %i(index show create update destroy)
     resources :categories, only: %i(index show create update) do
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
         get 'sort', action: :index_sort
       end
     end
-    resources :video_artists, only: %i(index)
+    resources :video_artists, only: %i(index show update)
     namespace :api do
       get :movie_info
       get :movie_exists

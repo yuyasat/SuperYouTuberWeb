@@ -45,6 +45,14 @@ class Movie < ApplicationRecord
     "http://i.ytimg.com/vi/#{key}/mqdefault.jpg"
   end
 
+  def embed_url(autoplay: false, mute: false)
+    params = {}.tap do |hash|
+      hash[:autoplay] = 1 if autoplay
+      hash[:mute] = 1 if mute
+    end.to_param
+    "https://www.youtube.com/embed/#{key}?#{params}"
+  end
+
   def width(size = :mqdefault)
     SIZES[size][0]
   end

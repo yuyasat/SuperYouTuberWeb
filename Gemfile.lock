@@ -383,6 +383,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   kaminari
+  nokogiri
   pg
   poltergeist
   pry-byebug
