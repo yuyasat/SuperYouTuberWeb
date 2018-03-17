@@ -7,8 +7,6 @@ class Category < ApplicationRecord
   before_create :set_full_name, if: -> { full_name.blank? }
   before_create :set_display_order
 
-  validates :name, uniqueness: true
-
   scope :root, -> { where(parent_id: 0) }
   scope :sort_by_display_order, -> { order(:display_order, :created_at) }
 
