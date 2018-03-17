@@ -8,7 +8,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   body
-    = render 'layouts/header'
+    = render params[:controller].start_with?('admin') ? 'layouts/admin_header' : 'layouts/header'
     .container
       = yield
     = render 'layouts/footer'

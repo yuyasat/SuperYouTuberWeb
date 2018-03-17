@@ -1,0 +1,14 @@
+header
+  .navbar.navbar-inverse.navbar-fixed-top
+    .container
+      .navbar-header
+        a.navbar-brand href="/" Super Youtuber
+        button.navbar-toggle data-target="#navbar-main" data-toggle="collapse" type="button"
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+      #navbar-main.navbar-collapse.collapse
+        ul.nav.navbar-nav
+          li = link_to 'カテゴリ', admin_categories_path
+          li = link_to '動画一覧', admin_movies_path
+          li = link_to 'Youtuber一覧', admin_video_artists_path
