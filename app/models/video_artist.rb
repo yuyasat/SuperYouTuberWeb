@@ -23,4 +23,8 @@ class VideoArtist < ApplicationRecord
   def instagram
     instagram_accounts.first&.account != 'ない' ? instagram_accounts.first : nil
   end
+
+  def latest_movie
+    movies.order(published_at: :desc).first
+  end
 end

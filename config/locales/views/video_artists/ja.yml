@@ -1,4 +1,6 @@
 ja:
   video_artists:
+    index:
+      title: YouTuber一覧 - Super YouTuber
     show:
       title: "%{video_artist}の紹介ページ - Super YouTuber"

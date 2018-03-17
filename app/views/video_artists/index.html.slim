@@ -1,0 +1,40 @@
+- content_for :title do
+  = t('.title')
+
+.page-header
+  .row.breadcrumb
+    .small
+      ul.breadcrumb
+        li = link_to 'ホーム', root_path
+        li YouTuber一覧
+  .col-lg-3.col-md-3.col-sm-3
+    .well.bs-component
+      ul
+        li YouTuber一覧
+      ul
+        - ['あ', 'か'].each do |char|
+          li.header-border.small
+            = link_to char
+  .col-lg-9.col-md-9.col-sm-9
+    .row
+      h1.h3 YouTuber一覧
+      - @video_artists.each do |video_artist|
+        .row.col-xs-12
+          = link_to video_artist_path(video_artist.channel) do
+            .well.bs-component.well-white
+              .row
+                .col-xs-2
+                  - if video_artist.medium_thumbnail_url.present?
+                    = image_tag video_artist.default_thumbnail_url
+                  - if video_artist.instagram_accounts.present?
+                    i.fa.fa-instagram.color.video-artist-index-sns-icon.fa-lg
+                  - if video_artist.twitter_accounts.present?
+                    i.fa.fa-twitter-square.color.video-artist-index-sns-icon.fa-lg
+                .col-xs-5
+                  = video_artist.title
+                  .video-artist-index-description.small
+                    div
+                      = raw video_artist.description&.gsub("\n", '<br>')
+                .col-xs-5
+                  = link_to video_artist.movies.first.channel_url, target: '_blank' do
+                    = image_tag video_artist.movies.first.mqdefault_url, alt: video_artist.movies.first.title

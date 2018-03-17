@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :video_artists, path: 'youtuber', only: %i(show)
+  resources :video_artists, path: 'youtubers', only: %i(index show)
 
   namespace :admin do
     resources :movies, only: %i(index show create update destroy)

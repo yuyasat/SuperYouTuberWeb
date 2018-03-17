@@ -6,7 +6,7 @@
     .small
       ul.breadcrumb
         li = link_to 'ホーム', root_path
-        li Youtubers
+        li = link_to 'Youtubers', video_artists_path
         li = @video_artist.title
 .well.bs-component.well-white
   .row

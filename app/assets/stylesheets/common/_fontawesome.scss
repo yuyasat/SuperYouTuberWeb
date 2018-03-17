@@ -35,6 +35,14 @@ i {
         @include fa("\f142");
       }
     }
+    &.fa-instagram {
+      &:before {
+        @include fa("\f16d");
+      }
+      &.color {
+        color: #4E433C;
+      }
+    }
     &.fa-save {
       &:before {
         @include fa("\f0c7");
@@ -46,6 +54,14 @@ i {
       }
       &.white {
         color: #fff;
+      }
+    }
+    &.fa-twitter-square {
+      &:before {
+        @include fa("\f081");
+      }
+      &.color {
+        color: #00a0d1;
       }
     }
     &.fa-spinner {

@@ -8650,3 +8650,18 @@ a.a__logo-link {
   padding-bottom: 10px !important;
   text-decoration: none;
 }
+.video-artists-index {
+  height: 200px;
+  margin-bottom: 10px;
+}
+.video-artist-index-description > div {
+  height: 108px;
+  line-height: 1;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.video-artist-index-sns-icon {
+  margin: 5px;
+}
