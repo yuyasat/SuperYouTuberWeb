@@ -7,6 +7,7 @@ html
     = javascript_include_tag 'honoka', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    link rel="icon" type="image/png"href="/favicon.png"
   body
     = render params[:controller].start_with?('admin') ? 'layouts/admin_header' : 'layouts/header'
     .container

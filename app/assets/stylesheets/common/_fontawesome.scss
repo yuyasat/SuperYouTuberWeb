@@ -30,9 +30,22 @@ i {
         @include fa("\f00c");
       }
     }
+    &.fa-ellipsis-v {
+      &:before {
+        @include fa("\f142");
+      }
+    }
     &.fa-save {
       &:before {
         @include fa("\f0c7");
+      }
+    }
+    &.fa-search {
+      &:before {
+        @include fa("\f002");
+      }
+      &.white {
+        color: #fff;
       }
     }
     &.fa-spinner {
