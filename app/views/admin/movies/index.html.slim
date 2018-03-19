@@ -17,7 +17,7 @@
                   br
                   |（watch?v=*******）
                 = f.text_field :key, class: 'small form-controll col-xs-6 admin-text', placeholder: "*******の箇所", 'v-model': 'key'
-              .small.text-danger{v-if="showError"}
+              .small.text-danger{v-if="showError" v-cloak=""}
                 | {{ errorText }}
             .row{style="margin-bottom: 8px"}
               .form-group
@@ -33,13 +33,13 @@
             .row{style="margin-bottom: 8px"}
               .form-group
                 label.col-xs-6.control-label.small for="movie_published_at" 公開日
-                .small
+                .small{v-cloak=""}
                   = f.hidden_field :published_at, 'v-bind:value': 'publishedAt'
                   | {{ publishedAt }}
             .row{style="margin-bottom: 8px"}
               .form-group
                 label.col-xs-6.control-label.small for="movie_channel" チェネルID
-                .small
+                .small{v-cloak=""}
                   = f.hidden_field :channel, 'v-bind:value': 'channel'
                   | {{ channel }}
             .row{style="margin-bottom: 8px"}

@@ -14,7 +14,7 @@ const state = {
 
 const mutations = {
   setMovieKey(store, payload) {
-    store.key = payload.url.split('v=').pop()
+    store.key = payload.url.split(/v=|&/)[1]
   },
   setMovieUrl(store, payload) {
     store.url = `https://www.youtube.com/watch?v=${payload.key}`
