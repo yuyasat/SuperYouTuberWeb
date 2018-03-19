@@ -1,0 +1,51 @@
+= render 'index_new'
+
+.row
+  .bs-component
+    ul.nav.nav-tabs
+      li = link_to 'カテゴリー一覧', admin_categories_path
+      li = link_to '並び替え', sort_admin_categories_path
+      li.active = link_to 'ダッシュボード', dashboard_admin_categories_path
+
+table.table.table-striped.table-hover.admin
+  thead
+    tr
+      th 大カテゴリ
+      th 動画数
+      th 中カテゴリ
+      th 動画数
+      th 小カテゴリ
+      th 動画数
+  tbody
+    - @dashboard.each.with_index do |(cat1, cat1_summary), i|
+      tr
+        td{rowspan="#{cat1_summary[:height]}"} = cat1.name
+        td{rowspan="#{cat1_summary[:height]}"} = cat1_summary[:movie_count]
+        - if cat1_summary[:children].present?
+          td{rowspan="#{cat1_summary[:children].first.last[:height]}"} = cat1_summary[:children].first.first.name
+          td{rowspan="#{cat1_summary[:children].first.last[:height]}"} = cat1_summary[:children].first.last[:movie_count]
+          - if cat1_summary[:children].first.last[:children].present?
+            td = cat1_summary[:children].first.last[:children].first.first.name
+            td = cat1_summary[:children].first.last[:children].first.last[:movie_count]
+          - else
+            td
+            td
+        - else
+          td
+          td
+      - cat1_summary[:children].each.with_index do |(cat2, cat2_summary), j|
+        - unless j.zero?
+          tr
+            td{rowspan="#{cat2_summary[:height]}"} = cat2.name
+            td{rowspan="#{cat2_summary[:height]}"} = cat2_summary[:movie_count]
+            - if cat2_summary[:children].present?
+              td{rowspan="#{cat2_summary[:children].first.last[:height]}"} = cat2_summary[:children].first.first.name
+              td{rowspan="#{cat2_summary[:children].first.last[:height]}"} = cat2_summary[:children].first.last[:movie_count]
+            - else
+              td
+              td
+        - cat2_summary[:children].each.with_index do |(cat3, cat3_summary), k|
+          - unless k.zero?
+            tr
+              td = cat3.name
+              td = cat3_summary[:movie_count]

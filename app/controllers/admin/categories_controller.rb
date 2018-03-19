@@ -1,10 +1,14 @@
 class Admin::CategoriesController < ApplicationController
-  before_action :set_instance_variables_for_index, only: %i(index index_sort)
+  before_action :set_instance_variables_for_index, only: %i(index index_sort index_dashboard)
 
   def index
   end
 
   def index_sort
+  end
+
+  def index_dashboard
+    @dashboard = Category.movie_count_each_category
   end
 
 

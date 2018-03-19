@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       collection do
         post :sort_root_category
         get 'sort', action: :index_sort
+        get 'dashboard', action: :index_dashboard
       end
     end
     resources :video_artists, only: %i(index show update)

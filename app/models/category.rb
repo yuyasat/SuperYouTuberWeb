@@ -66,6 +66,36 @@ class Category < ApplicationRecord
     end
   end
 
+  def self.movie_count_each_category
+    Category.root.sort_by_display_order.eager_load(children: :children).map do |cat1|
+      [
+        cat1,
+        {
+          height: cat1.children.blank? ? 1 : cat1.children.sum { |cat2| cat2.children.count.zero? ? 1 : cat2.children.count },
+          movie_count: cat1.related_categories_movies.count,
+          children: cat1.children.sort_by_display_order.eager_load(:children).map do |cat2|
+            [
+              cat2,
+              {
+                height: cat2.children.count.zero? ? 1 : cat2.children.count,
+                movie_count: cat2.related_categories_movies.count,
+                children: cat2.children.sort_by_display_order.map do |cat3|
+                  [
+                    cat3,
+                    {
+                      count: cat3.all_children_categories(include_self: false).count,
+                      movie_count: cat3.related_categories_movies.count,
+                    },
+                  ]
+                end.to_h,
+              }
+            ]
+          end.to_h,
+        }
+      ]
+    end.to_h
+  end
+
   private
 
   def set_full_name

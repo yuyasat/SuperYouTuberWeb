@@ -3,10 +3,9 @@
 .row
   .bs-component
     ul.nav.nav-tabs
-      li.active
-        a href="/admin/categories" カテゴリー一覧
-      li
-        a href="/admin/categories/sort" 並び替え
+      li.active = link_to 'カテゴリー一覧', admin_categories_path
+      li = link_to '並び替え', sort_admin_categories_path
+      li = link_to 'ダッシュボード', dashboard_admin_categories_path
 
     .tab-content
       .tab-pane.fade.active.in
