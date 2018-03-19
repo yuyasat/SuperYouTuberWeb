@@ -50,6 +50,9 @@
               .form-group
                 = f.submit '作成', class: 'btn btn-primary'
 
+.row.text-right
+  = paginate @movies
+
 table.table.table-striped.table-hover.admin
   thead
     tr
@@ -72,5 +75,8 @@ table.table.table-striped.table-hover.admin
         td = movie.channel.present? ? link_to("#{movie.channel[0..8]}...", movie.channel_url, target: '_blank') : nil
         td = movie.published_at&.strftime("%F %T")
         td = movie.created_at.strftime("%F %T")
+
+.row.text-right
+  = paginate @movies
 
 = javascript_include_tag 'adminMovie'
