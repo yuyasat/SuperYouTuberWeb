@@ -1,0 +1,25 @@
+.page-header
+  .row
+    .well.bs-component
+      = render 'admin/error_message'
+      = form_for([:admin, @category], class: 'form-horizontal') do |f|
+        fieldset
+          legend カテゴリの更新
+          .col-xs-6
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-6.control-label for="category_name" カテゴリ名（省略版）
+                = f.text_field :name, class: 'form-controll col-xs-6'
+            .row
+              .form-group
+                label.col-xs-6.control-label for="category_parent_id" 親カテゴリ
+                = f.select :parent_id, Category.html_options, class: 'form-controll col-xs-6'
+          .col-xs-6
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-6.control-label for="category_full_name" カテゴリ名（省略しない）
+                = f.text_field :full_name, class: 'form-controll col-xs-6'
+            .row.text-right
+              .form-group
+                = f.submit '更新', class: 'btn btn-primary'
+

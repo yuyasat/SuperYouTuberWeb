@@ -8,6 +8,8 @@ class Category < ApplicationRecord
   before_create :set_display_order
 
   scope :root, -> { where(parent_id: 0) }
+  scope :secondary, -> { where(parent_id: root.select(:id)) }
+  scope :tertiary, -> { where.not(id: root.select(:id) + secondary.select(:id)) }
   scope :sort_by_display_order, -> { order(:display_order, :created_at) }
 
   def root?
@@ -67,26 +69,39 @@ class Category < ApplicationRecord
   end
 
   def self.movie_count_each_category
-    Category.root.sort_by_display_order.eager_load(children: :children).map do |cat1|
+    tertiary_movie_cnt = tertiary.includes(:movies).map { |cat3| [cat3, cat3.movies.size] }.to_h
+    secondary_movie_cnt = secondary.includes(:movies).map { |cat2| [cat2, cat2.movies.size] }.to_h
+    root_movie_cnt = root.includes(:movies).map { |cat1| [cat1, cat1.movies.size] }.to_h
+
+    secondary_children = secondary.includes(:children).map { |cat2| [cat2, cat2.children] }.to_h
+    root_children = root.includes(:children).map { |cat1| [cat1, cat1.children] }.to_h
+
+    root.sort_by_display_order.map do |cat1|
+      tertiary_cat_cnt = secondary_children.values_at(*root_children[cat1]).flatten.size
+      secondary_cat_cnt = root_children[cat1].presence&.size || 1
+      secondary_cat_with_tertiary_cnt =
+        secondary_children.values_at(*root_children[cat1]).reject { |cats| cats.blank? }.size
+      cat1_height = tertiary_cat_cnt + secondary_cat_cnt - secondary_cat_with_tertiary_cnt
+
+      cat1_movie_count =
+        tertiary_movie_cnt.values_at(*secondary_children.values_at(*root_children[cat1]).flatten).sum +
+        secondary_movie_cnt.values_at(*root_children[cat1]).sum + root_movie_cnt[cat1]
+
       [
         cat1,
         {
-          height: cat1.children.blank? ? 1 : cat1.children.sum { |cat2| cat2.children.count.zero? ? 1 : cat2.children.count },
-          movie_count: cat1.related_categories_movies.count,
-          children: cat1.children.sort_by_display_order.eager_load(:children).map do |cat2|
+          height: cat1_height, movie_count: cat1_movie_count,
+          children: root_children[cat1].map do |cat2|
+            cat2_height = secondary_children[cat2].presence&.size || 1
+            cat2_movie_count =
+              tertiary_movie_cnt.values_at(*secondary_children[cat2]).sum + secondary_movie_cnt[cat2]
+
             [
               cat2,
               {
-                height: cat2.children.count.zero? ? 1 : cat2.children.count,
-                movie_count: cat2.related_categories_movies.count,
-                children: cat2.children.sort_by_display_order.map do |cat3|
-                  [
-                    cat3,
-                    {
-                      count: cat3.all_children_categories(include_self: false).count,
-                      movie_count: cat3.related_categories_movies.count,
-                    },
-                  ]
+                height: cat2_height, movie_count: cat2_movie_count,
+                children: secondary_children[cat2].map do |cat3|
+                  [cat3, { movie_count: tertiary_movie_cnt[cat3] }]
                 end.to_h,
               }
             ]

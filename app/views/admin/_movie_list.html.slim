@@ -1,0 +1,28 @@
+.row.text-right
+  = paginate movies
+
+table.table.table-striped.table-hover.admin
+  thead
+    tr
+      th id
+      th サムネイル
+      th 動画キー
+      th カテゴリ
+      th チャンネル
+      th 公開時刻
+      th 作成時刻
+  tbody
+    - movies.each do |movie|
+      tr
+        td = link_to movie.id, admin_movie_path(movie)
+        td
+          = link_to movie.url, alt: movie.title, target: '_blank' do
+            = image_tag movie.default_url
+        td = movie.key
+        td = movie.categories.map(&:name).join(', ')
+        td = movie.channel.present? ? link_to("#{movie.channel[0..8]}...", movie.channel_url, target: '_blank') : nil
+        td = movie.published_at&.strftime("%F %T")
+        td = movie.created_at.strftime("%F %T")
+
+.row.text-right
+  = paginate movies

@@ -20,6 +20,9 @@ Rails.application.routes.draw do
         get 'sort', action: :index_sort
         get 'dashboard', action: :index_dashboard
       end
+      member do
+        get 'sort', action: :show_sort
+      end
     end
     resources :video_artists, only: %i(index show update)
     namespace :api do

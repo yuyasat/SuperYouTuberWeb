@@ -1,0 +1,19 @@
+= render 'show_update'
+
+.row
+  .bs-component
+    ul.nav.nav-tabs
+      li = link_to "動画（#{@category.movies.count}）", admin_category_path(@category)
+      li.active = link_to "並び替え（#{@category.children.count}）"
+    - if @category.children.present?
+      p
+        #category-sort
+          = form_tag(admin_category_sort_path(@category), method: :post) do
+            = hidden_field_tag :id, @category.id
+            .col-xs-6
+              .bs-component
+              category-sort-component
+              .text-right
+                = submit_tag '更新', class: 'btn btn-default btn-md'
+      = javascript_include_tag 'adminCategoryShow'
+

@@ -1,5 +1,6 @@
 class Admin::CategoriesController < ApplicationController
   before_action :set_instance_variables_for_index, only: %i(index index_sort index_dashboard)
+  before_action :set_instance_variables_for_show, only: %i(show show_sort)
 
   def index
   end
@@ -13,8 +14,11 @@ class Admin::CategoriesController < ApplicationController
 
 
   def show
-    @category = Category.find(params[:id])
-    gon.children_categories = @category.children
+    @movies =
+      @category.movies.order(created_at: :desc).includes(:categories).page(params[:page]).per(100)
+  end
+
+  def show_sort
   end
 
   def create
@@ -67,6 +71,11 @@ class Admin::CategoriesController < ApplicationController
     @category = Category.new
     @root_categories = Category.root.eager_load(children: :children)
     gon.children_categories = @root_categories
+  end
+
+  def set_instance_variables_for_show
+    @category = Category.find(params[:id])
+    gon.children_categories = @category.children
   end
 
   def sort_category!
