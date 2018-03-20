@@ -2,9 +2,12 @@ doctype html
 html
   head
     title = yield :title
-    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = Gon::Base.render_data({})
-    = javascript_include_tag 'honoka', 'data-turbolinks-track' => true
+    - if params[:controller].start_with?('admin')
+      = stylesheet_link_tag 'application_admin', media: 'all', 'data-turbolinks-track' => true
+      = javascript_include_tag 'honoka', 'data-turbolinks-track' => true
+    - else
+      = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     link rel="icon" type="image/png"href="/favicon.png"
