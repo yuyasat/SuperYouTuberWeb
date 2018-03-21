@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'pages#index'
+  get 'privacy-policy' => 'pages#privacy_policy'
+  get 'contact' => 'pages#contact'
+  get 'about' => 'pages#about'
 
   resources :categories, only: %i(index show) do
     collection do

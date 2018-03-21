@@ -5,5 +5,12 @@ class PagesController < ApplicationController
     @category_movies = Movie.grouped_by_categories(num: 5)
   end
 
-  def show; end
+  def privacy_policy
+  end
+
+  def contact
+  end
+
+  def about
+  end
 end
