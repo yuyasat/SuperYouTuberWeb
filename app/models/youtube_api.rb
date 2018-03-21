@@ -62,4 +62,60 @@ class YoutubeApi
       end
     end
   end
+
+  def self.set_promotion_video_movies!(channel, regex, category, target_year, dry_run = true)
+    mv_titles = []
+    (1..12).each do |month|
+      published_after = Time.zone.local(target_year, month).beginning_of_month
+      published_before = Time.zone.local(target_year, month).end_of_month
+
+      parameters = {
+        channelId: channel, key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
+        publishedAfter: published_after.rfc3339, publishedBefore: published_before.rfc3339, maxResults: 50,
+      }
+      res = Typhoeus.get("#{URL}/search", params: parameters)
+      items = Array(JSON.parse(res.body)['items'])
+      if items.count == 50
+        (1..published_before.day).each do |day|
+          published_after = Time.zone.local(target_year, month, day).beginning_of_day
+          published_before = Time.zone.local(target_year, month, day).end_of_day
+
+          parameters = {
+            channelId: channel, key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
+            publishedAfter: published_after.rfc3339, publishedBefore: published_before.rfc3339, maxResults: 50,
+          }
+          res = Typhoeus.get("#{URL}/search", params: parameters)
+          items = Array(JSON.parse(res.body)['items'])
+          mv_items =  items.select { |it| regex === it.dig('snippet', 'title') }
+          puts "　　#{published_after}-#{published_before}: #{items.count}, #{mv_items.count}"
+
+          mv_titles << save_items!(mv_items, category, dry_run)
+        end
+      else
+        mv_items =  items.select { |it| regex === it.dig('snippet', 'title') }
+        puts "#{published_after}-#{published_before}: #{items.count}, #{mv_items.count}"
+        mv_titles << save_items!(mv_items, category, dry_run)
+      end
+    end
+    mv_titles.flatten
+  end
+
+  def self.save_items!(items, category, dry_run)
+    mv_titles = []
+    items.each do |item|
+      m = Movie.find_or_initialize_by(key: item.dig('id', 'videoId'))
+      m.title = item.dig('snippet', 'title')
+      m.description = item.dig('snippet', 'description')
+      m.url = "https://www.youtube.com/watch?v=#{m.key}"
+      m.published_at = Time.zone.parse(item.dig('snippet', 'publishedAt'))
+      m.channel = item.dig('snippet', 'channelId')
+      m.categories << category
+
+      mv_titles << "#{m.key}, #{m.title}"
+      unless dry_run
+        puts "!!!!CAUTION!!!!#{m.inspect}: #{m.errors.full_messages}" unless m.save
+      end
+    end
+    mv_titles
+  end
 end
