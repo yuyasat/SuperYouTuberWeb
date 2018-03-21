@@ -17,10 +17,10 @@
                   .panel.panel-default
                     .panel-heading = link_to cat1.name, admin_category_path(cat1)
                     .panel-body
-                      - cat1.children.each do |cat2|
+                      - cat1.children.sort_by { |cat2| [cat2.display_order, cat2.created_at] }.each do |cat2|
                         .row
                           .col-xs-12
                             = link_to cat2.name, admin_category_path(cat2)
                             - if cat2.children.present?
-                              = raw "（#{cat2.children.map { |cat3| link_to cat3.name, admin_category_path(cat3) }.join(', ')}）"
+                              = raw "（#{cat2.children.sort_by { |cat3| [cat3.display_order, cat3.created_at] }.map { |cat3| link_to cat3.name, admin_category_path(cat3) }.join(', ')}）"
 
