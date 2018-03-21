@@ -3,8 +3,28 @@
 
 .page-header.header-border
   .row
+    .col-lg-6.col-md-6.col-sm-6
+      h2.h4 編集部のおすすめ動画
+      - if @featured_movie.present?
+        .row.text-center
+          iframe{id="myVideo" src="#{@featured_movie.embed_url}" frameborder="0" allowfullscreen=""}
+        .row.movie-published-at.text-right.video-artist
+          small = @featured_movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
+        .row.movie-text.video-artist.text-left
+          small = link_to @featured_movie.title, @featured_movie.url, target: '_blank'
+
+    .col-lg-6.col-md-6.col-sm-6
+      h2.h4 編集部のイチオシSuper YouTuber
+      .row.text-center
+        = link_to VideoArtist.first.movies.first.url, target: '_blank' do
+          = image_tag VideoArtist.first.movies.first.mqdefault_url, alt: VideoArtist.first.title
+      .row
+        = image_tag VideoArtist.first.default_thumbnail_url, alt: VideoArtist.first.title
+        small = link_to VideoArtist.first.title, VideoArtist.first.channel_url, target: '_blank'
+
+  .row
     .col-lg-8.col-md-7.col-sm-6
-      h1.h4 おすすめYoutuberの新着動画
+      h2.h4 おすすめYoutuberの新着動画
 .container-fluid
   - @latest_movies.each_slice(5) do |sliced_movies|
     .o-3column

@@ -1,0 +1,58 @@
+.page-header
+  .row
+    .well.bs-component.small
+      = render 'admin/error_message'
+      = form_for([:admin, @featured_movie], class: 'form-horizontal') do |f|
+        fieldset
+          legend 新規作成
+          .row.col-xs-12
+            .col-xs-2 動画キー
+            .col-xs-4 掲載開始日
+            .col-xs-4 掲載終了日
+          .row.col-xs-12
+            .col-xs-2
+              .form-group
+                = f.text_field :movie_key
+            .col-xs-4
+              .form-group
+                = f.datetime_select :start_at, default: Time.current
+            .col-xs-4
+              .form-group
+                = f.datetime_select :end_at, default: Time.current.next_month
+            .col-xs-2
+              .form-group
+                = f.submit '作成', class: 'btn btn-primary btn-sm'
+
+.row.text-right
+  = paginate @featured_movies
+
+table.table.table-striped.table-hover.admin.small
+  thead
+    tr
+      th id
+      th サムネイル
+      th 動画キー
+      th カテゴリ
+      th チャンネル/タイトル
+      th 開始時刻
+      th 終了時刻
+      th 動画公開時刻
+  tbody
+    - @featured_movies.each do |featured_movie|
+      tr
+        td = featured_movie.id
+        td
+          = link_to featured_movie.url, alt: featured_movie.title, target: '_blank' do
+            = image_tag featured_movie.default_url
+        td = featured_movie.key
+        td = featured_movie.categories.map(&:name).join(', ')
+        td
+          = featured_movie.channel.present? ? link_to(featured_movie.channel, featured_movie.channel_url, target: '_blank') : nil
+          br
+          = featured_movie.title
+        td = featured_movie.start_at&.strftime("%F %T")
+        td = featured_movie.end_at&.strftime("%F %T")
+        td = featured_movie.published_at&.strftime("%F %T")
+
+.row.text-right
+  = paginate @featured_movies

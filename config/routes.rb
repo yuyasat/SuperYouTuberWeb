@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :movies, only: %i(index show create update destroy)
+    resources :featured_movies, only: %i(index create)
     resources :categories, only: %i(index show create update) do
       post :sort
       collection do

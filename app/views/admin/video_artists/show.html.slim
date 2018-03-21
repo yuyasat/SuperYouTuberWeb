@@ -29,7 +29,7 @@
     .well.bs-component.col-xs-10
       h2.h4 ="#{@video_artist.title}の関連ページ"
       ul
-        li = link_to 'SuperYoutuberのYoutuberページ', video_artist_path(@video_artist.channel), target: '_blank'
+        li = link_to 'SuperYoutuberのYouTuberページ', video_artist_path(@video_artist.channel), target: '_blank'
         li = link_to 'Youtubeページ', @video_artist.channel_url, target: '_blank'
         li = link_to 'Twitterページ', @video_artist.twitter.url, target: '_blank' if @video_artist.twitter.present?
         li = link_to 'Instagramページ', @video_artist.instagram.url, target: '_blank' if @video_artist.instagram.present?
