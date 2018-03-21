@@ -3,7 +3,7 @@
 .row#category-sort
   .bs-component
     ul.nav.nav-tabs
-      li.active = link_to "動画（#{@movies.count}）", admin_category_path(@category)
+      li.active = link_to "動画（#{@category.movies.count}）", admin_category_path(@category)
       li = link_to "並び替え（#{@category.children.count}）", sort_admin_category_path(@category)
 
     - if @movies.present?
