@@ -90,7 +90,9 @@ class Category < ApplicationRecord
       [
         cat1,
         {
-          height: cat1_height, movie_count: cat1_movie_count,
+          height: cat1_height,
+          movie_count: cat1_movie_count,
+          self_movie_count: root_movie_cnt[cat1],
           children: root_children[cat1].map do |cat2|
             cat2_height = secondary_children[cat2].presence&.size || 1
             cat2_movie_count =
@@ -99,7 +101,9 @@ class Category < ApplicationRecord
             [
               cat2,
               {
-                height: cat2_height, movie_count: cat2_movie_count,
+                height: cat2_height,
+                movie_count: cat2_movie_count,
+                self_movie_count: secondary_movie_cnt[cat2],
                 children: secondary_children[cat2].map do |cat3|
                   [cat3, { movie_count: tertiary_movie_cnt[cat3] }]
                 end.to_h,
