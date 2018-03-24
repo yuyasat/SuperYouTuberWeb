@@ -19,7 +19,9 @@ gem 'gon'
 gem 'unicorn'
 gem 'typhoeus'
 gem 'nokogiri'
+gem "rgeo-proj4"
 gem 'activerecord-import'
+gem 'activerecord-postgis-adapter'
 gem 'enum_help'
 gem 'rails_12factor', group: :production
 

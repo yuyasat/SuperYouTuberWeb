@@ -5,13 +5,14 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: postgresql
+  adapter: postgis
   encoding: unicode
   pool: 5
   database: <%= ENV['RDS_DB_NAME'] || 'yt_summary_development' %>
   username: <%= ENV['RDS_USERNAME'] || 'yt_summary' %>
   password: <%= ENV['RDS_PASSWD'] || 'yt_summary' %>
   host: <%= ENV['RDS_HOSTNAME'] || 'localhost' %>
+  schema_search_path: public
 
 development:
   <<: *default
@@ -25,4 +26,5 @@ test:
 
 production:
   <<: *default
+  url: <%= ENV.fetch('DATABASE_URL', '').sub(/^postgres/, "postgis") %>
   port: <%= ENV['RDS_PORT'] %>

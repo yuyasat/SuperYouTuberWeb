@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180317000000) do
+ActiveRecord::Schema.define(version: 20180318000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
 
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name", null: false
@@ -32,6 +33,14 @@ ActiveRecord::Schema.define(version: 20180317000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_featured_movies_on_movie_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.bigint "movie_id", null: false
+    t.geography "lonlat", limit: {:srid=>4326, :type=>"st_point", :geographic=>true}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_locations_on_movie_id"
   end
 
   create_table "movie_categories", id: :serial, force: :cascade do |t|

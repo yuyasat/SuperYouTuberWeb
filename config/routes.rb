@@ -14,6 +14,14 @@ Rails.application.routes.draw do
 
   resources :video_artists, path: 'youtubers', only: %i(index show)
 
+  resources :spots, only: %i(index)
+
+  namespace :internal do
+    namespace :api do
+      get :movie_location
+    end
+  end
+
   namespace :admin do
     resources :movies, only: %i(index show create update destroy)
     resources :featured_movies, only: %i(index create)
