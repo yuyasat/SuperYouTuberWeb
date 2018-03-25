@@ -9,6 +9,7 @@ module.exports = {
     adminMovie: './src/javascripts/admin/Movie',
     adminCategoryShow: './src/javascripts/admin/Category/Show',
     adminVideoArtist: './src/javascripts/admin/VideoArtist',
+    spots: './src/javascripts/spots',
   },
   output: {
     path: path.resolve(__dirname, '../../app/assets/javascripts'),

@@ -56,6 +56,14 @@ i {
         color: #fff;
       }
     }
+    &.fa-times {
+      &:before {
+        @include fa("\f00d");
+      }
+      &.bright-dark {
+        color: #eae8e8;
+      }
+    }
     &.fa-twitter-square {
       &:before {
         @include fa("\f081");

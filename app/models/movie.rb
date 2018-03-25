@@ -22,6 +22,14 @@ class Movie < ApplicationRecord
   validates :url, :key, presence: true
   validates :url, :key, uniqueness: true
 
+  scope :within, ->(south_west_lat, south_west_lng, north_east_lat, north_east_lng) {
+    where(
+      id: Location.within(
+        south_west_lat, south_west_lng, north_east_lat, north_east_lng
+      ).distinct.select(:movie_id)
+    )
+  }
+
   def self.grouped_by_categories(num: 10)
     Category.grouped_category_ids.map do |cat1, ids|
       movies = Movie.joins(:movie_categories)
