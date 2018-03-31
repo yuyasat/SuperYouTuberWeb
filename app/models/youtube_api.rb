@@ -31,15 +31,21 @@ class YoutubeApi
   def self.create_video_artists
     channel_ids =
       Movie.where.not(channel: VideoArtist.select('video_artists.channel')).pluck(:channel).uniq
-    parameters = {
-      id: channel_ids.join(','),
-      key: ENV['GOOGLE_YOUTUBE_DATA_KEY'],
-      part: 'id,snippet',
-    }
-    res = Typhoeus.get("#{URL}/channels", params: parameters)
-    items = JSON.parse(res.body)['items']
-    items.each do |item|
-      VideoArtist.find_or_create_by(channel: item['id'], title: item.dig('snippet', 'title'))
+    channel_ids.each_slice(10) do |sliced_channel_ids|
+      begin
+        parameters = {
+          id: sliced_channel_ids.join(','),
+          key: ENV['GOOGLE_YOUTUBE_DATA_KEY'],
+          part: 'id,snippet',
+        }
+        res = Typhoeus.get("#{URL}/channels", params: parameters)
+        items = JSON.parse(res.body)['items']
+        items.each do |item|
+          VideoArtist.find_or_create_by(channel: item['id'], title: item.dig('snippet', 'title'))
+        end
+      rescue => e
+        puts "ERROR!!! #{sliced_channel_ids}\t#{e.inspect}"
+      end
     end
   end
 
