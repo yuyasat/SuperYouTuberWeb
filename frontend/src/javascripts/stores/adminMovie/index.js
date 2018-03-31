@@ -8,8 +8,10 @@ const state = {
   title: gon.movie.title || '',
   publishedAt: '',
   channel: '',
-  category0: gon.movie_categories[0] ? gon.movie_categories[0].id : '',
+  category0: gon.movie_categories[0] ? gon.movie_categories[0].id : gon.default_category || '',
   description: gon.movie.description || '',
+  latLongArray: _.includes(gon.map_category_ids, parseInt(gon.default_category)) ?
+    [{ latitude: '', longitude: '', index: 0 }] : []
 }
 
 const mutations = {
@@ -23,6 +25,29 @@ const mutations = {
     state.title = data.items[0].snippet.title
     state.publishedAt = data.items[0].snippet.publishedAt
     state.channel = data.items[0].snippet.channelId
+  },
+  initializeLatLong(store) {
+    store.latLongArray = [{ latitude: '', longitude: '', index: 0 }]
+  },
+  deleteLatLong(store) {
+    store.latLongArray = []
+  },
+  addLocation(state, index) {
+    let latLongArray = state.latLongArray
+    latLongArray.splice(index + 1, 0, { latitude: '', longitude: '', index: index + 1 })
+    latLongArray.slice(index + 2, latLongArray.length).forEach((latLong) => {
+      latLong.index++
+    })
+    state.latLongArray = _.orderBy(latLongArray, 'index')
+  },
+  removeLocation(state, index) {
+    const latLongArray = state.latLongArray
+    state.latLongArray = latLongArray.filter(function(latLong) {
+      return latLong.index !== index
+    })
+    state.latLongArray.forEach((latLong, i) => {
+      latLong.index = i
+    })
   },
 }
 

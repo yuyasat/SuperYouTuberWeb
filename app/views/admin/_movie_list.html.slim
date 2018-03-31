@@ -24,6 +24,9 @@ table.table.table-striped.table-hover.admin.small
           = movie.channel.present? ? link_to(movie.channel, movie.channel_url, target: '_blank') : nil
           br
           = movie.title
+          - if movie.locations.present?
+            br
+            = raw movie.locations.map { |loc| "#{loc.latitude}, #{loc.longitude}" }.join('<br>')
         td = movie.published_at&.strftime("%F %T")
         td = movie.created_at.strftime("%F %T")
 

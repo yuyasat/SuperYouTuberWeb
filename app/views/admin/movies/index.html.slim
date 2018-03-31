@@ -28,7 +28,10 @@
                 label.col-xs-4.control-label.small for="movie_categories" カテゴリ
                 = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
                   = cat_f.select :category_id, Category.html_options(with_root: false),
-                                 { selected: params[:category_id], include_blank: '選択してください' }, class: 'form-controll col-xs-8'
+                                 { selected: params[:category_id], include_blank: '選択してください' },
+                                 class: 'form-controll col-xs-8 small', 'v-model': 'category0'
+            .row{v-for="(latlong, index) in latLongArray" v-cloak=""}
+              movie-location{:latlong="latlong"}
           .col-xs-6
             .row{style="margin-bottom: 8px"}
               .form-group

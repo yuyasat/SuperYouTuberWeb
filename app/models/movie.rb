@@ -18,6 +18,7 @@ class Movie < ApplicationRecord
   has_many :locations
 
   accepts_nested_attributes_for :movie_categories, allow_destroy: true
+  accepts_nested_attributes_for :locations, allow_destroy: true
 
   validates :url, :key, presence: true
   validates :url, :key, uniqueness: true

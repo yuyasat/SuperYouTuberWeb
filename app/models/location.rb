@@ -1,6 +1,8 @@
 class Location < ApplicationRecord
   belongs_to :movie
 
+  before_validation :set_lonlat, if: -> { lonlat.blank? }
+
   scope :within, ->(south_west_lat, south_west_lng, north_east_lat, north_east_lng) {
     where(%|
       lonlat::geometry && Box2D(
@@ -13,10 +15,24 @@ class Location < ApplicationRecord
   }
 
   def longitude
-    lonlat.x
+    lonlat&.x || @longitude
   end
 
   def latitude
-    lonlat.y
+    lonlat&.y || @latitude
+  end
+
+  def longitude=(value)
+    @longitude = value
+  end
+
+  def latitude=(value)
+    @latitude = value
+  end
+
+  private
+
+  def set_lonlat
+    self.lonlat = "POINT (#{longitude} #{latitude})"
   end
 end

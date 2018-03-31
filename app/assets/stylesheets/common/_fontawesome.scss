@@ -43,6 +43,21 @@ i {
         color: #4E433C;
       }
     }
+    &.fa-minus-square {
+      &:before {
+        @include fa("\f146");
+      }
+    }
+    &.fa-plus {
+      &:before {
+        @include fa("\f067");
+      }
+    }
+    &.fa-plus-square {
+      &:before {
+        @include fa("\f0fe");
+      }
+    }
     &.fa-save {
       &:before {
         @include fa("\f0c7");

@@ -1,9 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import _ from 'lodash'
 import 'babel-polyfill';
 
 import adminMovieStore from '../../stores/adminMovie'
+import MovieLocation from '../../components/Admin/MovieLocation'
 
 const Promise = require('es6-promise').polyfill();
 
@@ -21,6 +23,7 @@ window.adminMovieVm = new Vue({
     exists: gon.movie.id !== null ? true : false,
     showError: false,
     errorText: '',
+    category0: gon.movie_categories[0] ? gon.movie_categories[0].id : gon.default_category || '',
   },
   computed: {
     movieUrl() {
@@ -40,6 +43,9 @@ window.adminMovieVm = new Vue({
     },
     category0() {
       return store.state.category0
+    },
+    latLongArray() {
+      return store.state.latLongArray
     },
   },
   watch: {
@@ -83,5 +89,15 @@ window.adminMovieVm = new Vue({
       }
       axios.get(url, config).then(successFn).catch(errorFn);
     },
-  }
+    category0(value) {
+      if (_.includes(gon.map_category_ids, parseInt(value))) {
+        store.commit('initializeLatLong')
+      } else {
+        store.commit('deleteLatLong')
+      }
+    },
+  },
+  components: {
+    'movie-location': MovieLocation,
+  },
 })
