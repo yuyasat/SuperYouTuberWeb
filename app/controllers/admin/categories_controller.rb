@@ -32,6 +32,7 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def update
+    return destroy if params[:commit] == '削除'
     category = Category.find(params[:id])
     category.assign_attributes(category_params)
     message = if category.changed?
@@ -57,6 +58,8 @@ class Admin::CategoriesController < ApplicationController
     redirect_to sort_admin_categories_path
   end
 
+  private
+
   def destroy
     category = Category.find(params[:id])
     unless category.destroyable?
@@ -69,8 +72,6 @@ class Admin::CategoriesController < ApplicationController
     binding.pry
     redirect_to admin_category_path(category), flash: { error: "#{category.name}の削除に失敗しました" }
   end
-
-  private
 
   def category_params
     params.require(:category).permit(:name, :full_name, :parent_id)

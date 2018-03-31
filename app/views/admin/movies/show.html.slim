@@ -48,8 +48,7 @@
         .row
           .form-group
             .col-sm-6.text-center
-              = button_to '削除', admin_movie_path(@movie.id),
-                          method: :delete, class: 'btn btn-default',
+              = f.submit '削除', class: 'btn btn-default',
                           data: { js: :confirm, confirm: '本当に削除しますか？' }
             .col-sm-6.text-right
               = f.submit '更新', class: 'btn btn-primary'

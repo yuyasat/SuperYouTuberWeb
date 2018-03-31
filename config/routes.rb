@@ -25,9 +25,9 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :movies, only: %i(index show create update destroy)
+    resources :movies, only: %i(index show create update)
     resources :featured_movies, only: %i(index create)
-    resources :categories, only: %i(index show create update destroy) do
+    resources :categories, only: %i(index show create update) do
       post :sort
       collection do
         post :sort_root_category

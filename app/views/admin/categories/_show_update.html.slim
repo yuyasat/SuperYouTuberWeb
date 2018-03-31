@@ -23,8 +23,7 @@
             .form-group
               .col-sm-6.text-left
                 - if @category.destroyable?
-                  = button_to '削除', admin_category_path(@category.id),
-                              method: :delete, class: 'btn btn-default btn-sm',
+                  = f.submit '削除', class: 'btn btn-default btn-sm',
                               data: { js: :confirm, confirm: '本当に削除しますか？' }
                 - else
                   | カテゴリを削除できる条件

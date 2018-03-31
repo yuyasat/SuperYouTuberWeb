@@ -22,6 +22,7 @@ class Admin::MoviesController < ApplicationController
   end
 
   def update
+    return destroy if params[:commit] == '削除'
     movie = Movie.find(params[:id])
     movie.assign_attributes(movie_params.except(:movie_categories_attributes))
     ActiveRecord::Base.transaction do
@@ -38,6 +39,8 @@ class Admin::MoviesController < ApplicationController
     end
   end
 
+  private
+
   def destroy
     movie = Movie.find(params[:id])
     movie.destroy
@@ -45,8 +48,6 @@ class Admin::MoviesController < ApplicationController
   rescue => e
     redirect_to admin_movie_path(movie), flash: { error: "#{movie.key}の削除に失敗しました" }
   end
-
-  private
 
   def movie_params
     row_params = params.require(:movie).permit(
