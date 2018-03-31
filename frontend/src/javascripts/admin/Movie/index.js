@@ -91,7 +91,9 @@ window.adminMovieVm = new Vue({
     },
     category0(value) {
       if (_.includes(gon.map_category_ids, parseInt(value))) {
-        store.commit('initializeLatLong')
+        if (store.state.latLongArray.length === 0) {
+          store.commit('initializeLatLong')
+        }
       } else {
         store.commit('deleteLatLong')
       }

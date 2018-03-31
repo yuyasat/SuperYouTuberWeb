@@ -28,6 +28,10 @@ class Category < ApplicationRecord
     movies.blank? && children.blank?
   end
 
+  def mappable?
+    Category.find_by(name: 'マップ').all_children_categories.include?(id)
+  end
+
   def related_categories_movies
     Movie.where(
       id: MovieCategory.where(category: all_children_categories).select('movie_categories.movie_id')

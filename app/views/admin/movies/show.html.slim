@@ -36,6 +36,8 @@
                 = cat_f.select :category_id, Category.html_options(with_root: false),
                                { include_blank: '選択してください' },
                                class: 'form-controll col-sm-7', 'v-model': 'category0'
+          .row{v-for="latlong in latLongArray" v-cloak=""}
+            movie-location{:latlong="latlong"}
           .row{style="margin-bottom: 10px"}
             .form-group
               label.col-sm-4.control-label for="movie_description" 説明文

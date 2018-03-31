@@ -23,20 +23,11 @@ class Admin::MoviesController < ApplicationController
 
   def update
     return destroy if params[:commit] == '削除'
-    movie = Movie.find(params[:id])
-    movie.assign_attributes(movie_params.except(:movie_categories_attributes))
-    ActiveRecord::Base.transaction do
-      if movie.category_changed?(movie_category_params.values.flat_map(&:values).map(&:to_i))
-        movie.movie_categories.delete_all
-        movie.movie_categories = movie_category_params.values.map { |p| MovieCategory.new(p) }
-      end
-      message = if movie.save
-                  { success: "#{movie.key}を更新しました" }
-                else
-                  { error: movie.customized_error_full_messages }
-                end
-      redirect_to admin_movie_path(movie), flash: message
-    end
+    form = Admin::MovieUpdateForm.new(params)
+    form.assign_attributes
+    message = form.save
+
+    redirect_to admin_movie_path(form.movie), flash: message
   end
 
   private
@@ -59,14 +50,12 @@ class Admin::MoviesController < ApplicationController
     row_params
   end
 
-  def movie_category_params
-    movie_params[:movie_categories_attributes]
-  end
-
   def set_gon_attributes
     gon.movie = @movie
     gon.movie_categories = @movie.categories
     gon.default_category = params[:category_id]
     gon.map_category_ids = Category.find_by(name: 'マップ').all_children_categories
+    gon.movie_locations = @movie.locations.as_json(methods: %i(latitude longitude))
+                                .map.with_index { |json, i| json.merge(index: i) }
   end
 end

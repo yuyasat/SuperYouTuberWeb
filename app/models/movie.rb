@@ -40,8 +40,16 @@ class Movie < ApplicationRecord
     end.compact.to_h
   end
 
-  def category_changed?(new_category_ids)
-    (movie_categories.pluck(:category_id) - new_category_ids).present?
+  def category_changed?(new_categories)
+    (movie_categories.pluck(:category_id) - new_categories.map(&:id)).present?
+  end
+
+  def locations_changed?(locations_params_values)
+    persisted_locations = locations.select(&:persisted?)
+    return true unless locations_params_values.size == persisted_locations.size
+    locations_params_values.map { |p|
+      [p[:latitude], p[:longitude]].map(&:to_f)
+    }.sort != persisted_locations.map { |l| [l.latitude, l.longitude] }.sort
   end
 
   def channel_url

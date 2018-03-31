@@ -2,6 +2,16 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios';
 
+const initialLatLongArray = function() {
+  if (gon.movie_locations.length !== 0) { return gon.movie_locations }
+
+  if (_.includes(gon.map_category_ids, parseInt(gon.default_category))) {
+    return [{ latitude: '', longitude: '', index: 0 }]
+  } else {
+    return []
+  }
+}
+
 const state = {
   url: gon.movie.url || '',
   key: gon.movie.key || '',
@@ -10,8 +20,7 @@ const state = {
   channel: '',
   category0: gon.movie_categories[0] ? gon.movie_categories[0].id : gon.default_category || '',
   description: gon.movie.description || '',
-  latLongArray: _.includes(gon.map_category_ids, parseInt(gon.default_category)) ?
-    [{ latitude: '', longitude: '', index: 0 }] : []
+  latLongArray: initialLatLongArray(),
 }
 
 const mutations = {
