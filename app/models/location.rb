@@ -15,11 +15,15 @@ class Location < ApplicationRecord
   }
 
   def longitude
-    lonlat&.x || @longitude
+    lonlat&.x || @longitude || @latlong[1]
   end
 
   def latitude
-    lonlat&.y || @latitude
+    lonlat&.y || @latitude || @latlong[0]
+  end
+
+  def latlong=(value)
+    @latlong = value.split(/,|[[:blank:]]/).reject(&:blank?)
   end
 
   def longitude=(value)

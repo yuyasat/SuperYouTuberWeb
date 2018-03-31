@@ -44,7 +44,7 @@ class Admin::MoviesController < ApplicationController
     row_params = params.require(:movie).permit(
       :url, :key, :status, :title, :published_at, :channel, :description,
       movie_categories_attributes: %i(category_id),
-      locations_attributes: %i(latitude longitude),
+      locations_attributes: %i(latlong latitude longitude),
     )
     row_params[:locations_attributes]&.reject! { |k, v| v.values.any?(&:blank?) }
     row_params
