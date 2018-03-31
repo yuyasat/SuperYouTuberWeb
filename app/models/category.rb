@@ -24,6 +24,10 @@ class Category < ApplicationRecord
     parent_category && parent_category.parent_category.root?
   end
 
+  def destroyable?
+    movies.blank? && children.blank?
+  end
+
   def related_categories_movies
     Movie.where(
       id: MovieCategory.where(category: all_children_categories).select('movie_categories.movie_id')

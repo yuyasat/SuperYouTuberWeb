@@ -57,6 +57,19 @@ class Admin::CategoriesController < ApplicationController
     redirect_to sort_admin_categories_path
   end
 
+  def destroy
+    category = Category.find(params[:id])
+    unless category.destroyable?
+      redirect_to admin_category_path(category), flash: { error: "#{category.name}は削除できません。" }
+      return
+    end
+    category.destroy
+    redirect_to admin_categories_path, flash: { success: "#{category.name}を削除しました" }
+  rescue => e
+    binding.pry
+    redirect_to admin_category_path(category), flash: { error: "#{category.name}の削除に失敗しました" }
+  end
+
   private
 
   def category_params

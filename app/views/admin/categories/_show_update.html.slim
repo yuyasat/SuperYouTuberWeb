@@ -19,7 +19,19 @@
               .form-group
                 label.col-xs-4.control-label for="category_full_name" カテゴリ名（省略しない）
                 = f.text_field :full_name, class: 'form-controll col-xs-8 admin-text'
-            .row.text-right
-              .form-group
-                = f.submit '更新', class: 'btn btn-primary'
+          .row.col-xs-12.text-right
+            .form-group
+              .col-sm-6.text-left
+                - if @category.destroyable?
+                  = button_to '削除', admin_category_path(@category.id),
+                              method: :delete, class: 'btn btn-default btn-sm',
+                              data: { js: :confirm, confirm: '本当に削除しますか？' }
+                - else
+                  | カテゴリを削除できる条件
+                  br
+                  | ・動画が紐づいていないこと。
+                  br
+                  | ・子カテゴリがないこと。
+              .col-sm-6.text-right
+                = f.submit '更新', class: 'btn btn-primary btn-sm'
 
