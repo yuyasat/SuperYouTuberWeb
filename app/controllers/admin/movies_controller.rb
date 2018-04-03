@@ -2,7 +2,7 @@ class Admin::MoviesController < ApplicationController
 
   def index
     @movie = Movie.new
-    @movies = Movie.new_order.includes(:categories).page(params[:page]).per(100)
+    @movies = Movie.new_order.includes(:categories, :locations).page(params[:page]).per(100)
     set_gon_attributes
   end
 
@@ -55,7 +55,7 @@ class Admin::MoviesController < ApplicationController
     gon.movie_categories = @movie.categories
     gon.default_category = params[:category_id]
     gon.map_category_ids = Category.find_by(name: 'マップ').all_children_categories
-    gon.movie_locations = @movie.locations.as_json(methods: %i(latitude longitude))
+    gon.movie_locations = @movie.locations.as_json(methods: %i(latitude longitude latlong))
                                 .map.with_index { |json, i| json.merge(index: i) }
   end
 end

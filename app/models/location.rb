@@ -22,6 +22,10 @@ class Location < ApplicationRecord
     lonlat&.y || @latitude || @latlong[0]
   end
 
+  def latlong
+    "#{latitude}, #{longitude}"
+  end
+
   def latlong=(value)
     @latlong = value.split(/,|[[:blank:]]/).reject(&:blank?)
   end
