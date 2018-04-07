@@ -6,6 +6,8 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id])
+    raise ActiveRecord::RecordNotFound if @category.blank?
+
     @movies = @category.related_categories_movies.page(params[:page])
   end
 end
