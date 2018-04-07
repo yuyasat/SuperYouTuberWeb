@@ -57,11 +57,11 @@ class Movie < ApplicationRecord
   end
 
   def default_url
-    "http://i.ytimg.com/vi/#{key}/default.jpg"
+    "https://i.ytimg.com/vi/#{key}/default.jpg"
   end
 
   def mqdefault_url
-    "http://i.ytimg.com/vi/#{key}/mqdefault.jpg"
+    "https://i.ytimg.com/vi/#{key}/mqdefault.jpg"
   end
 
   def embed_url(autoplay: false, mute: false)
