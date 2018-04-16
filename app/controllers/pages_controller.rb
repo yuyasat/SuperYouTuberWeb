@@ -13,4 +13,7 @@ class PagesController < ApplicationController
 
   def about
   end
+
+  def component_library
+  end
 end
