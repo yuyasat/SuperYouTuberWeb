@@ -1,0 +1,48 @@
+.menu {
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__item {
+    box-sizing: border-box;
+    width: 50%;
+    border-bottom: 1px solid color(gray, light);
+    border-left: 1px solid color(gray, light);
+    >a {
+      display: flex;
+      line-height: 1.5;
+      align-items: center;
+      padding: 5px;
+    }
+  }
+  &__icon {
+    width: 30px;
+    text-align: center;
+    margin-right: 5px;
+    
+    &:before {
+      font-size: 20px;
+    }
+    &.is-youtuber {
+      color: color(red);
+    }
+    &.is-category {
+      color: color(yellow);
+    }
+    &.is-map {
+      color: color(blue);
+    }
+    &.is-music {
+      color: color(pink);
+    }
+  }
+  &__main {
+    display: block;
+    @include font(mb);
+  }
+  &__sub {
+    display: block;
+    color: color(gray);
+    @include font(ss);
+  }
+}

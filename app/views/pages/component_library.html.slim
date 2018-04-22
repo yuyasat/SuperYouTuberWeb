@@ -1,2 +1,218 @@
 - content_for :title do
   = 'component library'
+
+.page-header.header-border
+
+  / header
+  .header
+    .header__inner
+      .header__logo
+        img[src=(asset_path "logo.svg") alt="Super YouTuber"]/
+      a.header__serach-button href="#"
+        span 動画をさがす
+        i.fa.fa-search
+    
+    .header__search-panel
+      .header__keyword-search
+
+        / keyword-search
+        .keyword-search
+          .keyword-search__field
+            input type="text" placeholder="キーワードから動画をさがす"/
+          .keyword-search__submit
+            button.button 検索
+      .header__menu
+
+        / menu
+        .menu
+          ul.menu__list
+            - [\
+                ['youtuber', 'user', 'YouTuber', '#'], \
+                ['category', 'list', 'カテゴリ', '#'], \
+                ['map', 'map', '地図', '#'], \
+                ['music', 'music', 'ミュージック', '#'], \
+              ].each do |key, icon, label, url|
+              li.menu__item
+                a[href=url]
+                  i.fa[class="fa-#{icon} is-#{key} menu__icon"]
+                  div
+                    span.menu__main = label
+                    span.menu__sub の動画をさがす
+
+  / button
+  a.button.is-primary.is-size-s[href="#"]
+    span もっと見る
+
+
+
+  .item-list
+    .item-list__head
+      / section-title
+      .section-title
+        .section-title__inner
+          .section-title__title 編集部のおすすめ動画
+          .section-title__right-button
+            a.button.is-size-s[href="#"]
+              span もっと見る
+    .item-list__list
+      - for i in 0..5
+        .item-list__item
+          / video (size-m)
+          .video.is-size-m
+            .video__inner
+              .video__thumb
+                a[href="#"]
+                  img[src=(asset_path "dummy_336x188.png") alt=""]/
+              .video__text
+                .video__title
+                  a[href="#"] YouTubeテーマソング／ヒカキン＆セイキン
+                .video__meta
+                  span HikakinTV
+                  span 視聴回数 65,262,070 回
+                  span 投稿日 2018.3.3
+    .item-list__more
+      a.button.is-size-l[href="#"]
+        span もっと見る
+
+  .item-list
+    .item-list__head
+      / section-title
+      .section-title
+        .section-title__inner
+          .section-title__title 編集部のおすすめ動画
+          .section-title__right-button
+            a.button.is-size-s[href="#"]
+              span もっと見る
+    .item-list__list
+      - for i in 0..5
+        .item-list__item
+          / video (size-l)
+          .video.is-size-l
+            .video__inner
+              .video__thumb
+                a[href="#"]
+                  img[src=(asset_path "dummy_336x188.png") alt=""]/
+              .video__text
+                .video__avatar-title-meta
+                  .video__avatar
+                    img[src=(asset_path "dummy_200x200.png") alt=""]/
+                  .video__title-meta
+                    .video__title
+                      a[href="#"] YouTubeテーマソング／ヒカキン＆セイキン
+                    .video__meta
+                      span HikakinTV
+                      span 視聴回数 65,262,070 回
+                      span 投稿日 2018.3.3
+                .video__comment
+                  | ちょっと記憶が定かではないのですが・・・4/1の私の動画で宣言していた、声真似動画！少し遅くなりましたが・・・撮りました！
+
+  
+    .item-list__more
+      a.button[href="#"]
+        span もっと見る
+
+  .item-list
+    .item-list__list
+      - for i in 0..5
+        .item-list__item
+          / account
+          .account
+            .account__inner
+              .account__thumbnail
+                a[href="#"]
+                  img[src=(asset_path "dummy_200x200.png") alt=""]/
+              .account__text
+                .account__name
+                  a[href="#"] A.I.Channel
+                .account__comment はじめまして！バーチャルYouTuberのキズナアイです(o・v・o)♪がんばれ週５日投稿！！
+
+  .pager
+    ul.pager__list
+      li.pager__item.pager__item.is-arrow
+        a[href="#"]
+          i.fa.fa-r
+      - for page in 100..102
+        li.pager__item.pager__item.is-num
+          a[href="#"]
+            span = page
+      li.pager__item.pager__item.is-arrow
+        a[href="#"]
+          i.fa.fa-r
+
+  / account-header
+  .account-header
+    .account-header__avatar
+      img[src=(asset_path "dummy_200x200.png") alt=""]/
+    .account-header__name A.I.Channel
+    .account-header__desc はじめまして！バーチャルYouTuberのキズナアイです(o・v・o)♪がんばれ週５日投稿！！
+    .account-header__social
+
+      / social
+      .social
+        ul.social__list.is-centerd
+          - [\
+              ['facebook', 'facebook', '#'], \
+              ['twitter', 'twitter', '#'], \
+              ['instagram', 'instagram', '#'], \
+              ['youtube', 'youtube', '#'], \
+            ].each do |icon, label, url|
+            li.social__item.is-active
+              a[href=url title=label]
+                i.fa[class="fa-#{icon}"]
+
+  / ad
+  .ad
+    .ad__caption スポンサード
+    .ad__inner
+      img[src=(asset_path "dummy_320x100.png") alt=""]/
+
+  /formatted text
+  .formatted-text.is-side-gutter
+    h1 これはh1レベルの見出しです
+    p
+      | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+    h2 これはh2レベルの見出しです
+    p
+      | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+    h3 これはh3レベルの見出しです
+    p
+      | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+    h4 これはh4レベルの見出しです
+    p
+      | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+    ul
+      li リストの項目1
+      li リストの項目2
+      li リストの項目3
+    blockquote
+      | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+
+
+  .footer
+    .footer__inner
+      .footer__logo
+        a[href="#"]
+          img[src=(asset_path "logo.svg") alt="Super YouTuber"]/
+      .footer__nav
+        - [\
+            ['編集者ブログ', '#'], \
+            ['このサイトについて', '#'], \
+            ['お問い合わせ', '#'], \
+            ['プライバシーポリシー', '#'], \
+            ['サイトマップ', '#'], \
+          ].each do |label, url|
+          li
+            a[href=url] = label
+      .footer__social
+        .social
+          ul.social__list.is-centerd
+            - [\
+                ['facebook', 'facebook', '#'], \
+                ['twitter', 'twitter', '#'], \
+                ['instagram', 'instagram', '#'], \
+                ['youtube', 'youtube', '#'], \
+              ].each do |icon, label, url|
+              li.social__item.is-active
+                a[href=url title=label]
+                  i.fa[class="fa-#{icon}"]
+      small.footer__copyright © 2018 Super YouTuber.com

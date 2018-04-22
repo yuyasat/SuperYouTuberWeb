@@ -1,0 +1,16 @@
+.ad {
+  padding: 10px 0 10px;
+  background: color(gray, exlight);
+  &__caption {
+    margin-bottom: 5px;
+    text-align: center;
+    color: color(gray);
+    @include font(ss);
+  }
+  &__inner {
+    text-align: center;
+    img {
+      max-width: 100%;
+    }
+  }
+}

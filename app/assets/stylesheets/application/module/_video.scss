@@ -1,0 +1,74 @@
+.video {
+  $self: &;
+  &.is-size-m {
+    #{$self} {
+      &__inner {
+        position: relative;
+        display: flex;
+      }
+      &__thumb {
+        width: 120px;
+        margin-right: 10px;
+        img {
+          width: 100%;
+        }
+      }
+      &__text {
+        flex: 1;
+      }
+      &__title {
+        @include font(mb);
+      }
+      &__meta {
+        color: color(gray);
+        @include font(ss);
+      }
+    }
+  }
+  &.is-size-l {
+    #{$self} {
+      &__inner {
+        position: relative;
+      }
+      &__thumb {
+        img {
+          width: 100%;
+        }
+      }
+      &__text {
+        padding-top: 9px;
+      }
+      &__avatar-title-meta {
+        display: flex;
+        align-items: center;
+      }
+      &__avatar {
+        overflow: hidden;
+        box-sizing: border-box;
+        width: 40px;
+        height: 40px;
+        margin-right: 7px;
+        margin-left: -2px;
+        border: 1px solid color(gray, light);
+        border-radius: 50%;
+        >img {
+          width: 100%;
+        }
+      }
+      &__title-meta {
+        flex: 1;
+      }
+      &__title {
+        @include font(mb);
+      }
+      &__meta {
+        color: color(gray);
+        @include font(ss);
+      }
+      &__comment {
+        margin-top: 3px;
+      }
+    }
+  }
+}
+

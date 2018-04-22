@@ -1,0 +1,28 @@
+.account {
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+  &__thumbnail {
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+    border: 1px solid color(gray, light);
+    border-radius: 50%;
+    img {
+      width: 100%;
+    }
+  }
+  &__text {
+    flex: 1;
+  }
+  &__name {
+    margin-bottom: 10px;
+    @include font(lb);
+  }
+  &__comment {
+    @include font(s);
+  }
+}

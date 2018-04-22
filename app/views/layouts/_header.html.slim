@@ -1,39 +1,40 @@
-header
-  .navbar.navbar-default.navbar-fixed-top.navbar-user
-    .container
-      .navbar-header
-        a.a__logo-link href='/' title='トップ'
-          .a__logo
-        button.navbar-toggle data-target="#navbar-main" data-toggle="collapse" type="button"
-          span.icon-bar
-          span.icon-bar
-          span.icon-bar
-      #navbar-main.navbar-collapse.collapse
-        ul.nav.navbar-nav
-          li.small = link_to 'YouTuber', video_artists_path
-          li.dropdown
-            = link_to categories_path,
-                      class: 'dropdown small',
-                      'area-expanded': false, data: { toggle: 'dropdown', 'event-prevent': false }, role: 'button' do
-              | カテゴリ
-              span.caret
-            ul.dropdown-menu role="menu"
-             - @top_categories.each do |cat1|
-               li.small = link_to cat1.name, category_path(cat1)
-          br
-          li
-            = link_to 'タイムスリップ', '/', class: 'small'
-          li
-            = link_to 'ミュージック', '/', class: 'small'
-        ul.nav.navbar-nav.navbar-right.nav-menu-right
-          form.navbar-form.navbar-left role="search"
-            .form-group-sm
-              input.form-control placeholder="Search" type="text"
-              button.btn.btn-sm.nav-search type="submit"
-                i.fa.fa-search.white
-          li.dropdown.nav-menu
-            = link_to '' do
-              i.fa.fa-ellipsis-v
-            ul.dropdown-menu role="menu"
-              li.small = link_to '運営ブログ'
-              li.small = link_to 'YouTuber限定情報'
+- if false
+  header
+    .navbar.navbar-default.navbar-fixed-top.navbar-user
+      .container
+        .navbar-header
+          a.a__logo-link href='/' title='トップ'
+            .a__logo
+          button.navbar-toggle data-target="#navbar-main" data-toggle="collapse" type="button"
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+        #navbar-main.navbar-collapse.collapse
+          ul.nav.navbar-nav
+            li.small = link_to 'YouTuber', video_artists_path
+            li.dropdown
+              = link_to categories_path,
+                        class: 'dropdown small',
+                        'area-expanded': false, data: { toggle: 'dropdown', 'event-prevent': false }, role: 'button' do
+                | カテゴリ
+                span.caret
+              ul.dropdown-menu role="menu"
+              - @top_categories.each do |cat1|
+                li.small = link_to cat1.name, category_path(cat1)
+            br
+            li
+              = link_to 'タイムスリップ', '/', class: 'small'
+            li
+              = link_to 'ミュージック', '/', class: 'small'
+          ul.nav.navbar-nav.navbar-right.nav-menu-right
+            form.navbar-form.navbar-left role="search"
+              .form-group-sm
+                input.form-control placeholder="Search" type="text"
+                button.btn.btn-sm.nav-search type="submit"
+                  i.fa.fa-search.white
+            li.dropdown.nav-menu
+              = link_to '' do
+                i.fa.fa-ellipsis-v
+              ul.dropdown-menu role="menu"
+                li.small = link_to '運営ブログ'
+                li.small = link_to 'YouTuber限定情報'

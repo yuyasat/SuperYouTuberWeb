@@ -1,0 +1,22 @@
+.header {
+  &__inner {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px 8px 7px;
+  }
+  &__logo {
+    flex: 1;
+    img {
+      width: 153px;
+    }
+  }
+  &__serach-button {}
+  &__keyword-search {
+    padding: 10px;
+    border-top: color(gray, light) 1px solid;
+    background: color(gray, exlight);
+  }
+  &__menu {
+    border-top: color(gray, light) 1px solid;
+  }
+}
