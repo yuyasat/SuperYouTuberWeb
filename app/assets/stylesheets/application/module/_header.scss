@@ -1,8 +1,18 @@
 .header {
+  $height_sp: 80px;
+  $height_pc: 80px;
+  position: relative;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.4);
   &__inner {
     display: flex;
     align-items: center;
-    padding: 8px 10px 8px 7px;
+    height: $height_sp;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: color(white);
+    z-index: 2;
   }
   &__logo {
     flex: 1;
@@ -10,7 +20,6 @@
       width: 153px;
     }
   }
-  &__serach-button {}
   &__keyword-search {
     padding: 10px;
     border-top: color(gray, light) 1px solid;
@@ -18,5 +27,28 @@
   }
   &__menu {
     border-top: color(gray, light) 1px solid;
+  }
+  &__search-panel {
+    position: absolute;
+    left: 0;
+    top: $height_sp;
+    width: 100%;
+    z-index: 1;
+    background: color(white);
+    transition: all 0.5s ease;
+  }
+
+  @include mq(pc) {
+    &__serach-button {
+      display: none;
+    }
+  }
+  @include mq(sptab) {
+    &__search-panel {
+      &.is-hide {
+        transform: translateY(-200px);
+        visibility: collapse;
+      }
+    }
   }
 }

@@ -1,0 +1,13 @@
+$devise_breakpoints: (
+  'sp': 'screen and (max-width: 767px)',
+  'sptab': 'screen and (max-width: 1023px)',
+  'tab': 'screen and (min-width: 768px) (max-width: 1023px)',
+  'tabpc': 'screen and (min-width: 768px)',
+  'pc': 'screen and (min-width: 1024px)'
+);
+@mixin mq($breakpoint: sp) {
+  $media: map-get($devise-breakpoints,$breakpoint);
+  @media #{$media} {
+    @content;
+  }
+}

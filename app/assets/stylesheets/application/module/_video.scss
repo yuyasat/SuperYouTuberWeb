@@ -4,7 +4,10 @@
     #{$self} {
       &__inner {
         position: relative;
-        display: flex;
+        
+        @include mq(sp) {
+          display: flex;
+        }
       }
       &__thumb {
         width: 120px;

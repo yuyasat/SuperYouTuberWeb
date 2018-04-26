@@ -24,6 +24,7 @@
 */
 @import 'application/utility/color';
 @import 'application/utility/font';
+@import 'application/utility/mq';
 
 /*
   BASE
@@ -33,6 +34,8 @@
 /*
   LAYOUT
 */
+@import 'application/layout/header';
+@import 'application/layout/main-content';
 
 /*
   MODULE

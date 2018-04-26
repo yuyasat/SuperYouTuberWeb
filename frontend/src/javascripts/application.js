@@ -11,3 +11,10 @@ $(function() {
     }
   });
 });
+
+$(function() {
+  $('.j-open-search-panel-toggle').click(function(e){
+    $('.j-open-search-panel').toggleClass('is-hide');
+    e.preventDefault();
+  });
+});

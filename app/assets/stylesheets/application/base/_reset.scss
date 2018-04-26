@@ -4,6 +4,7 @@ body {
   color: color();
   font-family: sans-serif;
   @include font();
+  background: color(gray, exlight);
 }
 
 a {
