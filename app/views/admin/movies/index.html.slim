@@ -53,6 +53,14 @@
               .form-group
                 = f.submit '作成', class: 'btn btn-primary'
 
-= render 'admin/movie_list', movies: @movies
+.row.text-right
+  = paginate @movies
+
+#admin-movie-list
+  movie-list{:movies="movies"}
+
+.row.text-right
+  = paginate @movies
 
 = javascript_include_tag 'adminMovie'
+= javascript_include_tag 'adminMovieList'
