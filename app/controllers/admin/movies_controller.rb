@@ -2,7 +2,6 @@ class Admin::MoviesController < ApplicationController
 
   def index
     @movie = Movie.new
-    @movies = Movie.new_order.page(params[:page]).per(100)
     set_gon_attributes
   end
 

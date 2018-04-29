@@ -53,14 +53,15 @@
               .form-group
                 = f.submit '作成', class: 'btn btn-primary'
 
-.row.text-right
-  = paginate @movies
 
 #admin-movie-list
+  .row.text-right
+    paginate :click-handler="paginationClick" :container-class="'className'" :next-text="'Next'" :page-count="totalPages" :prev-text="'Prev'" class="pagination pagination-sm"
+      li slot="prevContent"
+        i.fa.fa-angle-left
+      li slot="nextContent"
+        i.fa.fa-angle-right
   movie-list{:movies="movies"}
-
-.row.text-right
-  = paginate @movies
 
 = javascript_include_tag 'adminMovie'
 = javascript_include_tag 'adminMovieList'

@@ -2948,10 +2948,6 @@ mixin-object@^2.0.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.22.1:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
-
 ms@0.7.1:
   version "0.7.1"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.1.tgz#9cd13c03adbff25b65effde7ce864ee952017098"
@@ -4380,6 +4376,10 @@ vue-template-es2015-compiler@^1.2.2:
 vue@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
+
+vuejs-paginate@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/vuejs-paginate/-/vuejs-paginate-1.9.0.tgz#b71c9383e821b1645c604fde76fa2e1ef8ae2ddc"
 
 vuex@^3.0.1:
   version "3.0.1"

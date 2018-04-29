@@ -18,8 +18,9 @@ class Admin::ApiController < ApplicationController
   end
 
   def movies
-    @movies = Movie.new_order.includes(:categories, :locations).page(params[:page]).per(100)
-                   .as_json(
+    order_cond = params[:sort_by].present? ? { params[:sort_by] => params[:sort_sc] } : { id: :desc }
+    movies = Movie.order(order_cond).includes(:categories, :locations).page(params[:page]).per(100)
+    movies_json = movies.as_json(
                      methods: %i(default_url channel_url),
                      include: {
                        categories: { only: %i(name) },
@@ -27,7 +28,7 @@ class Admin::ApiController < ApplicationController
                      }
                    )
 
-    render json: { movies: @movies }
+    render json: { movies: movies_json, total_pages: movies.total_pages }
   end
 
   private
