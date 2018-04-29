@@ -1,7 +1,4 @@
 .formatted-text {
-  &.is-side-gutter {
-    padding: 0 10px;
-  }
   h1 {
     @include font(ll);
     &:not(:first-child) {

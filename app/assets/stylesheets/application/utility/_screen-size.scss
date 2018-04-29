@@ -1,0 +1,7 @@
+@mixin screen-size($screen: xs) {
+  $from-size: map-get(map-get($screen-size-collection,$screen), from);
+  $media: "screen and (min-width: #{$from-size})";
+  @media #{$media} {
+    @content;
+  }
+}

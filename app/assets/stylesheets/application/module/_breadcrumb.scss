@@ -1,0 +1,15 @@
+.breadcrumb {
+  border-bottom: 1px solid color(gray, light);
+  padding: 7px 0;
+  > ol {
+    @extend .l-container;
+    > li {
+      display: inline-block;
+      &:nth-last-child(n+2):after {
+        @include fa("\f105");
+        margin: 0 0.5em;
+        color: color(gray);
+      }
+    }
+  }
+}

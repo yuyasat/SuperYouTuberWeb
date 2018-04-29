@@ -10,9 +10,6 @@ body {
 a {
   text-decoration: none;
   color: inherit;
-  &:hover {
-    // color: color(red);
-  }
 }
 
 img {
@@ -20,6 +17,7 @@ img {
 }
 
 ul,
+ol,
 li {
   margin: 0;
   padding: 0;

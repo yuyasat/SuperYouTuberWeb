@@ -1,0 +1,18 @@
+.link-list {
+  background: color(white);
+  border: 1px solid color(gray,light);
+  border-radius: 7px;
+  &__list {
+    > li {
+      border-bottom: 1px solid color(gray, light);
+      > a {
+        padding: 9px;
+        display: block;
+        &:before {
+          @include fa("\f105");
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+}

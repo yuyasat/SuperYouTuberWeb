@@ -1,4 +1,6 @@
 .account-header {
+  background: color(white);
+  padding-bottom: 30px;
   &:before {
     display: block;
     height: 110px;
@@ -26,7 +28,11 @@
     width: 70%;
     margin: 0 auto;
     margin-bottom: 15px;
+    max-width: 500px;
     @include font(s);
+    @include screen-size(md) {
+      @include font(m);
+    }
   }
   &__social {}
 }

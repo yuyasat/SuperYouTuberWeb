@@ -2,12 +2,27 @@
   &__list {
     display: flex;
     flex-wrap: wrap;
+    @include screen-size(lg) {
+      display: block;
+    }
   }
   &__item {
     box-sizing: border-box;
     width: 50%;
     border-bottom: 1px solid color(gray, light);
-    border-left: 1px solid color(gray, light);
+    
+    &:nth-child(2n) {
+      border-left: 1px solid color(gray, light);
+    }
+    @include screen-size(lg) {
+      border:0;
+      width: auto;
+      display: inline-block;
+      margin-left: 10px;
+      &:nth-child(2n) {
+        border-left:0;
+      }
+    }
     >a {
       display: flex;
       line-height: 1.5;

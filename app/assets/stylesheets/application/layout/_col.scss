@@ -1,0 +1,23 @@
+%l-col-default {
+  padding-left: 10px;
+  padding-right: 10px;
+  box-sizing: border-box;
+    width: 100%;
+}
+
+.l-col {
+  @each $mq in xs, sm, md, lg {
+    @for $i from 1 through 12 {
+      &-#{$mq}-#{$i} {
+        @extend %l-col-default;
+      }
+    }
+    @include screen-size($mq) {
+      @for $i from 1 through 12 {
+        &-#{$mq}-#{$i} {
+          width: #{100% / 12 * $i};
+        }
+      }
+    }
+  }
+}
