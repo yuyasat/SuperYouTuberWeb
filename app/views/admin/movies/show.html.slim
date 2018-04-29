@@ -31,11 +31,18 @@
                 .col-sm-8.small = link_to @movie.channel, @movie.channel_url, target: '_blank'
           .row{style="margin-bottom: 10px"}
             .form-group
-              label.col-sm-4.control-label for="movie_categories" カテゴリー
+              label.col-sm-4.control-label for="movie_categories" カテゴリ1
               = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
                 = cat_f.select :category_id, Category.html_options(with_root: false),
                                { include_blank: '選択してください' },
                                class: 'form-controll col-sm-7', 'v-model': 'category0'
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_categories" カテゴリ2
+              = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
+                = cat_f.select :category_id, Category.html_options(with_root: false),
+                               { selected: @movie.categories[1]&.id, include_blank: '選択してください' },
+                               class: 'form-controll col-sm-7'
           .row{v-for="latlong in latLongArray" v-cloak=""}
             movie-location{:latlong="latlong"}
           .row{style="margin-bottom: 10px"}
