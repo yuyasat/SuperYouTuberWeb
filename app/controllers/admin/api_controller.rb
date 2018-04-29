@@ -29,12 +29,23 @@ class Admin::ApiController < ApplicationController
     render json: { movies: movies_json, total_pages: searched_movies.total_pages }
   end
 
+  def children_categories
+    cat = Category.find(params[:category_id])
+    render json: { categories: cat.children.sort_by_display_order }
+  end
+
   private
 
   def searched_movies
     order_cond = params[:sort_by].present? ? { params[:sort_by] => params[:sort_sc] } : { id: :desc }
     movies = Movie.order(order_cond)
     movies = movies.where(key: params[:title_search]) if params[:title_search].present?
+    if params[:category_search].present?
+      movies = movies.where(id: MovieCategory.with_category_like("%#{params[:category_search]}%").select('movie_id'))
+    end
+    if params[:category_id].present?
+      movies = movies.of_category(Category.find(params[:category_id]))
+    end
     movies.includes(:categories, :locations).page(params[:page]).per(100)
   end
 

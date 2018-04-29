@@ -56,5 +56,6 @@ class Admin::MoviesController < ApplicationController
     gon.map_category_ids = Category.find_by(name: 'マップ').all_children_categories
     gon.movie_locations = @movie.locations.as_json(methods: %i(latitude longitude latlong))
                                 .map.with_index { |json, i| json.merge(index: i) }
+    gon.root_categories = Category.root.sort_by_display_order
   end
 end

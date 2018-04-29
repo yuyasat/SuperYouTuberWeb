@@ -62,10 +62,12 @@
       li slot="nextContent"
         i.fa.fa-angle-right
   .row
-    .col-xs-4
+    .col-xs-12
       .form-group
-        label.col-xs-6.control-label.small for="movie_title" 動画キー検索
-        = text_field_tag :title, '', class: 'small form-controll col-xs-6 admin-text', 'v-model': 'titleSearch'
+        label.col-xs-2.control-label.small for="title_search" 動画キー検索
+        .col-xs-3
+          = text_field_tag :title_search, '', class: 'small form-controll admin-text', 'v-model': 'titleSearch'
+  category-select
 
   movie-list{:movies="movies"}
 

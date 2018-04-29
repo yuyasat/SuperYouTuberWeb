@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get :movies
       get :movie_info
       get :movie_exists
+      get :children_categories
       post :video_artist
     end
   end

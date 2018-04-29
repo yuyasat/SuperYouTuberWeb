@@ -12,6 +12,11 @@ const state = {
   page: 1,
   totalPages: 0,
   titleSearch: '',
+  categorySearch: '',
+
+  rootCategory: '',
+  secondaryCategory: '',
+  tertiaryCategory: '',
 }
 
 const mutations = {
@@ -33,6 +38,19 @@ const mutations = {
   setTitleSearch(state, val) {
     state.titleSearch = val
   },
+  setCategorySearch(state, val) {
+    state.categorySearch = val
+  },
+
+  setRootCategory(state, val) {
+    state.rootCategory = val
+  },
+  setSecondaryCategory(state, val) {
+    state.secondaryCategory = val
+  },
+  setTertiaryCategory(state, val) {
+    state.tertiaryCategory = val
+  },
 }
 
 const getters = {
@@ -51,12 +69,19 @@ const actions = {
   getMovies({ commit, state }, payload) {
     const url = '/admin/api/movies'
 
+    const category_id =  state.tertiaryCategory !== '' ? state.tertiaryCategory :
+                           state.secondaryCategory !== '' ? state.secondaryCategory :
+                           state.rootCategory !== '' ? state.rootCategory : ''
     const params = Object.assign({}, {
       sort_by: state.sortBy,
       sort_sc: state.sortSc,
       page: state.page,
       title_search: state.titleSearch,
-    }, payload)
+      category_search: state.categorySearch,
+      category_id: category_id,
+    }, _.pickBy(payload, (p) => {
+      return p !== "" || _.isNil(p)
+    }))
 
     const config = {
       method: 'get',
@@ -75,6 +100,7 @@ const actions = {
     }
     axios.get(url, config).then(successFn).catch(errorFn)
   },
+
 }
 
 export default {
