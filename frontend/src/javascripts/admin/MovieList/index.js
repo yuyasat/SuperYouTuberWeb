@@ -18,6 +18,7 @@ const store = new Vuex.Store(adminMovieListStore)
 window.adminMovieListVm = new Vue({
   el: '#admin-movie-list',
   data: {
+    titleSearch: '',
   },
   computed: {
     movies() {
@@ -28,7 +29,13 @@ window.adminMovieListVm = new Vue({
     },
   },
   watch: {
-
+    titleSearch(val) {
+      if (val.length === 11 || val.length === 0) {
+        store.commit('setTitleSearch', val)
+        store.commit('setPage', 1)
+        store.dispatch('getMovies', { title_search: val })
+      }
+    },
   },
   mounted() {
     store.dispatch('getMovies')
@@ -39,12 +46,10 @@ window.adminMovieListVm = new Vue({
   methods: {
     paginationClick(n) {
       const param = {
-        sortBy: store.state.sortBy,
-        sortSc: store.state.sortSc,
         page: n,
       }
       store.commit('setPage', n)
-      store.dispatch("setSortBy", param)
+      store.dispatch("getMovies", param)
     }
   },
 })

@@ -11,6 +11,7 @@ const state = {
   sortSc: 'desc',
   page: 1,
   totalPages: 0,
+  titleSearch: '',
 }
 
 const mutations = {
@@ -29,6 +30,9 @@ const mutations = {
   setTotalPages(state, val) {
     state.totalPages = val
   },
+  setTitleSearch(state, val) {
+    state.titleSearch = val
+  },
 }
 
 const getters = {
@@ -44,22 +48,26 @@ const getters = {
 }
 
 const actions = {
-  setSortBy({ commit, state }, payload) {
+  getMovies({ commit, state }, payload) {
     const url = '/admin/api/movies'
+
+    const params = Object.assign({}, {
+      sort_by: state.sortBy,
+      sort_sc: state.sortSc,
+      page: state.page,
+      title_search: state.titleSearch,
+    }, payload)
+
     const config = {
       method: 'get',
-      params: {
-        sort_by: payload.sortBy,
-        sort_sc: payload.sortSc,
-        page: payload.page,
-      },
+      params: params,
     }
     config.withCredentials = true;
 
     const successFn = (res) => {
       commit('setMovies', { movies: res.data.movies })
-      commit('setSortBy', payload.sortBy),
-      commit('setSortSc', payload.sortSc),
+      commit('setSortBy', params.sort_by),
+      commit('setSortSc', params.sort_sc),
       commit('setTotalPages', res.data.total_pages)
     }
     const errorFn = (error) => {
@@ -67,24 +75,6 @@ const actions = {
     }
     axios.get(url, config).then(successFn).catch(errorFn)
   },
-
-  getMovies({ commit, state }, payload) {
-    const url = '/admin/api/movies'
-    const config = {
-      method: 'get',
-      params: queryToObject(window.location.search),
-    };
-    config.withCredentials = true;
-
-    const successFn = (res) => {
-      commit('setMovies', { movies: res.data.movies })
-      commit('setTotalPages', res.data.total_pages)
-    }
-    const errorFn = (error) => {
-      console.log(error);
-    }
-    axios.get(url, config).then(successFn).catch(errorFn);
-  }
 }
 
 export default {

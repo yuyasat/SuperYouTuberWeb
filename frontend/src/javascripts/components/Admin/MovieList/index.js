@@ -87,8 +87,8 @@ export default Vue.extend({
         sort = 'desc'
       }
       store.dispatch(
-        "setSortBy",
-        { sortBy: column, sortSc: sort, page: store.state.page }
+        "getMovies",
+        { sort_by: column, sort_sc: sort }
       )
     },
     orderClass(order) {

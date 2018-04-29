@@ -18,20 +18,25 @@ class Admin::ApiController < ApplicationController
   end
 
   def movies
-    order_cond = params[:sort_by].present? ? { params[:sort_by] => params[:sort_sc] } : { id: :desc }
-    movies = Movie.order(order_cond).includes(:categories, :locations).page(params[:page]).per(100)
-    movies_json = movies.as_json(
-                     methods: %i(default_url channel_url),
-                     include: {
-                       categories: { only: %i(name) },
-                       locations: { methods: %i(latitude longitude latlong) },
-                     }
-                   )
+    movies_json = searched_movies.as_json(
+                    methods: %i(default_url channel_url),
+                    include: {
+                      categories: { only: %i(name) },
+                      locations: { methods: %i(latitude longitude latlong) },
+                    }
+                  )
 
-    render json: { movies: movies_json, total_pages: movies.total_pages }
+    render json: { movies: movies_json, total_pages: searched_movies.total_pages }
   end
 
   private
+
+  def searched_movies
+    order_cond = params[:sort_by].present? ? { params[:sort_by] => params[:sort_sc] } : { id: :desc }
+    movies = Movie.order(order_cond)
+    movies = movies.where(key: params[:title_search]) if params[:title_search].present?
+    movies.includes(:categories, :locations).page(params[:page]).per(100)
+  end
 
   def video_artist_params
     params.require(:video_artist).permit(:id, :channel, :title)
