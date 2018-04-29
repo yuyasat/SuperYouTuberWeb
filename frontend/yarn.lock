@@ -4377,6 +4377,10 @@ vue@^2.2.6:
   version "2.2.6"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.2.6.tgz#451714b394dd6d4eae7b773c40c2034a59621aed"
 
+vuejs-paginate@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/vuejs-paginate/-/vuejs-paginate-1.9.0.tgz#b71c9383e821b1645c604fde76fa2e1ef8ae2ddc"
+
 vuex@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"

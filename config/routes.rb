@@ -41,8 +41,10 @@ Rails.application.routes.draw do
     end
     resources :video_artists, only: %i(index show update)
     namespace :api do
+      get :movies
       get :movie_info
       get :movie_exists
+      get :children_categories
       post :video_artist
     end
   end

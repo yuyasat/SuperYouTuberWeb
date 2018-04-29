@@ -53,6 +53,23 @@
               .form-group
                 = f.submit '作成', class: 'btn btn-primary'
 
-= render 'admin/movie_list', movies: @movies
+
+#admin-movie-list
+  .row.text-right
+    paginate :click-handler="paginationClick" :container-class="'className'" :next-text="'Next'" :page-count="totalPages" :prev-text="'Prev'" class="pagination pagination-sm"
+      li slot="prevContent"
+        i.fa.fa-angle-left
+      li slot="nextContent"
+        i.fa.fa-angle-right
+  .row
+    .col-xs-12
+      .form-group
+        label.col-xs-2.control-label.small for="title_search" 動画キー検索
+        .col-xs-3
+          = text_field_tag :title_search, '', class: 'small form-controll admin-text', 'v-model': 'titleSearch'
+  category-select
+
+  movie-list{:movies="movies"}
 
 = javascript_include_tag 'adminMovie'
+= javascript_include_tag 'adminMovieList'

@@ -25,6 +25,16 @@ i {
         @include fa("\f105");
       }
     }
+    &.fa-caret-down {
+      &:before {
+        @include fa("\f0d7");
+      }
+    },
+    &.fa-caret-up {
+      &:before {
+        @include fa("\f0d8");
+      }
+    },
     &.fa-check {
       &:before {
         @include fa("\f00c");
@@ -41,6 +51,11 @@ i {
       }
       &.color {
         color: #4E433C;
+      }
+    }
+    &.fa-minus {
+      &:before {
+        @include fa("\f068");
       }
     }
     &.fa-minus-square {

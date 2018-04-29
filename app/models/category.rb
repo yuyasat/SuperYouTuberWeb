@@ -61,9 +61,9 @@ class Category < ApplicationRecord
     end.to_h
   end
 
-  def self.html_options(with_root: true)
+  def self.html_options(with_root: true, short: false)
     root_option = with_root ? [['親なし（第１にする）', 0]] : []
-    root_option + [].tap do |a|
+    (root_option + [].tap do |a|
       Category.root.sort_by_display_order.eager_load(children: :children).each do |cat1|
         a << [cat1.name, cat1.id]
         cat1.children.each do |cat2|
@@ -73,6 +73,8 @@ class Category < ApplicationRecord
           end
         end
       end
+    end).map do |c|
+      short && c[0].length > 15 ? ["#{c[0][0..15]}...", c[1]] : [c[0], c[1]]
     end
   end
 

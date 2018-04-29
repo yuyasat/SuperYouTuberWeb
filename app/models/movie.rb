@@ -23,6 +23,10 @@ class Movie < ApplicationRecord
   validates :url, :key, presence: true
   validates :url, :key, uniqueness: true
 
+  scope :of_category , ->(category, only_self: false) {
+    target_categories = only_self ? category : category.all_children_categories
+    where(id: MovieCategory.where(category: target_categories).select('movie_categories.movie_id'))
+  }
   scope :within, ->(south_west_lat, south_west_lng, north_east_lat, north_east_lng) {
     where(
       id: Location.within(
