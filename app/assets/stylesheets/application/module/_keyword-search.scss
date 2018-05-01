@@ -1,5 +1,8 @@
 .keyword-search {
   display: flex;
+  @include screen-size(lg) {
+    width: 250px;
+  }
   &__field {
     flex: 1;
     margin-right: 7px;
@@ -9,6 +12,7 @@
       height: 100%;
       padding: 10px;
       border: 1px solid color(gray, light);
+      border-radius: 3px;
     }
   }
   &__submit {

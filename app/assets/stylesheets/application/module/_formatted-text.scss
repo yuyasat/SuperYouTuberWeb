@@ -1,13 +1,15 @@
 .formatted-text {
+  @include font(l);
+  line-height: 1.75;
   h1 {
-    @include font(ll);
+    @include font(lll);
     &:not(:first-child) {
       margin-top: 20px;
     }
   }
   h2 {
     margin-top: 15px;
-    @include font(lb);
+    @include font(ll);
     border-bottom: 1px solid color(gray,light);
     padding-bottom: 5px;
     margin-bottom: 10px;
@@ -17,22 +19,23 @@
   }
   h3 {
     margin-top: 15px;
+    @include font(ll);
+    margin-bottom: 1em;
+    
+    &:not(:first-child) {
+      margin-top: 3em;
+    }
+  }
+  h4 {
+    margin-top: 15px;
     @include font(lb);
     margin-bottom: 5px;
     &:not(:first-child) {
       margin-top: 20px;
     }
   }
-  h4 {
-    margin-top: 15px;
-    @include font(mb);
-    margin-bottom: 5px;
-    &:not(:first-child) {
-      margin-top: 20px;
-    }
-  }
   p {
-    margin-bottom: 5px;
+    margin-bottom: 1em;
   }
   ul {
     margin-bottom: 5px;

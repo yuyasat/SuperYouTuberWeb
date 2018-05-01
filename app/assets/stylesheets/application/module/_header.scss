@@ -49,6 +49,7 @@
     }
   }
   &__search-panel {
+    box-shadow: 0 0 2px rgba(0,0,0,0.05);
     position: absolute;
     left: 0;
     top: $height_sp;
@@ -60,6 +61,7 @@
     border-right: color(gray, light) 1px solid;
     overflow: hidden;
     @include screen-size(lg) {
+      box-shadow: none;
       position: static;
       border: 0;
       width: auto;

@@ -22,6 +22,10 @@
   &.is-size-l {
     @include font(lb);
   }
+  &.is-width-full {
+    display: block;
+    width: 100%;
+  }
   @include screen-size(xl) {
 
     &:hover {

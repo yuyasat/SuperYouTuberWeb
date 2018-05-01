@@ -1,0 +1,20 @@
+.movie.is-size-l
+  .movie__inner
+    .movie__thumb
+      a[href=movie.url]
+        img[src=movie.mqdefault_url alt=""]/
+    .movie__text
+      .movie__avatar-title-meta
+        .movie__avatar
+          / FIXME:投稿者のリンクとサムネイルは入れられますか？
+          a[href="#"]
+            img[src=(asset_path "dummy_200x200.png") alt=""]/
+        .movie__title-meta
+          p.movie__title
+            a[href="#"] = movie.title.truncate(80, omission: '...')
+          p.movie__meta
+            / span HikakinTV
+            / span 視聴回数 65,262,070 回
+            span 投稿日 = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
+      p.movie__comment
+        | ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー

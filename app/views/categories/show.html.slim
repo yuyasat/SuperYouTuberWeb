@@ -1,37 +1,39 @@
 - content_for :title do
   = t('.title', category: @category.name)
 
-.page-header
-  .row.breadcrumb
-    .small
-      ul.breadcrumb
-        li = link_to 'ホーム', root_path
-        - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
-          - if @category.id == cat.id
-            li = cat.name
-          - else
-            li = link_to cat.name, cat.path
-  .col-lg-3.col-md-3.col-sm-3
-    .well.bs-component
-      ul
-        li = @category.name
-      ul
-        - @category.children.includes(:parent_category).decorate.each do |cat|
-          li.header-border.small
-            = link_to cat.name, cat.path
-  .col-lg-9.col-md-9.col-sm-9
-    .row.text-center
-      h1.h3 ="#{@category.name}カテゴリの動画"
-    - @movies.each_slice(5) do |sliced_movies|
-      .row.o-3column
-        - sliced_movies.each do |movie|
-          .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
-            .row.text-center
-              = link_to movie.url, target: '_blank' do
-                = image_tag movie.mqdefault_url, alt: movie.title
-            .row.movie-published-at.text-right
-              small = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
-            .row.movie-text
-              small = link_to movie.title, movie.url, target: '_blank'
-    .row.text-right
-      = paginate @movies
+.l-main-content
+  .l-container
+    .page-header
+      .row.breadcrumb
+        .small
+          ul.breadcrumb
+            li = link_to 'ホーム', root_path
+            - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
+              - if @category.id == cat.id
+                li = cat.name
+              - else
+                li = link_to cat.name, cat.path
+      .col-lg-3.col-md-3.col-sm-3
+        .well.bs-component
+          ul
+            li = @category.name
+          ul
+            - @category.children.includes(:parent_category).decorate.each do |cat|
+              li.header-border.small
+                = link_to cat.name, cat.path
+      .col-lg-9.col-md-9.col-sm-9
+        .row.text-center
+          h1.h3 ="#{@category.name}カテゴリの動画"
+        - @movies.each_slice(5) do |sliced_movies|
+          .row.o-3column
+            - sliced_movies.each do |movie|
+              .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
+                .row.text-center
+                  = link_to movie.url, target: '_blank' do
+                    = image_tag movie.mqdefault_url, alt: movie.title
+                .row.movie-published-at.text-right
+                  small = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
+                .row.movie-text
+                  small = link_to movie.title, movie.url, target: '_blank'
+        .row.text-right
+          = paginate @movies
