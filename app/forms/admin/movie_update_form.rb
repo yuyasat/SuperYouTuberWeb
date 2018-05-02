@@ -8,7 +8,9 @@ class Admin::MovieUpdateForm
 
   def assign_attributes
     movie.assign_attributes(movie_params.except(:movie_categories_attributes, :locations_attributes))
-    @movie_categories = movie_category_params.values.map { |p| MovieCategory.new(p) }
+    @movie_categories = movie_category_params.values.select do |mcp|
+      mcp[:category_id].present?
+    end.map { |p| MovieCategory.new(p) }
     @locations = locations_params&.values&.map { |p| Location.new(p) } || []
   end
 

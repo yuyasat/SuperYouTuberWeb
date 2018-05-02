@@ -17,7 +17,9 @@ class Admin::MoviesController < ApplicationController
               else
                 { error: movie.customized_error_full_messages }
               end
-    redirect_to admin_movies_path(category_id: movie.categories.first.id), flash: message
+    redirect_to admin_movies_path(
+      category_id: movie.categories.first.id, category_id2: movie.categories[1]&.id
+    ), flash: message
   end
 
   def update

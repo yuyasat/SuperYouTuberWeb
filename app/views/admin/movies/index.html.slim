@@ -25,11 +25,18 @@
                 = f.text_field :title, class: 'small form-controll col-xs-8 admin-text', 'v-bind:value': 'title'
             .row
               .form-group
-                label.col-xs-4.control-label.small for="movie_categories" カテゴリ
+                label.col-xs-4.control-label.small for="movie_categories" カテゴリ1
                 = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
                   = cat_f.select :category_id, Category.html_options(with_root: false),
                                  { selected: params[:category_id], include_blank: '選択してください' },
                                  class: 'form-controll col-xs-8 small', 'v-model': 'category0'
+            .row
+              .form-group{v-show='true'}
+                label.col-xs-4.control-label.small for="movie_categories" カテゴリ2
+                = f.fields_for :movie_categories, @movie.movie_categories.new do |cat_f|
+                  = cat_f.select :category_id, Category.html_options(with_root: false),
+                                 { selected: params[:category_id2], include_blank: '選択してください' },
+                                 class: 'form-controll col-xs-8 small'
             .row{v-for="latlong in latLongArray" v-cloak=""}
               movie-location{:latlong="latlong"}
           .col-xs-6
