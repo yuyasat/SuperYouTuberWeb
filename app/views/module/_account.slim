@@ -3,7 +3,7 @@
     - if account.medium_thumbnail_url.present?
       .account__thumbnail
         a[href=video_artist_path(account.channel)]
-          img[src=account.default_thumbnail_url alt=""]/
+          img[src=account.default_thumbnail_url alt=account.title]/
     .account__text
       .account__name
         a[href=video_artist_path(account.channel)]=account.title
