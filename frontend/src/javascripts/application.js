@@ -1,7 +1,7 @@
 require('../../node_modules/font-awesome/css/font-awesome.css')
 
 import $ from 'jquery'
-import Swiper from 'swiper'
+// import Swiper from 'swiper'
 
 $(function() {
   $('[data-js="confirm"]').click(function() {
@@ -20,6 +20,7 @@ $(function() {
   });
 });
 
+/**
 $(function(){
   new Swiper('.slider',{
     slideClass: 'slider__slide',
@@ -31,3 +32,4 @@ $(function(){
       },
   })
 })
+**/
