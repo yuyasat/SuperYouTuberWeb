@@ -24,16 +24,11 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['es2015', 'stage-2', 'stage-3']
-          }
-        }
+        use: ['babel-loader']
       },
       {
         test: /\.vue$/,
-        loader: 'vue'
+        use: ['vue-loader', 'eslint-loader']
       },
       {
         test: /\.scss$/,
