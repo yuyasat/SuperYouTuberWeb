@@ -27,4 +27,8 @@ class VideoArtist < ApplicationRecord
   def latest_movie
     movies.order(published_at: :desc).first
   end
+
+  def videos_url
+    "https://www.youtube.com/channel/#{channel}/videos"
+  end
 end

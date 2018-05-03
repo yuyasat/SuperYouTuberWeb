@@ -39,7 +39,12 @@ Rails.application.routes.draw do
         get 'sort', action: :show_sort
       end
     end
-    resources :video_artists, only: %i(index show update)
+    resources :video_artists, only: %i(show update) do
+      collection do
+        get :sns
+        get :manager
+      end
+    end
     namespace :api do
       get :movies
       get :movie_info

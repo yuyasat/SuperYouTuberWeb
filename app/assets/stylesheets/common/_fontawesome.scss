@@ -45,6 +45,11 @@ i {
         @include fa("\f142");
       }
     }
+    &.fa-external-link {
+      &:before {
+        @include fa("\f08e");
+      }
+    }
     &.fa-instagram {
       &:before {
         @include fa("\f16d");

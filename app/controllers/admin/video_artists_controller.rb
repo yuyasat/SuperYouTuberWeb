@@ -1,5 +1,11 @@
 class Admin::VideoArtistsController < ApplicationController
-  def index
+  def manager
+    @video_artists = VideoArtist.all.order(:id).page(params[:page]).per(500)
+    @max_published_at = Movie.group(:channel).maximum(:published_at)
+    @min_published_at = Movie.group(:channel).minimum(:published_at)
+  end
+
+  def sns
     @video_artists = VideoArtist.all.includes(:twitter_accounts, :instagram_accounts)
     gon.video_artists = @video_artists.as_json(methods: %i(twitter instagram channel_url))
   end
