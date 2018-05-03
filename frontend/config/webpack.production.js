@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path')
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -16,7 +17,8 @@ module.exports = {
     filename: '[name].js'
   },
   plugins: [
-    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' })
+    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
+    new UglifyJsPlugin()
   ],
   module: {
     rules: [
