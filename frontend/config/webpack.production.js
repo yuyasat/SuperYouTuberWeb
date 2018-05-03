@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path')
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
   entry: {
@@ -16,23 +17,19 @@ module.exports = {
     filename: '[name].js'
   },
   plugins: [
-    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' })
+    new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
+    new UglifyJsPlugin()
   ],
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['es2015', 'stage-2']
-          }
-        }
+        use: ['babel-loader']
       },
       {
         test: /\.vue$/,
-        loader: 'vue'
+        use: ['vue-loader', 'eslint-loader']
       },
       {
         test: /\.scss$/,
@@ -49,12 +46,5 @@ module.exports = {
     alias: {
       'vue': 'vue/dist/vue.common.js',
     },
-  },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    })
-  ],
+  }
 }
