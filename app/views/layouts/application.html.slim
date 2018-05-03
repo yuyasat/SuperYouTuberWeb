@@ -18,4 +18,4 @@ html
     = render params[:controller].start_with?('admin') ? 'layouts/admin_header' : 'layouts/header'
     .container
       = yield
-    = render 'layouts/footer'
+    = render params[:controller].start_with?('admin') ? 'layouts/admin_footer' : 'layouts/footer'
