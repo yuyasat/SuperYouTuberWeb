@@ -1,61 +1,49 @@
 - content_for :title do
   = t('.title')
 
-.page-header.header-border
-  .row
-    .col-lg-6.col-md-6.col-sm-6
-      h2.h4 編集部のおすすめ動画
+.l-main-content
+
+  .l-container.l-mb-xs-50
+    .l-row
       - if @featured_movie.present?
-        .row.text-center
-          iframe{id="myVideo" src="#{@featured_movie.embed_url}" frameborder="0" allowfullscreen=""}
-        .row.movie-published-at.text-right.video-artist
-          small = @featured_movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
-        .row.movie-text.video-artist.text-left
-          small = link_to @featured_movie.title, @featured_movie.url, target: '_blank'
-
-    .col-lg-6.col-md-6.col-sm-6
-      h2.h4 編集部のイチオシSuper YouTuber
-      .row.text-center
-        = link_to VideoArtist.first.movies.first.url, target: '_blank' do
-          = image_tag VideoArtist.first.movies.first.mqdefault_url, alt: VideoArtist.first.title
-      .row
-        = image_tag VideoArtist.first.default_thumbnail_url, alt: VideoArtist.first.title
-        small = link_to VideoArtist.first.title, VideoArtist.first.channel_url, target: '_blank'
-
-  .row
-    .col-lg-8.col-md-7.col-sm-6
-      h2.h4 おすすめYoutuberの新着動画
-.container-fluid
-  - @latest_movies.each_slice(5) do |sliced_movies|
-    .o-3column
-      - sliced_movies.each do |movie|
-        .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
-          .row.text-center
-            = link_to movie.url, target: '_blank' do
-              = image_tag movie.mqdefault_url, alt: movie.title
-          .row.movie-published-at.text-right
-            small = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
-          .row.movie-text
-            small = link_to movie.title, movie.url, target: '_blank'
-.page-header.header-border
-  .row
-    .col-lg-12.col-md-12.col-sm-6
-      h2.h4 カテゴリ
-.container-fluid
+        .title.is-size-m.l-mb-xs-10.l-mb-md-20
+          .title__inner
+            p.title__title おすすめの動画
+            .title__right-button
+              a.button.is-size-s[href="#"]
+                span もっと見る
+        .l-col-md-6
+          = render 'module/movie_l', movie: @featured_movie
+      .l-col-md-6
+        .title.is-size-m.l-mb-xs-10.l-mb-md-20
+          .title__inner
+            p.title__title おすすめの動画
+            .title__right-button
+              a.button.is-size-s[href="#"]
+                span もっと見る
+        .slider
+          .slider__wrapper
+            - @latest_movies.each_slice(5) do |sliced_movies|
+              - sliced_movies.each do |movie|
+                .slider__slide
+                  = render 'module/movie_l', movie: movie
+          .slider__pagination
+  
   - @category_movies.each do |cat1, movies|
-    h3.h4 = link_to cat1.name, category_path(cat1)
-    - movies.each_slice(5) do |sliced_movies|
-      .row.o-3column
-        - sliced_movies.each do |movie|
-          .col-md-1-5.col-sm-1-5.col-xs-8.with-margin
-            .row.text-center
-              = link_to movie.url, target: '_blank' do
-                = image_tag movie.mqdefault_url, alt: movie.title
-            .row.movie-published-at.text-right
-              small = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
-            .row.movie-text
-              small = link_to movie.title, movie.url, target: '_blank'
-    .row.small.text-right
-      = link_to category_path(cat1) do
-        i.fa.fa-angle-double-right
-        = "#{cat1.name}カテゴリをもっとみる"
+    .l-container.l-mb-xs-50
+      .title.is-size-m.l-mb-xs-10.l-mb-md-20
+        .title__inner
+          p.title__title = cat1.name
+          .title__right-button
+            a.button.is-size-s[href=category_path(cat1)]
+              span もっと見る
+
+      .l-row
+        - movies.each_slice(5) do |sliced_movies|
+          - sliced_movies.each do |movie|
+            .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
+              = render 'module/movie', movie: movie
+      .l-row.is-align-center
+        .l-col-md-4
+          a.button.is-width-full[href=category_path(cat1)]
+            span もっと見る

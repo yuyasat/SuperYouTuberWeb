@@ -1,0 +1,3 @@
+@function color($h: black, $l: base) {
+  @return map-get(map-get($color-collection, $h), $l);
+}

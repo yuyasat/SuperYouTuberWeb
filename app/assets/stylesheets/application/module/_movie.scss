@@ -1,0 +1,119 @@
+.movie {
+  $self: &;
+  &.is-size-m {
+    #{$self} {
+      &__inner {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        @include screen-size(sm) {
+          display: block;
+        }
+      }
+      &__thumb {
+        width: 120px;
+        margin-right: 10px;
+        overflow: hidden;
+        background: #000;
+        position: relative;
+        a {
+          display: block;
+        }
+        img {
+          width: 100%;
+          transition: all 0.3s ease;
+          transform: scale(1.03);
+        }
+        &:before {
+          @include fa("\f04b");
+          position: absolute;
+          font-size: 16px;
+          padding: 0.5em 1.2em;
+          border-radius: 10px;
+          background: color(red);
+          color: color(white);
+          left: calc(50% - 1.7em);
+          top: calc(50% - 1em);
+          z-index: 1;
+          transition: all 0.4s;
+          transform: scale(1.4);
+          opacity: 0;
+          pointer-events: none;
+        }
+        @include screen-size(sm) {
+          width: 100%;
+          margin-bottom: 5px;
+          margin-right: 0;
+        }
+        @include screen-size(xl) {
+          &:hover {
+            img {
+              transform: scale(1.15);
+              opacity: 0.8;
+            }
+            &:before {
+
+              transform: scale(1);
+              opacity: 1;
+            }
+          }
+        }
+      }
+      &__text {
+        flex: 1;
+      }
+      &__title {
+        @include font(mb);
+      }
+      &__meta {
+        color: color(gray);
+        @include font(ss);
+      }
+    }
+  }
+  &.is-size-l {
+    #{$self} {
+      &__inner {
+        position: relative;
+      }
+      &__thumb {
+        img {
+          width: 100%;
+        }
+      }
+      &__text {
+        padding-top: 9px;
+      }
+      &__avatar-title-meta {
+        display: flex;
+        align-items: center;
+      }
+      &__avatar {
+        overflow: hidden;
+        box-sizing: border-box;
+        width: 40px;
+        height: 40px;
+        margin-right: 7px;
+        margin-left: -2px;
+        border: 1px solid color(gray, light);
+        border-radius: 50%;
+        img {
+          width: 100%;
+        }
+      }
+      &__title-meta {
+        flex: 1;
+      }
+      &__title {
+        @include font(mb);
+      }
+      &__meta {
+        color: color(gray);
+        @include font(ss);
+      }
+      &__comment {
+        margin-top: 3px;
+      }
+    }
+  }
+}

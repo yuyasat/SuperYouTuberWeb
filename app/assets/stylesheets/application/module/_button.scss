@@ -1,0 +1,36 @@
+.button {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  text-align: center;
+  color: color(white);
+  border: 0;
+  border-radius: 3px;
+  outline: 0;
+  background-color: rgba(224,27,20,1);
+  background: linear-gradient(to bottom, rgba(224,27,20,1) 0%,rgba(193,17,17,1) 100%);
+  box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05) inset;
+  -webkit-appearance: none;
+  @include font(mb);
+  &.is-size-s {
+    @include font(sb);
+    @include screen-size(md) {
+      @include font(mb);
+    }
+  }
+  &.is-size-l {
+    @include font(lb);
+  }
+  &.is-width-full {
+    display: block;
+    width: 100%;
+  }
+  @include screen-size(xl) {
+
+    &:hover {
+      color: color(white);
+      opacity: 0.8;
+    }
+  }
+}

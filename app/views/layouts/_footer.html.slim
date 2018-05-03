@@ -1,3 +1,29 @@
-= link_to 'プライバシーポリシー', privacy_policy_path
-= link_to 'お問い合わせ', contact_path
-= link_to 'このサイトについて', about_path
+.l-footer
+  .footer
+    .footer__inner
+      .footer__logo
+        a[href="#"]
+          img[src=(asset_path "logo.svg") alt="Super YouTuber"]/
+      .footer__nav
+        - [\
+            ['編集者ブログ', '#'], \
+            ['このサイトについて', about_path], \
+            ['お問い合わせ', contact_path], \
+            ['プライバシーポリシー', privacy_policy_path], \
+            ['サイトマップ', '#'], \
+          ].each do |label, url|
+          li
+            a[href=url] = label
+      .footer__social
+        .social
+          ul.social__list.is-centerd
+            - [\
+                ['facebook', 'facebook', '#'], \
+                ['twitter', 'twitter', '#'], \
+                ['instagram', 'instagram', '#'], \
+                ['youtube', 'youtube', '#'], \
+              ].each do |icon, label, url|
+              li.social__item.is-active
+                a[href=url title=label]
+                  i.fa[class="fa-#{icon}"]
+      small.footer__copyright © 2018 Super YouTuber.com

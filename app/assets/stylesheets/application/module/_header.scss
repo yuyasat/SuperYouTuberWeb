@@ -1,0 +1,97 @@
+.header {
+  $height_sp: 44px;
+  $height_pc: 44px;
+  position: relative;
+  background: color(white);
+  &__inner {
+    position: relative;
+    @include screen-size(lg) {
+      display: flex;
+      align-items: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+  &__logo-line {
+    display: flex;
+    align-items: center;
+    height: $height_sp;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 2;
+    flex: 1;
+    @include screen-size(lg) {
+      height: auto;
+    }
+  }
+  &__logo {
+    flex: 1;
+    img {
+      width: 153px;
+    }
+  }
+  &__keyword-search {
+    padding: 10px;
+    border-top: color(gray, light) 1px solid;
+    background: color(gray, exlight);
+    @include screen-size(lg) {
+      background: color(white);
+      border: 0;
+      padding: 0;
+    }
+  }
+  &__menu {
+    border-top: color(gray, light) 1px solid;
+    @include screen-size(lg) {
+      border: 0;
+      margin-right: 20px;
+    }
+  }
+  &__search-panel {
+    box-shadow: 0 0 2px rgba(0,0,0,0.05);
+    position: absolute;
+    left: 0;
+    top: $height_sp;
+    z-index: 1;
+    background: color(white);
+    transition: all 0.5s ease;
+    width: 100%;
+    border-left: color(gray, light) 1px solid;
+    border-right: color(gray, light) 1px solid;
+    overflow: hidden;
+    @include screen-size(lg) {
+      box-shadow: none;
+      position: static;
+      border: 0;
+      width: auto;
+      display: flex;
+      align-items: center;
+      flex-direction: row-reverse;
+      &:before {
+        display: none;
+      }
+    }
+    &:before {
+      display: block;
+      content: "";
+      transition: all 0.4s ease;
+    }
+  }
+  &__search-panel {
+    &.is-hide {
+      visibility: collapse;
+      &:before {
+        margin-top: -200px;
+      }
+      @include screen-size(lg) {
+        visibility: visible;
+      }
+    }
+  }
+  @include screen-size(lg) {
+    &__serach-button {
+      display: none;
+    }
+  }
+}

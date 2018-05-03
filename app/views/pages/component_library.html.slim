@@ -1,0 +1,183 @@
+- content_for :title do
+  = 'component library'
+
+.l-header
+  .header
+    .l-container.header__inner
+      .header__logo-line
+        h1.header__logo
+          a href="/"
+            img[src=(asset_path "logo.svg") alt="Super YouTuber"]/
+        a.header__serach-button.j-open-search-panel-toggle href="#"
+          span 動画をさがす
+          i.fa.fa-search
+
+      .header__search-panel.j-open-search-panel.-hide
+        .header__keyword-search
+
+          / keyword-search
+          .keyword-search
+            .keyword-search__field
+              input type="text" placeholder="キーワード"/
+            .keyword-search__submit
+              button.button 検索
+        .header__menu
+
+          / menu
+          .menu
+            ul.menu__list
+              - [\
+                  ['youtuber', 'user', 'YouTuber', '#'], \
+                  ['category', 'list', 'カテゴリ', '#'], \
+                  ['map', 'map', '地図', '#'], \
+                  ['music', 'music', 'ミュージック', '#'], \
+                ].each do |key, icon, label, url|
+                li.menu__item
+                  a[href=url]
+                    i.fa[class="fa-#{icon} is-#{key} menu__icon"]
+                    div
+                      span.menu__main = label
+                      span.menu__sub の動画をさがす
+
+.l-main-content
+
+  .breadcrumb
+    ol
+      li
+        a href="#" ホーム
+      li
+        a href="#" ホーム
+      li
+        a href="#" ホーム
+
+  .account-header.l-mb-md-20
+    .account-header__avatar
+      img[src=(asset_path "dummy_200x200.png") alt=""]/
+    .account-header__name A.I.Channel
+    .account-header__desc はじめまして！バーチャルYouTuberのキズナアイです(o・v・o)♪がんばれ週５日投稿！！
+    .account-header__social
+
+      / social
+      .social
+        ul.social__list.is-centerd
+          - [\
+              ['facebook', 'facebook', '#'], \
+              ['twitter', 'twitter', '#'], \
+              ['instagram', 'instagram', '#'], \
+              ['youtube', 'youtube', '#'], \
+            ].each do |icon, label, url|
+            li.social__item.is-active
+              a[href=url title=label]
+                i.fa[class="fa-#{icon}"]
+
+
+  .l-container
+    .title.is-size-m.l-mb-xs-10.l-mb-md-20
+      .title__inner
+        .title__title 編集部のおすすめ動画
+        .title__right-button
+          a.button.is-size-s[href="#"]
+            span もっと見る
+
+    .l-row
+      - for i in 0..5
+        .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
+          = render 'module/movie'
+
+    .l-row
+      - for i in 0..5
+        .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-40
+          = render 'module/account'
+
+    .pager
+      ul.pager__list
+        li.pager__item.pager__item.is-arrow
+          a[href="#"]
+            i.fa.fa-r
+        - for page in 100..102
+          li.pager__item.pager__item.is-num
+            a[href="#"]
+              span = page
+        li.pager__item.pager__item.is-arrow
+          a[href="#"]
+            i.fa.fa-r
+
+    .ad.l-mb-xs-40
+      .ad__caption スポンサード
+      .ad__inner
+        img[src=(asset_path "dummy_320x100.png") alt=""]/
+
+
+    .title.is-size-l.l-mb-xs-30.l-mb-md-50
+      .title__inner
+        .title__title プライバシーポリシー
+
+    /formatted text
+    .formatted-text.l-mb-xs-50
+      h1 これはh1レベルの見出しです
+      p
+        | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+      h2 これはh2レベルの見出しです
+      p
+        | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+      h3 これはh3レベルの見出しです
+      p
+        | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした
+      ul
+        li リストの項目1
+        li リストの項目2
+        li リストの項目3。
+      h4 これはh4レベルの見出しです
+      p
+        | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+      ol
+        li リストの項目1
+        li リストの項目2
+        li リストの項目3
+      blockquote
+        | たぶん我々はあのとき会うべくして会ったのだし、もしあのとき会っていなかったとしても、我々はべつのどこかで会っていただろう。とくに根拠があるわけではないのだが、僕はそんな気がした。
+
+    .l-row
+      .l-col-md-3
+        .link-list
+          .link-list__head カテゴリ一覧
+          ul.link-list__list
+            - for i in 0..20
+              li 
+                a[href="#"] カテゴリ1
+
+      .l-col-md-9
+        .l-row
+          - for i in 0..5
+            .l-col-sm-6.l-col-lg-4.l-mb-xs-10.l-mb-lg-20
+              = render 'module/movie'
+
+.l-footer
+  .footer
+    .footer__inner
+      .footer__logo
+        a[href="#"]
+          img[src=(asset_path "logo.svg") alt="Super YouTuber"]/
+      .footer__nav
+        - [\
+            ['編集者ブログ', '#'], \
+            ['このサイトについて', '#'], \
+            ['お問い合わせ', '#'], \
+            ['プライバシーポリシー', '#'], \
+            ['サイトマップ', '#'], \
+          ].each do |label, url|
+          li
+            a[href=url] = label
+      .footer__social
+        .social
+          ul.social__list.is-centerd
+            - [\
+                ['facebook', 'facebook', '#'], \
+                ['twitter', 'twitter', '#'], \
+                ['instagram', 'instagram', '#'], \
+                ['youtube', 'youtube', '#'], \
+              ].each do |icon, label, url|
+              li.social__item.is-active
+                a[href=url title=label]
+                  i.fa[class="fa-#{icon}"]
+      small.footer__copyright © 2018 Super YouTuber.com

@@ -1,0 +1,28 @@
+.link-list {
+  background: color(white);
+  border: 1px solid color(gray, light);
+  border-radius: 5px;
+  overflow: hidden;
+  &__head {
+    background: #ce1612;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+  &__list {
+    >li {
+      &:nth-last-child(n + 2){
+        border-bottom: 1px solid color(gray, light);
+      }
+      >a {
+        padding: 9px;
+        display: block;
+        &:before {
+          @include fa("\f105");
+          margin-right: 0.5em;
+        }
+      }
+    }
+  }
+}

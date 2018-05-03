@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'privacy-policy' => 'pages#privacy_policy'
   get 'contact' => 'pages#contact'
   get 'about' => 'pages#about'
+  get 'component-library' => 'pages#component_library' if Rails.env.development?
 
   resources :categories, only: %i(index show) do
     collection do

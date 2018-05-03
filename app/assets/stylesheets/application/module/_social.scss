@@ -1,0 +1,12 @@
+.social {
+  &__list {
+    display: flex;
+    &.is-centerd {
+      justify-content: center;
+    }
+  }
+  &__item {
+    margin: 0 14px;
+    font-size: 22px;
+  }
+}

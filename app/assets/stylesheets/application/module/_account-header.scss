@@ -1,0 +1,38 @@
+.account-header {
+  background: color(white);
+  padding-bottom: 30px;
+  &:before {
+    display: block;
+    height: 110px;
+    content: '';
+    background: linear-gradient(0, color(white), color(gray, exlight));
+  }
+  &__avatar {
+    overflow: hidden;
+    width: 130px;
+    height: 130px;
+    margin: -80px auto 5px;
+    border: 1px solid color(gray, light);
+    border-radius: 50%;
+    img {
+      width: 100%;
+    }
+  }
+  &__name {
+    margin-bottom: 10px;
+    padding: 0 10px;
+    text-align: center;
+    @include font(ll);
+  }
+  &__desc {
+    width: 70%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    max-width: 500px;
+    @include font(s);
+    @include screen-size(md) {
+      @include font(m);
+    }
+  }
+  &__social {}
+}

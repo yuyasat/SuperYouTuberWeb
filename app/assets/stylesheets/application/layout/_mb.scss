@@ -1,0 +1,11 @@
+.l-mb {
+  @each $mq in xs, sm, md, lg {
+    @include screen-size($mq) {
+      @for $i from 1 through 10 {  
+        &-#{$mq}-#{$i * 5} {
+          margin-bottom: #{$i * 5}px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+.ad {
+  padding: 10px 0 10px;
+  background: color(gray, light);
+  margin-left: -10px;
+  margin-right: -10px;
+  @include screen-size(sm) {
+    margin-left: 0;
+    margin-right: 0;
+    background: none;
+    padding: 0;
+  }
+  &__caption {
+    margin-bottom: 5px;
+    text-align: center;
+    color: color(gray);
+    @include font(ss);
+  }
+  &__inner {
+    text-align: center;
+    img {
+      max-width: 100%;
+    }
+  }
+}

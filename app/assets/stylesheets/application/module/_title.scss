@@ -1,0 +1,43 @@
+.title{
+  $self: &;
+  &.is-size-m #{$self} {
+    &__inner {
+      display: flex;
+      min-height: 27px;
+      align-items: center;
+      background-color: color(white);
+      padding: 10px;
+      margin-right: -10px;
+      margin-left: -10px;
+      border: {
+        color: color(gray, light);
+        width: 1px 0;
+        style: solid;
+      }
+      @include screen-size(md) {
+        border:0;
+        margin-left: 0;
+        margin-right: 0;
+        background: none;
+        padding: 0;
+      }
+    }
+    &__title {
+      flex: 1;
+      @include font(lb);
+      @include screen-size(md) {
+        @include font(ll);
+      }
+    }
+  }
+  &.is-size-l #{$self} {
+    &__title {
+      flex: 1;
+      text-align: center;
+      @include font(ll);
+      @include screen-size(md) {
+        @include font(lll);
+      }
+    }
+  }
+}

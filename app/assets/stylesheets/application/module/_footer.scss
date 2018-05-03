@@ -1,0 +1,31 @@
+.footer {
+  background: color(gray, exlight);
+  &__inner {
+    padding: 30px 30px;
+    text-align: center;
+    border-top: 1px solid color(gray, light);
+    
+  }
+  &__logo {
+    width: 134px;
+    margin: 0 auto 20px;
+    img {
+      width: 100%;
+    }
+  }
+  &__nav {
+    margin-bottom: 20px;
+    >li {
+      display: inline-block;
+      margin: 2px 7px;
+      @include font(s);
+    }
+  }
+  &__social {
+    margin-bottom: 15px;
+  }
+  &__copyright {
+    color: color(gray);
+    @include font(ss);
+  }
+}
