@@ -12,6 +12,9 @@ class Category < ApplicationRecord
   scope :secondary, -> { where(parent_id: root.select(:id)) }
   scope :tertiary, -> { where.not(id: root.select(:id) + secondary.select(:id)) }
   scope :sort_by_display_order, -> { order(:display_order, :created_at) }
+  scope :have_movies, -> {
+    where(id: MovieCategory.select('distinct category_id'))
+  }
 
   def root?
     parent_id == 0

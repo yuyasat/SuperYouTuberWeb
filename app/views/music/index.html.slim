@@ -13,9 +13,9 @@
         .link-list
           .link-list__head アーティスト一覧
           ul.link-list__list
-            - @category.children.decorate.each do |cat2|
+            - @music_categories.each do |cat2|
               li
-                = link_to cat2.name, cat2.path
+                = link_to cat2.name, cat2.decorate.music_path
       .l-col-md-9
         - @category_movies.each do |cat2, movies|
           - decorated_cat2 = cat2.decorate
