@@ -18,12 +18,13 @@
                 = link_to cat2.name, cat2.path
       .l-col-md-9
         - @category_movies.each do |cat2, movies|
+          - decorated_cat2 = cat2.decorate
           .l-mb-xs-50
             .title.is-size-m.l-mb-xs-10.l-mb-md-20
               .title__inner
                 .title__title = cat2.name
                 .title__right-button
-                  = link_to category_path(cat2), class: 'button is-size-s' do
+                  = link_to decorated_cat2.music_path, class: 'button is-size-s' do
                     span もっと見る
             .l-row
               - movies.each do |movie|
@@ -32,5 +33,5 @@
 
             .l-row.is-align-center
               .l-col-md-4
-                = link_to category_path(cat2), class: 'button is-width-full' do
+                = link_to decorated_cat2.music_path, class: 'button is-width-full' do
                   span もっと見る

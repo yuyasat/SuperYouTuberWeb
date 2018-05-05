@@ -3,4 +3,4 @@ ja:
     index:
       title: ミュージック - Super YouTuber
     show:
-      title: ミュージック - Super YouTuber
+      title: "%{video_artist}のミュージックPV - Super YouTuber"
