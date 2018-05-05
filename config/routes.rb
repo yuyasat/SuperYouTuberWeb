@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   resources :video_artists, path: 'youtubers', only: %i(index show)
 
+  resources :music, only: %i(index)
+
   namespace :spots do
     resources :categories
   end

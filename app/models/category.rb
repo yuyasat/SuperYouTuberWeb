@@ -55,6 +55,12 @@ class Category < ApplicationRecord
     end
   end
 
+  def grouped_category_ids
+    children.sort_by_display_order.map do |cat|
+      [cat, cat.all_children_categories]
+    end.to_h
+  end
+
   def self.grouped_category_ids
     Category.root.sort_by_display_order.eager_load(children: :children).map do |cat1|
       [cat1, cat1.all_children_categories]
