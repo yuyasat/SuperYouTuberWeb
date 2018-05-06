@@ -47,7 +47,7 @@ class Admin::ApiController < ApplicationController
     if params[:category_id].present?
       movies = movies.of_category(Category.find(params[:category_id]))
     end
-    movies.includes(:categories, :locations).page(params[:page]).per(100)
+    movies.includes(:video_artist, :categories, :locations).page(params[:page]).per(100)
   end
 
   def video_artist_params

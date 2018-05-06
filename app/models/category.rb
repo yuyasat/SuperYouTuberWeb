@@ -81,9 +81,9 @@ class Category < ApplicationRecord
     (root_option + [].tap do |a|
       Category.root.sort_by_display_order.eager_load(children: :children).each do |cat1|
         a << [cat1.name, cat1.id]
-        cat1.children.each do |cat2|
+        cat1.children.sort_by { |c| [c.display_order, c.created_at] }.each do |cat2|
           a << ["　#{cat2.name}", cat2.id]
-          cat2.children.each do |cat3|
+          cat2.children.sort_by { |c| [c.display_order, c.created_at] }.each do |cat3|
             a << ["　　#{cat3.name}", cat3.id]
           end
         end
