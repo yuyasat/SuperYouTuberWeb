@@ -23,7 +23,6 @@ window.adminMovieVm = new Vue({
     exists: gon.movie.id !== null ? true : false,
     showError: false,
     errorText: '',
-    category0: gon.movie_categories[0] ? gon.movie_categories[0].id : gon.default_category || '',
   },
   computed: {
     movieUrl() {
@@ -89,7 +88,10 @@ window.adminMovieVm = new Vue({
       }
       axios.get(url, config).then(successFn).catch(errorFn);
     },
-    category0(value) {
+  },
+  methods: {
+    handleLatLong(e) {
+      const value = e.target.value
       if (_.includes(gon.map_category_ids, parseInt(value))) {
         if (store.state.latLongArray.length === 0) {
           store.commit('initializeLatLong')

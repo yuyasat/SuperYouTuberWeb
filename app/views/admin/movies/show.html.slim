@@ -27,8 +27,14 @@
           .row{style="margin-bottom: 10px"}
             .form-group
               label.col-sm-4.control-label for="movie_channel" チャネルID
-              - if @movie.channel.present?
-                .col-sm-8.small = link_to @movie.channel, @movie.channel_url, target: '_blank'
+              .col-sm-8.small = @movie.channel
+              - if @movie.video_artist.present?
+                .col-sm-8.small
+                  | （
+                  = link_to '管理ページ', admin_video_artist_path(@movie.video_artist), target: '_blank'
+                  | ，
+                  = link_to 'YouTubeページ', @movie.channel_url, target: '_blank'
+                  | ）
           .row{style="margin-bottom: 10px"}
             .form-group
               label.col-sm-4.control-label for="movie_categories" カテゴリ1
