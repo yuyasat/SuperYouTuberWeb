@@ -1,0 +1,16 @@
+.breadcrumb
+  ol[itemtype="http://schema.org/BreadcrumbList" itemscope]
+
+    li[itemprop="itemListElement" itemtype="http://schema.org/ListItem" itemscope]
+      meta[itemprop="position" content=1]
+      a[itemprop="url" href=root_path]
+        span[itemprop="name"] ホーム
+
+    - crumbs.each_with_index do |crumb, position|
+      li[itemprop="itemListElement" itemtype="http://schema.org/ListItem" itemscope]
+        meta[itemprop="position" content=(position + 2)]
+        - if crumb[:link]
+          a[itemprop="url" href=crumb[:link]]
+            span[itemprop="name"] = crumb[:label]
+        - else
+          span[itemprop="name"] = crumb[:label]

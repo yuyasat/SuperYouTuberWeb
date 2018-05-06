@@ -12,10 +12,9 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
     link rel="icon" type="image/png"href="/favicon.png"
-    meta[name="viewport" content="width=device-width,initial-scale=1"]
+    meta[name="viewport" content="width=device-width,initial-scale=1, user-scalable=no"]
   body
     = render 'tags/gtm_body'
     = render params[:controller].start_with?('admin') ? 'layouts/admin_header' : 'layouts/header'
-    .container
-      = yield
+    = yield
     = render params[:controller].start_with?('admin') ? 'layouts/admin_footer' : 'layouts/footer'

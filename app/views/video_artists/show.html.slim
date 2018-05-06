@@ -2,13 +2,10 @@
   = t('.title', video_artist: @video_artist.title)
 
 .l-main-content
-  .breadcrumb.l-mb-sm-30
-    ol
-      li= link_to 'ホーム', root_path
-      li
-        a href="/youtubers" youtubers
-      li
-        a href="#" = @video_artist.title
+  .l-mb-sm-30
+    = render 'module/breadcrumb', crumbs: [\
+      {label: 'YouTuber一覧', link: '/youtubers'},\
+      {label: @video_artist.title}]
 
 
   .account-header.l-mb-md-20

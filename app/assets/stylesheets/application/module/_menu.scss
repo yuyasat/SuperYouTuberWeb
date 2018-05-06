@@ -10,7 +10,7 @@
     box-sizing: border-box;
     width: 50%;
     border-bottom: 1px solid color(gray, light);
-    
+
     &:nth-child(2n) {
       border-left: 1px solid color(gray, light);
     }
@@ -18,37 +18,26 @@
       border:0;
       width: auto;
       display: inline-block;
-      margin-left: 10px;
       &:nth-child(2n) {
         border-left:0;
       }
     }
     >a {
       display: flex;
-      line-height: 1.5;
+      line-height: 1.3;
       align-items: center;
-      padding: 5px;
+      padding: 15px 5px;
+      @include screen-size(lg) {
+        padding: 15px 9px;
+      }
     }
   }
   &__icon {
     width: 30px;
     text-align: center;
-    margin-right: 5px;
-    
+
     &:before {
-      font-size: 20px;
-    }
-    &.is-youtuber {
-      color: color(red);
-    }
-    &.is-category {
-      color: color(yellow);
-    }
-    &.is-map {
-      color: color(blue);
-    }
-    &.is-music {
-      color: color(pink);
+      font-size: 16px;
     }
   }
   &__main {

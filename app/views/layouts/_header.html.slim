@@ -2,14 +2,14 @@
   .header
     .l-container.header__inner
       .header__logo-line
-        h1.header__logo
-          a href="/"
-            img[src=(asset_path "logo.svg") alt="Super YouTuber"]/
+        h1.header__logo[itemscope itemtype="http://schema.org/Organization"]
+          a[href="/" itemprop="url"]
+            img[src=(asset_path "logo.svg") alt="Super YouTuber" itemprop="name"]/
         a.header__serach-button.j-open-search-panel-toggle href="#"
           span 動画をさがす
           i.fa.fa-search
 
-      .header__search-panel.j-open-search-panel.-hide
+      .header__search-panel.j-open-search-panel.is-hide
         .header__keyword-search
 
           / keyword-search
@@ -22,16 +22,15 @@
 
           / menu
           .menu
-            ul.menu__list
+            ul.menu__list[itemscope itemtype="http://www.schema.org/SiteNavigationElement"]
               - [\
                   ['youtuber', 'user', 'YouTuber', '/youtubers'], \
-                  ['category', 'list', 'カテゴリ', categories_path], \
-                  ['map', 'map', '地図', '/spots/categories'], \
-                  ['music', 'music', 'ミュージック', '#'], \
+                  ['category', 'list', 'カテゴリの動画', categories_path], \
+                  ['map', 'map-marker', '場所の動画', '/spots/categories'], \
+                  ['music', 'music', '音楽の動画', '#'], \
                 ].each do |key, icon, label, url|
-                li.menu__item
-                  a[href=url]
+                li.menu__item[itemprop="name"]
+                  a[href=url itemprop="url"]
                     i.fa[class="fa-#{icon} is-#{key} menu__icon"]
                     div
                       span.menu__main = label
-                      span.menu__sub の動画をさがす

@@ -21,6 +21,22 @@
       @include font(s);
     }
   }
+  &__language {
+    margin-bottom: 20px;
+    &:before {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 100px;
+      margin: 0 auto 15px;
+      background: color(gray, light);
+    }
+    >li {
+      display: inline-block;
+      margin: 2px 7px;
+      @include font(ss);
+    }
+  }
   &__social {
     margin-bottom: 15px;
   }

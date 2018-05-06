@@ -1,3 +1,6 @@
 .l-main-content{
-  padding-top: 100px;
+  padding-top: $header-height;
+  @include screen-size(lg) {
+    padding-top: $header-height-lg;
+  }
 }

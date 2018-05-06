@@ -2,16 +2,14 @@
   = t('.title')
 
 .l-main-content
-  .breadcrumb.l-mb-sm-30
-    ol
-      li= link_to 'ホーム', root_path
-      li
-        a href="#" YouTuber一覧
+  .l-mb-xs-15.l-mb-sm-30
+    = render 'module/breadcrumb', crumbs: [\
+      {label: 'YouTuber一覧'}]
 
   .l-container.l-mb-xs-50
     .l-row
       .l-col-md-3
-        .link-list
+        .link-list.l-mb-xs-15
           p.link-list__head YouTuber一覧
           ul.link-list__list
             - ['あ', 'か'].each do |char|
@@ -21,5 +19,5 @@
       .l-col-md-9
         .l-row
           - @video_artists.each do |video_artist|
-            .l-col-sm-6.l-col-lg-4.l-mb-xs-10.l-mb-lg-20
+            .l-col-sm-6.l-col-lg-4.l-mb-xs-15.l-mb-lg-20
               = render 'module/account', account: video_artist

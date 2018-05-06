@@ -26,4 +26,13 @@
               li.social__item.is-active
                 a[href=url title=label]
                   i.fa[class="fa-#{icon}"]
+      .footer__language
+        - [\
+            ['日本語', '#'], \
+            ['English', '#'], \
+            ['中文', '#'], \
+            ['한국어', '#'], \
+          ].each do |label, url|
+          li
+            a[href=url] = label
       small.footer__copyright © 2018 Super YouTuber.com

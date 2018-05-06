@@ -3,24 +3,18 @@
 
 .l-main-content
 
-  .l-container.l-mb-xs-50
+  .l-container.l-mb-xs-20.l-mb-lg-50
     .l-row
       - if @featured_movie.present?
         .title.is-size-m.l-mb-xs-10.l-mb-md-20
           .title__inner
             p.title__title おすすめの動画
-            .title__right-button
-              a.button.is-size-s[href="#"]
-                span もっと見る
         .l-col-md-6
           = render 'module/movie_l', movie: @featured_movie
       .l-col-md-6
         .title.is-size-m.l-mb-xs-10.l-mb-md-20
           .title__inner
             p.title__title おすすめの動画
-            .title__right-button
-              a.button.is-size-s[href="#"]
-                span もっと見る
         .slider
           .slider__wrapper
             - @latest_movies.each_slice(5) do |sliced_movies|
