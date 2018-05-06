@@ -1,11 +1,11 @@
 .movie.is-size-m
   .movie__inner
     .movie__thumb
-      a[href=movie.url target="blank"]
-        img[src=movie.mqdefault_url alt=movie.title]/
+      = link_to movie_path(movie) do
+        = image_tag movie.mqdefault_url, alt: movie.title
     .movie__text
       p.movie__title
-        a[href="#" target="blank"] = movie.title.truncate(80, omission: '...')
+        = link_to movie.title.truncate(80, omission: '...'), movie_path(movie)
       p.movie__meta
         / span HikakinTV
         / span 視聴回数 65,262,070 回

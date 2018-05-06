@@ -1,17 +1,16 @@
 .movie.is-size-l
   .movie__inner
     .movie__thumb
-      a[href=movie.url]
-        img[src=movie.mqdefault_url alt=""]/
+      = link_to movie_path(movie) do
+        = image_tag movie.mqdefault_url, alt: movie.title
     .movie__text
       .movie__avatar-title-meta
         .movie__avatar
-          / FIXME:投稿者のリンクとサムネイルは入れられますか？
-          a[href="#"]
-            img[src=(asset_path "dummy_200x200.png") alt=""]/
+          = link_to video_artist_path(movie.video_artist.channel) do
+            = image_tag movie.video_artist.default_thumbnail_url, alt: movie.video_artist.title
         .movie__title-meta
           p.movie__title
-            a[href="#"] = movie.title.truncate(80, omission: '...')
+            = link_to movie.title.truncate(80, omission: '...'), movie_path(movie)
           p.movie__meta
             / span HikakinTV
             / span 視聴回数 65,262,070 回

@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :movies, only: %i(show)
+
   resources :video_artists, path: 'youtubers', only: %i(index show)
 
   resources :music, only: %i(index show) do
