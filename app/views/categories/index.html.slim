@@ -3,9 +3,10 @@
 
 .l-main-content
 
-  .l-mb-xs-15.l-mb-sm-30
-    = render 'module/breadcrumb', crumbs: [\
-      {label: 'カテゴリ一覧'} ]
+  .breadcrumb.l-mb-xs-15.l-mb-sm-30
+    ol
+      li = link_to 'ホーム', root_path
+      li = 'カテゴリ一覧'
 
   .l-container
     .l-row

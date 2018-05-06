@@ -4,8 +4,15 @@
 .l-main-content
   / .breadcrumb.l-mb-xs-15.l-mb-sm-30
 
-  .l-mb-xs-15.l-mb-sm-30
-    = render 'module/breadcrumb', crumbs: @breadcrumb
+  .breadcrumb.l-mb-xs-15.l-mb-sm-30
+    ol
+      li= link_to 'ホーム', root_path
+      li= link_to 'カテゴリ一覧', '/categories'
+      - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
+        - if @category.id == cat.id
+          li = cat.name
+        - else
+          li = link_to cat.name, cat.path
 
   .l-container
 

@@ -2,9 +2,10 @@
   = t('.title')
 
 .l-main-content
-  .l-mb-xs-15.l-mb-sm-30
-    = render 'module/breadcrumb', crumbs: [\
-      {label: 'YouTuber一覧'}]
+  .breadcrumb.l-mb-xs-15.l-mb-sm-30
+    ol
+      li = link_to 'ホーム', root_path
+      li YouTuber一覧
 
   .l-container.l-mb-xs-50
     .l-row
