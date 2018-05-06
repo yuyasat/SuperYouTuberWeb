@@ -1,0 +1,37 @@
+- content_for :title do
+  = t('.title')
+
+.l-main-content
+  .breadcrumb.l-mb-sm-30
+    ol
+      li= link_to 'ホーム', root_path
+      li ミュージック
+
+  .l-container
+    .l-row
+      .l-col-md-3
+        .link-list
+          .link-list__head アーティスト一覧
+          ul.link-list__list
+            - @music_categories.each do |cat2|
+              li
+                = link_to cat2.name, cat2.decorate.music_path
+      .l-col-md-9
+        - @category_movies.each do |cat2, movies|
+          - decorated_cat2 = cat2.decorate
+          .l-mb-xs-50
+            .title.is-size-m.l-mb-xs-10.l-mb-md-20
+              .title__inner
+                .title__title = cat2.name
+                .title__right-button
+                  = link_to decorated_cat2.music_path, class: 'button is-size-s' do
+                    span もっと見る
+            .l-row
+              - movies.each do |movie|
+                .l-col-sm-6.l-col-lg-4.l-mb-xs-10.l-mb-lg-20
+                  = render 'module/movie', movie: movie
+
+            .l-row.is-align-center
+              .l-col-md-4
+                = link_to decorated_cat2.music_path, class: 'button is-width-full' do
+                  span もっと見る

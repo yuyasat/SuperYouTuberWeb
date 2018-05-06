@@ -1,6 +1,7 @@
 class Category < ApplicationRecord
   belongs_to :parent_category, class_name: 'Category', foreign_key: :parent_id
 
+  has_one :special_category
   has_many :movie_categories, dependent: :destroy
   has_many :movies, through: :movie_categories
   has_many :children, -> { order(:display_order, :created_at) }, class_name: 'Category', foreign_key: :parent_id
@@ -11,6 +12,9 @@ class Category < ApplicationRecord
   scope :secondary, -> { where(parent_id: root.select(:id)) }
   scope :tertiary, -> { where.not(id: root.select(:id) + secondary.select(:id)) }
   scope :sort_by_display_order, -> { order(:display_order, :created_at) }
+  scope :have_movies, -> {
+    where(id: MovieCategory.select('distinct category_id'))
+  }
 
   def root?
     parent_id == 0
@@ -30,6 +34,11 @@ class Category < ApplicationRecord
 
   def mappable?
     Category.find_by(name: 'マップ').all_children_categories.include?(id)
+  end
+
+  def main_video_artist
+    channel = movies.group('channel').order('count_all DESC').count.keys.first
+    VideoArtist.find_by(channel: channel)
   end
 
   def related_categories_movies
@@ -53,6 +62,12 @@ class Category < ApplicationRecord
         end
       end
     end
+  end
+
+  def grouped_category_ids
+    children.sort_by_display_order.map do |cat|
+      [cat, cat.all_children_categories]
+    end.to_h
   end
 
   def self.grouped_category_ids

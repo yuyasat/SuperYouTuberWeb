@@ -8,6 +8,7 @@ select count(*) AS sns_accounts_count from sns_accounts;
 select count(*) AS tag_count from tags;
 select count(*) AS users_count from users;
 select count(*) AS video_artists_count from video_artists;
+select count(*) AS special_categories_count from special_categories;
 
 delete from categories;
 delete from featured_movies;
@@ -19,3 +20,4 @@ delete from sns_accounts;
 delete from tags;
 delete from users;
 delete from video_artists;
+delete from special_categories;

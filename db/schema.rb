@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180318000000) do
+ActiveRecord::Schema.define(version: 20180501000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,14 @@ ActiveRecord::Schema.define(version: 20180318000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["video_artist_id"], name: "index_sns_accounts_on_video_artist_id"
+  end
+
+  create_table "special_categories", force: :cascade do |t|
+    t.bigint "category_id", null: false
+    t.string "url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_special_categories_on_category_id"
   end
 
   create_table "tags", id: :serial, force: :cascade do |t|

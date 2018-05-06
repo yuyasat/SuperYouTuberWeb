@@ -26,16 +26,16 @@ export default Vue.extend({
       </thead>
       <tbody>
         <tr v-for="movie in this.movies">
-          <td><a :href="'/admin/movies/' + movie.id">{{ movie.id }}</a></td>
+          <td><a :href="'/admin/movies/' + movie.id" target="_blank">{{ movie.id }}</a></td>
           <td>
-            <a alt="【密着24時】YouTuberくまみきの1日☆お仕事編" target="_blank" :href="movie.url">
-              <img :src="movie.default_url" alt="Default">
+            <a :alt="movie.title" target="_blank" :href="movie.url">
+              <img :src="movie.default_url" :alt="movie.title">
             </a>
           </td>
           <td>{{ movie.key }}</td>
           <td>{{ movie.categories.map((cat) => { return cat.name }).join(', ') }}</td>
           <td>
-            <div><a target="_blank" :href="movie.channel_url">{{ movie.channel }}</a></div>
+            <div><a target="_blank" :href="movie.channel_url">{{ channelTitle(movie) }}</a></div>
             <div>{{ movie.title }}</div>
             <div v-for="loc in movie.locations">
               {{ loc.latitude + ', ' + loc.longitude }}
@@ -91,7 +91,8 @@ export default Vue.extend({
         { sort_by: column, sort_sc: sort }
       )
     },
-    orderClass(order) {
+    channelTitle(movie) {
+      return movie.video_artist === undefined ? movie.channel : movie.video_artist.title
     },
   },
 })

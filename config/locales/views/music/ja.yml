@@ -1,0 +1,6 @@
+ja:
+  music:
+    index:
+      title: ミュージック - Super YouTuber
+    show:
+      title: "%{video_artist}のミュージックPV - Super YouTuber"
