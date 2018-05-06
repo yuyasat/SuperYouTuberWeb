@@ -11,11 +11,14 @@ class MusicController < ApplicationController
     @music_categories = @special_category.category.children.sort_by_display_order.decorate
 
     @target_music_category = @special_category.category.decorate
+
     if @target_music_category.children.present?
       @category_movies = Movie.grouped_by_categories(num: 10, target_category: @target_music_category)
-      return render 'index'
+      @template = 'index'
+      return
     end
 
+    @template = 'video_artists/show'
     @video_artist = @target_music_category.main_video_artist
   end
 end
