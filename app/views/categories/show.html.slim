@@ -31,9 +31,9 @@
             li = link_to "カテゴリ一覧に戻る", '/categories'
 
       .l-col-md-9
-        .l-row
+        .l-row.l-mb-xs-10.l-mb-lg-20
           - @movies.each do |movie|
             .l-col-sm-6.l-col-lg-4.l-mb-xs-10.l-mb-lg-20
               = render 'module/movie', movie: movie
-        .l-row
+        .l-row.l-mb-xs-30.l-mb-lg-50
           = paginate @movies

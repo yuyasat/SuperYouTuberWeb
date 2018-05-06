@@ -8,7 +8,7 @@
   .l-container
     .l-row
       .l-col-md-3
-        iframe{id="myVideo" src="#{@movie.embed_url(autoplay: true, mute: true)}" frameborder="0" allowfullscreen=""}
+        iframe{id="myVideo" src="#{@movie.embed_url(autoplay: true, mute: true)}" frameborder="0" allowfullscreen="" style="width:100%;"}
 
 - if @movie.video_artist.present?
   .l-container

@@ -1,6 +1,15 @@
 .l-main-content{
   padding-top: $header-height;
+  &.is-mobile-menu-show {
+    margin-top: 160px;
+  }
   @include screen-size(lg) {
     padding-top: $header-height-lg;
+    &.is-no-breadcrumb {
+      padding-top: $header-height-lg + 30px;
+    }
+    &.is-mobile-menu-show {
+      margin-top: 0;
+    }
   }
 }
