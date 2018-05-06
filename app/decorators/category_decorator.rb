@@ -5,6 +5,15 @@ class CategoryDecorator < Draper::Decorator
     "/categories/#{ancestor_categories.join('/')}"
   end
 
+  def music_root_artist?
+    parent_category.name == 'ミュージックPV'
+  end
+
+  def music_parent_path
+    parent_special_category = parent_category.special_category
+    "/music/#{parent_special_category.url}"
+  end
+
   def music_path
     if children.blank?
       if parent_category.name == 'ミュージックPV'

@@ -1,0 +1,30 @@
+/ This partial is called from video_artists/show and music/show
+.account-header.l-mb-md-20
+  .account-header__avatar
+    img[src=video_artist.medium_thumbnail_url alt=video_artist.title]/
+  p.account-header__name = video_artist.title
+  p.account-header__desc = video_artist.editor_description
+  .account-header__social
+    .social
+      ul.social__list.is-centerd
+        - [\
+            ['facebook', 'facebook', nil], \
+            ['twitter', 'twitter', @video_artist.twitter ? @video_artist.twitter.url : nil],\
+            ['instagram', 'instagram', @video_artist.instagram ? @video_artist.instagram.url : nil] , \
+            ['youtube', 'youtube', video_artist_path(@video_artist.channel)],
+          ].each do |icon, label, url|
+          li.social__item[class=(url ? "is-active" : '')]
+            a[href=url title=label target="_blank" ref="nofollow"]
+              i.fa[class="fa-#{icon}"]
+
+.l-container
+  .title.is-size-m.l-mb-xs-10.l-mb-md-20
+    .title__inner
+      p.title__title おすすめの動画
+      .title__right-button
+        a.button.is-size-s[href="#"]
+          span もっと見る
+  .l-row
+    - video_artist.movies.limit(12).each.with_index do |movie, i|
+      .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
+        = render 'module/movie', movie: movie

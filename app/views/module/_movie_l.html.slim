@@ -1,18 +1,19 @@
 .movie.is-size-l[itemprop="video" itemscope itemtype="http://schema.org/VideoObject"]
   .movie__inner
     .movie__thumb
-      a[href=movie.url itemprop="contentUrl"]
-        img[src=movie.mqdefault_url alt=movie.title itemprop="thumbnailUrl"]/
+      = link_to movie_path(movie) do
+        = image_tag movie.mqdefault_url, alt: movie.title
     .movie__text
       .movie__avatar-title-meta
         .movie__avatar
-          a[href=video_artist_path(movie.video_artist.channel)]
-            img[src=(asset_path movie.video_artist.default_thumbnail_url) alt=movie.video_artist.title]/
+          = link_to video_artist_path(movie.video_artist.channel) do
+            = image_tag movie.video_artist.default_thumbnail_url, alt: movie.video_artist.title
         .movie__title-meta
-          p.movie__title[itemprop="name"]
-            a[href=movie.url] = movie.title.truncate(80, omission: '...')
+          p.movie__title
+            = link_to movie.title.truncate(80, omission: '...'), movie_path(movie)
           p.movie__meta
             / span HikakinTV
             / span 視聴回数 65,262,070 回
-            span[itemprop="uploadDate"]= movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
-      p.movie__comment[itemprop="description"] = movie.description
+            span 投稿日 = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
+      p.movie__comment
+        | ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー

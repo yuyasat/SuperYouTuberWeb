@@ -10,12 +10,15 @@ class MusicController < ApplicationController
     @special_category = SpecialCategory.find_by(url: params[:cat3].presence || params[:cat2].presence)
     @music_categories = @special_category.category.children.sort_by_display_order.decorate
 
-    target_music_cat = @special_category.category
-    if target_music_cat.children.present?
-      @category_movies = Movie.grouped_by_categories(num: 10, target_category: target_music_cat)
-      return render 'index'
+    @target_music_category = @special_category.category.decorate
+
+    if @target_music_category.children.present?
+      @category_movies = Movie.grouped_by_categories(num: 10, target_category: @target_music_category)
+      @template = 'index'
+      return
     end
 
-    @video_artist = target_music_cat.main_video_artist
+    @template = 'video_artists/show'
+    @video_artist = @target_music_category.main_video_artist
   end
 end
