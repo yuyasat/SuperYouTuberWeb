@@ -5,10 +5,10 @@
   .breadcrumb.l-mb-sm-30
     ol
       li= link_to 'ホーム', root_path
-      li
-        a href="/youtubers" youtubers
-      li
-        a href="#" = @video_artist.title
+      li = link_to 'ミュージック', music_index_path
+      - unless @target_music_category.music_root_artist?
+        li = link_to @target_music_category.parent_category.name, @target_music_category.music_parent_path
+      li = @target_music_category.name
 
 
   .account-header.l-mb-md-20

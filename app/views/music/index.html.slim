@@ -4,8 +4,13 @@
 .l-main-content
   .breadcrumb.l-mb-sm-30
     ol
-      li= link_to 'ホーム', root_path
-      li ミュージック
+      li = link_to 'ホーム', root_path
+      - if @target_music_category.present?
+        li = link_to 'ミュージック', music_index_path
+      - else
+        li ミュージック
+      - if @target_music_category.present?
+        li = @special_category.category.name
 
   .l-container
     .l-row
