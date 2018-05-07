@@ -1,8 +1,9 @@
 .movie.is-size-m[itemprop="video" itemscope itemtype="http://schema.org/VideoObject"]
   .movie__inner
     .movie__thumb
-      = link_to movie_path(movie) do
-        = image_tag movie.mqdefault_url, alt: movie.title
+      .thumbnail.is-movie
+        = link_to movie_path(movie) do
+          = image_tag movie.mqdefault_url, alt: movie.title
     .movie__text
       p.movie__title
         = link_to movie.title.truncate(80, omission: '...'), movie_path(movie)
