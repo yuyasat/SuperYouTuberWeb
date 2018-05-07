@@ -2,13 +2,14 @@
   = t('.title', title: @movie.title)
 
 .l-main-content
-  .breadcrumb.l-mb-sm-30
+  .breadcrumb
     ol
       li= link_to 'ホーム', root_path
-  .l-container
-    .l-row
-      .l-col-md-3
-        iframe{id="myVideo" src="#{@movie.embed_url(autoplay: true, mute: true)}" frameborder="0" allowfullscreen=""}
+  .plate.is-bg-black-dark.l-mb-xs-30
+    .l-container
+      .yt-video
+        .yt-video__inner
+          iframe{id="myVideo" src="#{@movie.embed_url(autoplay: true, mute: true)}" frameborder="0" allowfullscreen="" style="width:100%;"}
 
 - if @movie.video_artist.present?
   .l-container

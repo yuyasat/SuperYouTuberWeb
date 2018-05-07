@@ -2,20 +2,24 @@
   = t('.title', category: @category.name)
 
 .l-main-content
-  .breadcrumb.l-mb-sm-30
+  / .breadcrumb.l-mb-xs-15.l-mb-sm-30
+
+  .breadcrumb.l-mb-xs-15.l-mb-sm-30
     ol
       li= link_to 'ホーム', root_path
+      li= link_to 'カテゴリ一覧', '/categories'
       - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
         - if @category.id == cat.id
           li = cat.name
         - else
           li = link_to cat.name, cat.path
+
   .l-container
 
     .l-row
       .l-col-md-3
 
-        .link-list
+        .link-list.l-mb-xs-15
           .link-list__head = @category.name
           ul.link-list__list
             - @category.children.includes(:parent_category).decorate.each do |cat|
@@ -27,9 +31,9 @@
             li = link_to "カテゴリ一覧に戻る", '/categories'
 
       .l-col-md-9
-        .l-row
+        .l-row.l-mb-xs-10.l-mb-lg-20
           - @movies.each do |movie|
             .l-col-sm-6.l-col-lg-4.l-mb-xs-10.l-mb-lg-20
               = render 'module/movie', movie: movie
-    .row.text-right
-      = paginate @movies
+        .l-row.l-mb-xs-30.l-mb-lg-50
+          = paginate @movies

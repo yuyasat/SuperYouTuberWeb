@@ -10,6 +10,11 @@ body {
 a {
   text-decoration: none;
   color: inherit;
+  @include screen-size(lg) {
+    &:hover {
+      color: color(red);
+    }
+  }
 }
 
 img {

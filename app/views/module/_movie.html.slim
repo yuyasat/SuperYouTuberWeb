@@ -1,8 +1,9 @@
-.movie.is-size-m
+.movie.is-size-m[itemprop="video" itemscope itemtype="http://schema.org/VideoObject"]
   .movie__inner
     .movie__thumb
-      = link_to movie_path(movie) do
-        = image_tag movie.mqdefault_url, alt: movie.title
+      .thumbnail.is-movie
+        = link_to movie_path(movie) do
+          = image_tag movie.mqdefault_url, alt: movie.title
     .movie__text
       p.movie__title
         = link_to movie.title.truncate(80, omission: '...'), movie_path(movie)
@@ -10,3 +11,5 @@
         / span HikakinTV
         / span 視聴回数 65,262,070 回
         span = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
+  meta[itemprop="uploadDate" content=movie.published_at.strftime("%Y-%-m-%-d %H:%M")]
+  meta[itemprop="description" content=movie.title]

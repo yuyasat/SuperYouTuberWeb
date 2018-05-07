@@ -1,8 +1,9 @@
-.movie.is-size-l
+.movie.is-size-l[itemprop="video" itemscope itemtype="http://schema.org/VideoObject"]
   .movie__inner
     .movie__thumb
-      = link_to movie_path(movie) do
-        = image_tag movie.mqdefault_url, alt: movie.title
+      .thumbnail.is-movie
+        = link_to movie_path(movie) do
+          = image_tag movie.mqdefault_url, alt: movie.title
     .movie__text
       .movie__avatar-title-meta
         .movie__avatar

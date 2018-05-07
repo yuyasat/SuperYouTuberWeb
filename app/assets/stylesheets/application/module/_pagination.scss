@@ -1,0 +1,17 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  flex-wrap: wrap;
+  > li {
+    color: color(gray);
+    > a {
+       padding: 10px;
+      @include font(mb);
+    }
+    &.active {
+      color: color(black);
+    }
+  }
+}

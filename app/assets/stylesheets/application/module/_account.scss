@@ -9,8 +9,8 @@
   &__thumbnail {
     overflow: hidden;
     box-sizing: border-box;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     margin-right: 10px;
     border: 1px solid color(gray, light);
     border-radius: 50%;
@@ -27,6 +27,7 @@
   }
   &__text {
     flex: 1;
+    overflow: hidden;
   }
   &__name {
     margin-bottom: 5px;

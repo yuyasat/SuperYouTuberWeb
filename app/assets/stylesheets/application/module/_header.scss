@@ -1,6 +1,4 @@
 .header {
-  $height_sp: 44px;
-  $height_pc: 44px;
   position: relative;
   background: color(white);
   &__inner {
@@ -8,27 +6,33 @@
     @include screen-size(lg) {
       display: flex;
       align-items: center;
-      padding-top: 10px;
-      padding-bottom: 10px;
     }
   }
   &__logo-line {
     display: flex;
     align-items: center;
-    height: $height_sp;
+    height: $header-height;
     left: 0;
     top: 0;
-    width: 100%;
     z-index: 2;
     flex: 1;
     @include screen-size(lg) {
-      height: auto;
+      height: $header-height-lg;
     }
   }
   &__logo {
     flex: 1;
     img {
-      width: 153px;
+      width: 125px;
+      @include screen-size(lg) {
+        width: 155px;
+      }
+    }
+  }
+  &__serach-button {
+    @include font(sb);
+    i {
+      margin-left: 0.25em;
     }
   }
   &__keyword-search {
@@ -52,7 +56,7 @@
     box-shadow: 0 0 2px rgba(0,0,0,0.05);
     position: absolute;
     left: 0;
-    top: $height_sp;
+    top: $header-height;
     z-index: 1;
     background: color(white);
     transition: all 0.5s ease;

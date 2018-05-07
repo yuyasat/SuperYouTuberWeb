@@ -8,5 +8,9 @@
   &__item {
     margin: 0 14px;
     font-size: 22px;
+    color: color(gray, light);
+    &.is-active {
+      color: color(black);
+    }
   }
 }
