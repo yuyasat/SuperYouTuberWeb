@@ -8,7 +8,8 @@ class MusicController < ApplicationController
 
   def show
     @special_category = SpecialCategory.find_by(url: params[:cat3].presence || params[:cat2].presence)
-    @music_categories = @special_category.category.children.sort_by_display_order.decorate
+    @music_categories = @special_category.category.children.have_movies
+                                         .sort_by_display_order.decorate
 
     @target_music_category = @special_category.category.decorate
 
