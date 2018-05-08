@@ -1,14 +1,15 @@
 .social {
   &__list {
-    display: flex;
+    display: block;
     &.is-centerd {
-      justify-content: center;
+      text-align: center;
     }
   }
   &__item {
     margin: 0 14px;
     font-size: 22px;
     color: color(gray, light);
+    display: inline-block;
     &.is-active {
       color: color(black);
     }
