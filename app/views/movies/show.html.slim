@@ -14,7 +14,7 @@
 
   .l-container.l-mb-xs-15.l-mb-lg-35
     .movie-meta
-      .movie-meta__avatar
+      .avatar.movie-meta__avatar
         = link_to video_artist_path(@movie.video_artist.channel) do
           = image_tag @movie.video_artist.default_thumbnail_url, alt: @movie.video_artist.title
       .movie-meta__text

@@ -3,16 +3,9 @@
   align-items: center;
   &__avatar {
     align-self: flex-start;
-    border-radius: 50%;
-    width: 50px;
-    overflow: hidden;
-    border: 1px solid color(gray, light);
     margin-right: 10px;
     @include screen-size(lg) {
       width: 80px;
-    }
-    img {
-      width: 100%;
     }
   }
   &__text {
