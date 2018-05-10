@@ -14,6 +14,7 @@ class FeaturedMovie < ApplicationRecord
   scope :active, ->(now = Time.current) {
     where(t[:start_at].lteq(now)).where(t[:end_at].eq(nil).or(t[:end_at].gt(now)))
   }
+  scope :display_order, -> { order(start_at: :desc) }
 
   private
 

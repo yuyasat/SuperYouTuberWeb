@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def index
-    @featured_movie = Movie.joins(:featured_movies).merge(FeaturedMovie.active).sample
-    @latest_movies = Movie.order(published_at: :desc).limit(10)
+    @featured_movies = Movie.joins(:featured_movies).merge(FeaturedMovie.active.display_order)
+    @latest_movies = Movie.order(published_at: :desc).limit(8)
     @category_movies = Movie.grouped_by_categories(num: 8)
     @mobile_menu_show = true;
   end
