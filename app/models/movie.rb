@@ -20,7 +20,7 @@ class Movie < ApplicationRecord
   accepts_nested_attributes_for :movie_categories, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 
-  validates :url, :key, presence: true
+  validates :url, :key, :channel, :published_at, presence: true
   validates :url, :key, uniqueness: true
 
   scope :of_category , ->(category, only_self: false) {
