@@ -14,7 +14,7 @@ class Movie < ApplicationRecord
   has_many :movie_tags, dependent: :destroy
   has_many :categories, through: :movie_categories
   has_many :tags, through: :movie_tags
-  has_many :featured_movies
+  has_many :featured_movies, dependent: :destroy
   has_many :locations
 
   accepts_nested_attributes_for :movie_categories, reject_if: :all_blank, allow_destroy: true
