@@ -1,0 +1,63 @@
+.page-header.text-center.admin
+  .row
+    .well.bs-component.col-lg-10.col-md-10
+      = render 'admin/error_message'
+      = form_for([:admin, @featured_movie], class: 'form-horizontal') do |f|
+        = f.hidden_field :movie_id
+        fieldset
+          legend おすすめ動画情報更新
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_url" URL
+              = link_to @featured_movie.url, @featured_movie.url
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_key"
+                | 動画キー
+                br
+                |（watch?v=*******）
+              = @featured_movie.key
+              | （
+              = link_to '編集', admin_movie_path(@featured_movie.movie), target: '_blank'
+              | ）
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_title" タイトル
+              = @featured_movie.title
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_start_at" 開始時刻
+              = f.datetime_select :start_at
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_start_at" 終了時刻
+              = f.datetime_select :end_at
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_published_at" 公開日
+              .col-sm-8 = @featured_movie.published_at
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_channel" チャネルID
+              .col-sm-8 = @featured_movie.channel
+              - if @featured_movie.video_artist.present?
+                .col-sm-8
+                  | （
+                  = link_to '管理ページ', admin_video_artist_path(@featured_movie.video_artist), target: '_blank'
+                  | ，
+                  = link_to 'YouTubeページ', @featured_movie.channel_url, target: '_blank'
+                  | ）
+          .row{style="margin-bottom: 10px"}
+            .form-group
+              label.col-sm-4.control-label for="movie_description" サムネイル
+              .col-sm-7
+                = image_tag @featured_movie.mqdefault_url
+        .row
+          .form-group
+            .col-sm-6.text-center
+              = f.submit '削除', class: 'btn btn-default',
+                          data: { js: :confirm, confirm: '本当に削除しますか？' }
+            .col-sm-6.text-right
+              = f.submit '更新', class: 'btn btn-primary'
+
+= javascript_include_tag 'adminMovie'

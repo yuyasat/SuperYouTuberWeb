@@ -7,8 +7,8 @@ class FeaturedMovie < ApplicationRecord
 
   validates :movie, presence: true
 
-  delegate :url, :default_url, :categories, :channel, :channel_url, :title, :key, :published_at,
-           to: :movie
+  delegate :url, :default_url, :mqdefault_url, :categories, :channel, :channel_url, :title, :key,
+           :published_at, :video_artist, to: :movie
 
   t = arel_table
   scope :active, ->(now = Time.current) {
@@ -19,6 +19,7 @@ class FeaturedMovie < ApplicationRecord
   private
 
   def set_movie
+    return if movie.present?
     self.movie = Movie.find_by(key: movie_key)
   end
 end
