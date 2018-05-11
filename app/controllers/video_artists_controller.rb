@@ -1,8 +1,11 @@
 class VideoArtistsController < ApplicationController
   def index
-    @video_artists = VideoArtist.joins(:movies)
-                                .order('movies.published_at desc')
-                                .includes(:movies, :instagram_accounts, :twitter_accounts)
+    @video_artists =
+      if params[:kana].present?
+        VideoArtist.search_kana(params[:kana]).order(:kana)
+      else
+        VideoArtist.joins(:movies).distinct.order('movies.published_at desc').includes(:movies)
+      end
   end
 
   def show
