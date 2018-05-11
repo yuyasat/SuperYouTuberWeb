@@ -8,10 +8,10 @@ export default Vue.extend({
       <div class="col-xs-1">
         <a :href="adminUrl" target='_blank'>{{ video_artist.id }}</a>
       </div>
-      <div class="col-xs-3">
-        <a :href="video_artist.channel_url" target="_blank">{{ video_artist.channel }}</a>
+      <div class="col-xs-2">
+        <a :href="video_artist.channel_url" target="_blank">{{ video_artist.channel.slice(0, 8) }}</a>
       </div>
-      <div class="col-xs-3">{{ video_artist.title }}</div>
+      <div class="col-xs-2">{{ video_artist.title }}</div>
       <div class="col-xs-2">
          <input type="text" v-model="twitter" class="col-xs-8 admin-text">
          <i class="fa col-xs-4"
@@ -21,6 +21,12 @@ export default Vue.extend({
          <input type="text" v-model="instagram" class="col-xs-8 admin-text">
          <i class="fa col-xs-4"
             :class="{ 'fa-check': isInstagramSaved, 'fa-spinner fa-spin': instagramLoading }"></i>
+      </div>
+      <div class="col-xs-1">
+         <input type="text" v-model="kana" class="col-xs-8 admin-text">
+      </div>
+      <div class="col-xs-1">
+         <input type="text" v-model="en" class="col-xs-8 admin-text">
       </div>
       <div class="col-xs-1">
         <button name="button"
@@ -38,6 +44,8 @@ export default Vue.extend({
       twitterLoading: false,
       instagramPersited: this.video_artist.instagram !== null,
       instagramLoading: false,
+      kana: this.video_artist.kana,
+      en: this.video_artist.en,
     }
   },
   computed: {
@@ -57,6 +65,8 @@ export default Vue.extend({
       const params = {
         video_artist: {
           id: this.video_artist.id,
+          kana: this.kana,
+          en: this.en,
           sns_accounts_attributes: [
             {
               type: 'TwitterAccount',
