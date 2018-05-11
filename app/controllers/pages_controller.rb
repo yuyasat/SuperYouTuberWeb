@@ -15,6 +15,9 @@ class PagesController < ApplicationController
   def about
   end
 
+  def term
+  end
+
   def component_library
   end
 end
