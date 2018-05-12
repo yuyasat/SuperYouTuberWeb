@@ -8,6 +8,7 @@ module.exports = {
     honoka: './src/javascripts/honoka.js',
     adminMovie: './src/javascripts/admin/Movie',
     adminMovieList: './src/javascripts/admin/MovieList',
+    adminCategory: './src/javascripts/admin/Category',
     adminCategoryShow: './src/javascripts/admin/Category/Show',
     adminVideoArtist: './src/javascripts/admin/VideoArtist',
     spots: './src/javascripts/spots',

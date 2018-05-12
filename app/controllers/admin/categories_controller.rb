@@ -35,7 +35,7 @@ class Admin::CategoriesController < AdminController
     return destroy if params[:commit] == '削除'
     category = Category.find(params[:id])
     category.assign_attributes(category_params)
-    message = if category.changed?
+    message = if category.changed? || category.special_category&.changed?
                 if category.save
                   { success: "#{category.name}を更新しました" }
                 else
@@ -69,12 +69,14 @@ class Admin::CategoriesController < AdminController
     category.destroy
     redirect_to admin_categories_path, flash: { success: "#{category.name}を削除しました" }
   rescue => e
-    binding.pry
     redirect_to admin_category_path(category), flash: { error: "#{category.name}の削除に失敗しました" }
   end
 
   def category_params
-    params.require(:category).permit(:name, :full_name, :parent_id)
+    params.require(:category).permit(
+      :name, :full_name, :parent_id,
+      special_category_attributes: %i(url),
+    )
   end
 
   def category_sort_params
@@ -85,11 +87,14 @@ class Admin::CategoriesController < AdminController
     @category = Category.new
     @root_categories = Category.root.sort_by_display_order.eager_load(children: :children)
     gon.children_categories = @root_categories
+    gon.music_category_ids = Category.music.all_children_categories
   end
 
   def set_instance_variables_for_show
     @category = Category.find(params[:id])
     gon.children_categories = @category.children
+    gon.parent_category_id = @category.parent_id
+    gon.music_category_ids = Category.music.all_children_categories
   end
 
   def sort_category!

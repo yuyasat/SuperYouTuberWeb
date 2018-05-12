@@ -1,6 +1,6 @@
 .page-header.small
   .row
-    .well.bs-component
+    .well.bs-component#admin-category
       = render 'admin/error_message'
       = form_for([:admin, @category], class: 'form-horizontal') do |f|
         fieldset
@@ -9,11 +9,19 @@
             .row{style="margin-bottom: 10px"}
               .form-group
                 label.col-xs-4.control-label for="category_name" カテゴリ名（省略版）
-                = f.text_field :name, class: 'form-controll col-xs-8 admin-text'
+                = f.text_field :name, class: 'form-controll col-xs-8 admin-text', disabled: @category.special_root?
+                - if @category.special_root?
+                  .col-sm-12.text-left
+                    | マップとミュージックPVはカテゴリ名を変更できません。
             .row
               .form-group
                 label.col-xs-4.control-label for="category_parent_id" 親カテゴリ
-                = f.select :parent_id, Category.html_options, class: 'form-controll col-xs-8 admin-text'
+                = f.select :parent_id, Category.html_options, {}, class: 'form-controll col-xs-8 admin-text', 'v-model': 'parentCategory'
+            .row{v-cloak="" v-show="isSpecialCategory"}
+              .form-group
+                label.col-xs-4.control-label for="category_special_category_url" url（音楽のみ）
+                = f.fields_for :special_category, @category.special_category || SpecialCategory.new(category: @category) do |sc_f|
+                  = sc_f.text_field :url, class: 'form-controll col-xs-8 admin-text'
           .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
@@ -34,3 +42,4 @@
               .col-sm-6.text-right
                 = f.submit '更新', class: 'btn btn-primary btn-sm'
 
+= javascript_include_tag 'adminCategory'

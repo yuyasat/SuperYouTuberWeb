@@ -1,12 +1,15 @@
 class Category < ApplicationRecord
   belongs_to :parent_category, class_name: 'Category', foreign_key: :parent_id
 
-  has_one :special_category
+  has_one :special_category, dependent: :destroy
   has_many :movie_categories, dependent: :destroy
   has_many :movies, through: :movie_categories
   has_many :children, -> { order(:display_order, :created_at) }, class_name: 'Category', foreign_key: :parent_id
   before_create :set_full_name, if: -> { full_name.blank? }
   before_create :set_display_order
+  after_save :delete_special_category, if: -> { !mappable? && !music? }
+
+  accepts_nested_attributes_for :special_category, reject_if: :all_blank, allow_destroy: true
 
   scope :root, -> { where(parent_id: 0) }
   scope :secondary, -> { where(parent_id: root.select(:id)) }
@@ -31,6 +34,10 @@ class Category < ApplicationRecord
 
   def destroyable?
     movies.blank? && children.blank?
+  end
+
+  def special_root?
+    name.in?(%|マップ ミュージックPV|)
   end
 
   def mappable?
@@ -73,6 +80,10 @@ class Category < ApplicationRecord
     children.sort_by_display_order.map do |cat|
       [cat, cat.all_children_categories]
     end.to_h
+  end
+
+  def self.music
+    find_by(name: 'ミュージックPV')
   end
 
   def self.grouped_category_ids
@@ -158,5 +169,9 @@ class Category < ApplicationRecord
     end
     return if parent_category.children.all? { |cat| cat.display_order.zero? }
     self.display_order = parent_category.children.last.display_order + 1
+  end
+
+  def delete_special_category
+    special_category.destroy
   end
 end
