@@ -2,15 +2,30 @@ doctype html
 html
   head
     = render 'tags/gtm_head'
-    title = yield :title
+    title = content_for?(:title) ? yield(:title) : t('pages.index.title')
+    meta[name='description' content="#{content_for?(:description) ? yield(:description) : t('pages.index.description') }"]
+
+    meta[property='og:url' content='#{request.base_url}']
+    meta[property='og:site_name' content='SuperYouTuber.com']
+    meta[property='og:type' content='website']
+    meta[property='og:image' content="#{content_for?(:og_image) ? yield(:og_image) : "#{request.base_url}/og-super-youtuber.png"}"]
+    meta[property='og:title' content="#{content_for?(:og_title) ? yield(:og_title) : t('pages.index.title')}"]
+    meta[property='og:description' content="#{content_for?(:og_description) ? yield(:og_description) : t('pages.index.description')}"]
+    meta[name='twitter:card' content='summary']
+    meta[name="twitter:site" content="#{t('pages.index.twitter_account')}"]
+
     = Gon::Base.render_data({})
-    - if params[:controller].start_with?('admin')
+
+    - if admin?
       = stylesheet_link_tag 'application_admin', media: 'all', 'data-turbolinks-track' => true
       = javascript_include_tag 'honoka', 'data-turbolinks-track' => true
     - else
       = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
     = csrf_meta_tags
+
     link rel="icon" type="image/png"href="/favicon.png"
     link rel="apple-touch-icon" href="apple-touch-icon.png"
     meta[name="viewport" content="width=device-width,initial-scale=1, user-scalable=no"]

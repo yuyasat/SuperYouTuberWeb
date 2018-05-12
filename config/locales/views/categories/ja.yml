@@ -1,6 +1,6 @@
 ja:
   categories:
     index:
-      title: カテゴリ一覧 - Super YouTuber
+      title: 'カテゴリ一覧 - SuperYouTuber'
     show:
-      title: カテゴリ一覧（%{category}） - Super YouTuber
+      title: '「%{category}」の動画一覧 - SuperYouTuber'

@@ -29,9 +29,9 @@
             ul.menu__list[itemscope itemtype="http://www.schema.org/SiteNavigationElement"]
               - [\
                   ['youtuber', 'user', 'YouTuber', '/youtubers'], \
-                  ['category', 'list', 'カテゴリの動画', categories_path], \
+                  ['category', 'list', 'カテゴリ一覧', categories_path], \
                 #  ['map', 'map', '場所の動画', '/spots/categories'], \
-                  ['music', 'music', '音楽の動画', music_index_path], \
+                  ['music', 'music', 'ミュージック', music_index_path], \
                 ].each do |key, icon, label, url|
                 li.menu__item[itemprop="name"]
                   a[href=url itemprop="url"]
