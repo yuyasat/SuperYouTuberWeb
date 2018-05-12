@@ -20,5 +20,12 @@
     img {
       max-width: 100%;
     }
+    &.is-full-width {
+      @include screen-size(sm) {
+        img {
+          width: 100%;
+        }
+      }
+    }
   }
 }
