@@ -24,12 +24,10 @@
               .title__inner
                 .title__title = cat1.name
                 .title__right-button
-                  a.button.is-size-s[href=category_path(cat1)]
-                    span もっと見る
+                  = link_to 'もっと見る', category_path(cat1), class: 'button is-size-s'
             .l-row
-              - movies.each do |movie|
-                .l-col-sm-6.l-col-lg-4.l-mb-xs-10.l-mb-lg-20
-                  = render 'module/movie', movie: movie
+              = render partial: 'module/movie', collection: movies, as: 'movie',
+                       locals: { clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20' }
 
             .l-row.is-align-center
               .l-col-md-4

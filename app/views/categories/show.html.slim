@@ -32,8 +32,7 @@
 
       .l-col-md-9
         .l-row.l-mb-xs-10.l-mb-lg-20
-          - @movies.each do |movie|
-            .l-col-sm-6.l-col-lg-4.l-mb-xs-10.l-mb-lg-20
-              = render 'module/movie', movie: movie
+          = render partial: 'module/movie', collection: @movies, as: 'movie',
+                   locals: { clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20' }
         .l-row.l-mb-xs-30.l-mb-lg-50
           = paginate @movies

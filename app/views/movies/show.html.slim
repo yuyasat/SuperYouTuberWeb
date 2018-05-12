@@ -32,9 +32,8 @@
           a.button.is-size-s[href="#"]
             span もっと見る
     .l-row
-      - @movie.video_artist.movies.where.not(id: @movie.id).limit(5).each.with_index do |movie, i|
-        .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
-          = render 'module/movie', movie: movie
+      = render partial: 'module/movie', collection: @movie.video_artist.movies.where.not(id: @movie.id).limit(5),
+               as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
 
 .l-container
   .title.is-size-m.l-mb-xs-10.l-mb-md-20
@@ -44,6 +43,5 @@
         a.button.is-size-s[href="#"]
           span もっと見る
   .l-row
-    - @movie.categories.first.movies.where.not(id: @movie.id).limit(5).each.with_index do |movie, i|
-      .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
-        = render 'module/movie', movie: movie
+    = render partial: 'module/movie', collection: @movie.categories.first.movies.where.not(id: @movie.id).limit(5),
+             as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
