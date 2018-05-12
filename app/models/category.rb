@@ -37,6 +37,10 @@ class Category < ApplicationRecord
     Category.find_by(name: 'マップ').all_children_categories.include?(id)
   end
 
+  def music?
+    ancestor_categories(only_id: false).first.name == 'ミュージックPV'
+  end
+
   def main_video_artist
     channel = movies.group('channel').order('count_all DESC').count.keys.first
     VideoArtist.find_by(channel: channel)
