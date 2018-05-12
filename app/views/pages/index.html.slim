@@ -25,6 +25,8 @@
       - @latest_movies.each do |movie|
         .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
           = render 'module/movie', movie: movie
+      .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
+        = render 'module/infeed_ad'
 
   - @category_movies.each do |cat1, movies|
     .l-container.l-mb-xs-50
