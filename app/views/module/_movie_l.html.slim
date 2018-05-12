@@ -6,7 +6,7 @@
           = image_tag movie.mqdefault_url, alt: movie.title
     .movie__text
       .movie__avatar-title-meta
-        .movie__avatar
+        .avatar.movie__avatar
           = link_to video_artist_path(movie.video_artist.channel) do
             = image_tag movie.video_artist.default_thumbnail_url, alt: movie.video_artist.title
         .movie__title-meta

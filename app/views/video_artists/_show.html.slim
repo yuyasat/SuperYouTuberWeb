@@ -1,21 +1,34 @@
 / This partial is called from video_artists/show and music/show
-.account-header.l-mb-md-20
-  .account-header__avatar
-    img[src=video_artist.medium_thumbnail_url alt=video_artist.title]/
-  p.account-header__name = video_artist.title
-  p.account-header__desc = video_artist.editor_description
-  .account-header__social
-    .social
-      ul.social__list.is-centerd
-        - [\
-            ['facebook', 'facebook', nil], \
-            ['twitter', 'twitter', @video_artist.twitter ? @video_artist.twitter.url : nil],\
-            ['instagram', 'instagram', @video_artist.instagram ? @video_artist.instagram.url : nil] , \
-            ['youtube', 'youtube', video_artist_path(@video_artist.channel)],
-          ].each do |icon, label, url|
-          li.social__item[class=(url ? "is-active" : '')]
-            a[href=url title=label target="_blank" ref="nofollow"]
-              i.fa[class="fa-#{icon}"]
+.video-list-header
+  .l-container
+    .l-row.video-list-header__inner
+      .l-col-lg-6
+        .video-list-header__account.account-header.l-mb-lg-20
+          .account-header__inner
+            .avatar.account-header__avatar
+              img[src=video_artist.medium_thumbnail_url alt=video_artist.title]/
+            .account-header__text
+              p.account-header__name = video_artist.title
+              p.account-header__desc = video_artist.editor_description
+              .account-header__social
+                .social
+                  ul.social__list
+                    - [\
+                        ['facebook', 'facebook', nil], \
+                        ['twitter', 'twitter', @video_artist.twitter ? @video_artist.twitter.url : nil],\
+                        ['instagram', 'instagram', @video_artist.instagram ? @video_artist.instagram.url : nil] , \
+                        ['youtube', 'youtube', video_artist_path(@video_artist.channel)],
+                      ].each do |icon, label, url|
+                      li.social__item[class=(url ? "is-active" : '')]
+                        a[href=url title=label target="_blank" ref="nofollow"]
+                          i.fa[class="fa-#{icon}"]
+
+      .l-col-lg-6
+        .video-list-header__video
+          .yt-video
+            .yt-video__inner
+              / FIXME: 動画を正しいものに差し替えてください
+              iframe{id="myVideo" src="https://www.youtube.com/embed/VpYAqdQHHzE?autoplay=1" frameborder="0" allowfullscreen="" style="width:100%;"}
 
 .l-container
   .title.is-size-m.l-mb-xs-10.l-mb-md-20

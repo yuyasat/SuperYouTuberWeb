@@ -5,9 +5,13 @@
         h1.header__logo[itemscope itemtype="http://schema.org/Organization"]
           a[href="/" itemprop="url"]
             img[src=(asset_path "logo.svg") alt="Super YouTuber" itemprop="name"]/
-        a.header__serach-button.j-open-search-panel-toggle href="#"
-          span 動画をさがす
-          i.fa.fa-search
+        .header__serach-button-container.j-open-search-panel[class=(@mobile_menu_show ? "" : "is-hide") data-default-show=(@mobile_menu_show ? "1" : "0")]
+          a.header__serach-button.is-open.j-open-search-panel-toggle href="#"
+            span 動画をさがす
+            i.fa.fa-search
+          a.header__serach-button.is-close.j-open-search-panel-toggle href="#"
+            span 閉じる
+            i.fa.fa-times
 
       .header__search-panel.j-open-search-panel[class=(@mobile_menu_show ? "" : "is-hide")]
         .header__keyword-search

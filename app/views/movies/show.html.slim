@@ -5,11 +5,23 @@
   .breadcrumb
     ol
       li= link_to 'ホーム', root_path
-  .plate.is-bg-black-dark.l-mb-xs-30
+      li= @movie.title
+  .plate.is-bg-black-dark.l-mb-xs-15.l-mb-lg-35
     .l-container
       .yt-video
         .yt-video__inner
           iframe{id="myVideo" src="#{@movie.embed_url(autoplay: true, mute: false)}" frameborder="0" allowfullscreen="" style="width:100%;"}
+
+  .l-container.l-mb-xs-15.l-mb-lg-35
+    .movie-meta
+      .avatar.movie-meta__avatar
+        = link_to video_artist_path(@movie.video_artist.channel) do
+          = image_tag @movie.video_artist.default_thumbnail_url, alt: @movie.video_artist.title
+      .movie-meta__text
+        p.movie-meta__title = @movie.title
+        p.movie-meta__desc = @movie.description
+        p.movie-meta__date = @movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
+        p.movie-meta__publisher = link_to @movie.video_artist.title, video_artist_path(@movie.video_artist.channel)
 
 - if @movie.video_artist.present?
   .l-container

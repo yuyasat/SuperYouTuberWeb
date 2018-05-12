@@ -1,0 +1,39 @@
+.movie-meta {
+  display: flex;
+  align-items: center;
+  &__avatar {
+    align-self: flex-start;
+    margin-right: 10px;
+    @include screen-size(lg) {
+      width: 80px;
+    }
+  }
+  &__text {
+    flex: 1;
+  }
+  &__title {
+    @include font(mb);
+    @include screen-size(lg) {
+      @include font(ll);
+    }
+  }
+  &__desc {
+    @include font(s);
+    @include screen-size(lg) {
+      @include font(m);
+    }
+  }
+  &__date {
+    @include font(s);
+    @include screen-size(lg) {
+      @include font(m);
+    }
+  }
+  &__publisher {
+    color: color(gray);
+    @include font(s);
+    @include screen-size(lg) {
+      @include font(m);
+    }
+  }
+}

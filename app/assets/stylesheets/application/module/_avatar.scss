@@ -1,0 +1,17 @@
+.avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  box-sizing: border-box;
+  border: 1px solid color(gray, light);
+  background: #fff;
+  img {
+    width: 100%;
+    transition: all 0.3s ease;
+  }
+  @include screen-size(xl) {
+    a:hover img {
+      transform: scale(1.2);
+      opacity: 0.6;
+    }
+  }
+}

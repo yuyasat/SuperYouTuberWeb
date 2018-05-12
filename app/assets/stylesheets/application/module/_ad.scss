@@ -9,6 +9,11 @@
     background: none;
     padding: 0;
   }
+  &.is-top-banner {
+    @include screen-size(sm) {
+      padding-top: 48px;
+    }
+  }
   &__caption {
     margin-bottom: 5px;
     text-align: center;
@@ -19,6 +24,13 @@
     text-align: center;
     img {
       max-width: 100%;
+    }
+    &.is-full-width {
+      @include screen-size(sm) {
+        img {
+          width: 100%;
+        }
+      }
     }
   }
 }
