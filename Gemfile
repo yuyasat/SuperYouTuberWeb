@@ -24,6 +24,7 @@ gem 'activerecord-import'
 gem 'activerecord-postgis-adapter'
 gem 'enum_help'
 gem 'rails_12factor', group: :production
+gem 'sitemap_generator'
 
 group :development do
   gem 'web-console', '~> 2.0'
