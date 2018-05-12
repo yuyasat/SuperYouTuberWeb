@@ -14,7 +14,7 @@
             i.fa.fa-times
 
       .header__search-panel.j-open-search-panel[class=(@mobile_menu_show ? "" : "is-hide")]
-        .header__keyword-search
+        /.header__keyword-search
 
           / keyword-search
           .keyword-search
@@ -30,7 +30,7 @@
               - [\
                   ['youtuber', 'user', 'YouTuber', '/youtubers'], \
                   ['category', 'list', 'カテゴリの動画', categories_path], \
-                  ['map', 'map', '場所の動画', '/spots/categories'], \
+                #  ['map', 'map', '場所の動画', '/spots/categories'], \
                   ['music', 'music', '音楽の動画', music_index_path], \
                 ].each do |key, icon, label, url|
                 li.menu__item[itemprop="name"]
