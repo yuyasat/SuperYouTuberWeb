@@ -11,6 +11,13 @@ class VideoArtist < ApplicationRecord
     %w(ら り る れ ろ),
     %w(わ を ん),
   ]
+  ALPHABET_GROUP = [
+    %w(A B C D E),
+    %w(F G H I J),
+    %w(K L M N O),
+    %w(P Q R S T),
+    %w(U V W X Y Z),
+  ]
 
   has_many :sns_accounts
   has_many :twitter_accounts
@@ -29,7 +36,8 @@ class VideoArtist < ApplicationRecord
       kana_column = KANA.select { |kanas| kanas.include?(kana) }.flatten
       where(kana_column.map { |c| "kana like '#{c}%'" }.join(' or ')).order(:kana)
     else
-      where('en like ?', "#{en.downcase}%").order(:en)
+      alphabet_group = ALPHABET_GROUP.select { |alp| alp.include?(en.first) }.flatten
+      where(alphabet_group.map { |c| "en like '#{c.downcase}%'" }.join(' or ')).order(:en)
     end
   }
 

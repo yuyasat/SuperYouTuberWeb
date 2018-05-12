@@ -19,10 +19,10 @@
           ul.link-list__list
             - VideoArtist::KANA.each do |char|
               li.header-border.small
-                = link_to char[0], video_artists_path(kana: char[0])
-            - @alphabets_having_video_artists .each do |char|
+                = link_to "#{char[0]}行（#{char.join}）", video_artists_path(kana: char[0])
+            - VideoArtist::ALPHABET_GROUP.each do |char|
               li.header-border.small
-                = link_to char[0], video_artists_path(en: char[0])
+                = link_to char.join(' '), video_artists_path(en: char.join)
 
       .l-col-md-9
         .l-row
