@@ -3,9 +3,9 @@
     .account__inner
       - if account.medium_thumbnail_url.present?
         .avatar.account__avatar
-          a[href=video_artist_path(account.channel)]
-            img[src=account.default_thumbnail_url alt=account.title]/
+          = link_to video_artist_path(account.channel) do
+            = image_tag account.medium_thumbnail_url, alt: account.title
       .account__text
         .account__name
-          a[href=video_artist_path(account.channel)]=account.title
-        .account__comment=account.description.truncate(80, omission: '...')
+          = link_to account.title, video_artist_path(account.channel)
+        .account__comment = account.description.truncate(80, omission: '...')
