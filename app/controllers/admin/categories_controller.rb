@@ -1,4 +1,4 @@
-class Admin::CategoriesController < ApplicationController
+class Admin::CategoriesController < AdminController
   before_action :set_instance_variables_for_index, only: %i(index index_sort index_dashboard)
   before_action :set_instance_variables_for_show, only: %i(show show_sort)
 

@@ -1,4 +1,4 @@
-class Admin::ApiController < ApplicationController
+class Admin::ApiController < AdminController
   def movie_info
     return render json: { error: 'Invalid Movie Key' } unless params[:movie_key].length == 11
 

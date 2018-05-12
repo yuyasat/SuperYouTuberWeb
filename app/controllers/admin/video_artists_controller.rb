@@ -1,4 +1,4 @@
-class Admin::VideoArtistsController < ApplicationController
+class Admin::VideoArtistsController < AdminController
   def manager
     @video_artists = VideoArtist.all.order(:id).page(params[:page]).per(500)
     @max_published_at = Movie.group(:channel).maximum(:published_at)

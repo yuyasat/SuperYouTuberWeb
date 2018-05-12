@@ -1,4 +1,4 @@
-class Admin::FeaturedMoviesController < ApplicationController
+class Admin::FeaturedMoviesController < AdminController
   def index
     @featured_movie = FeaturedMovie.new
     @featured_movies = FeaturedMovie.all.display_order.page(params[:page]).per(100)
