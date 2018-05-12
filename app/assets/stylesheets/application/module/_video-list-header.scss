@@ -1,0 +1,27 @@
+.video-list-header {
+  background: color(white);
+  padding-bottom: 10px;
+  @include screen-size(lg) {
+    padding-bottom: 40px;
+  }
+  &:before {
+    display: block;
+    height: 110px;
+    content: '';
+    background: linear-gradient(0, color(white), color(gray, exlight));
+  }
+  &__inner {
+    align-items: center;
+    margin-top: -110px;
+  }
+  &__account {
+    margin-bottom: 10px;
+    @include screen-size(lg) {
+      margin-bottom: 0;
+    }
+
+  }
+  &__video {
+
+  }
+}
