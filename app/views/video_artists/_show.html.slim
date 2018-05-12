@@ -17,7 +17,7 @@
                         ['facebook', 'facebook', nil], \
                         ['twitter', 'twitter', @video_artist.twitter ? @video_artist.twitter.url : nil],\
                         ['instagram', 'instagram', @video_artist.instagram ? @video_artist.instagram.url : nil] , \
-                        ['youtube', 'youtube', video_artist_path(@video_artist.channel)],
+                        ['youtube', 'youtube', @video_artist.channel_url],
                       ].each do |icon, label, url|
                       li.social__item[class=(url ? "is-active" : '')]
                         a[href=url title=label target="_blank" ref="nofollow"]
