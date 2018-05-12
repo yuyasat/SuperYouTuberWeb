@@ -1,4 +1,5 @@
 .header {
+  $self: &;
   position: relative;
   background: color(white);
   &__inner {
@@ -26,6 +27,22 @@
       width: 125px;
       @include screen-size(lg) {
         width: 155px;
+      }
+    }
+  }
+  &__serach-button-container {
+    &.is-hide {
+      #{$self}__serach-button {
+        &.is-close {
+          display: none;
+        }
+      }
+    }
+    &:not(.is-hide) {
+      #{$self}__serach-button {
+        &.is-open {
+          display: none;
+        }
       }
     }
   }
