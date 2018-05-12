@@ -41,7 +41,8 @@ class Movie < ApplicationRecord
   def self.grouped_by_categories(num: 10, target_category: Category)
     target_category.grouped_category_ids.map do |cat1, ids|
       movies = Movie.joins(:movie_categories)
-                    .merge(MovieCategory.where(category: ids)).order(published_at: :desc).limit(num)
+                    .distinct.merge(MovieCategory.where(category: ids))
+                    .order(published_at: :desc).limit(num)
       next if movies.blank?
       [cat1, movies]
     end.compact.to_h
