@@ -13,6 +13,7 @@ margin-bottom: 10px;
   }
   &__slide {
     flex-shrink: 0;
+    width: 100%;
       position: relative;
         height: 100%;
           transition-property: transform,-webkit-transform;
