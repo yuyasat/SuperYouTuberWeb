@@ -1,11 +1,12 @@
 class VideoArtistsController < ApplicationController
   def index
     @video_artists =
-      if params[:kana].present?
-        VideoArtist.search_kana(params[:kana]).order(:kana)
+      if params[:kana].present? || params[:en].present?
+        VideoArtist.start_with(kana: params[:kana], en: params[:en])
       else
         VideoArtist.joins(:movies).distinct.order('movies.published_at desc').includes(:movies)
       end
+    @alphabets_having_video_artists = VideoArtist.start_alphabet
   end
 
   def show

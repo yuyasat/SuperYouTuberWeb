@@ -24,9 +24,13 @@ class VideoArtist < ApplicationRecord
     columns = column_names.reject { |c| c.in?(%w(id created_at updated_at)) }
     where(columns.map { |c| "#{c} IS NULL" }.join(" OR "))
   }
-  scope :search_kana, ->(kana) {
-    kana_column = KANA.select { |kanas| kanas.include?(kana) }.flatten
-    where(kana_column.map { |c| "kana like '#{c}%'" }.join(' or ')).order(:kana)
+  scope :start_with, ->(kana:, en:) {
+    if kana.present?
+      kana_column = KANA.select { |kanas| kanas.include?(kana) }.flatten
+      where(kana_column.map { |c| "kana like '#{c}%'" }.join(' or ')).order(:kana)
+    else
+      where('en like ?', "#{en.downcase}%").order(:en)
+    end
   }
 
   def channel_url
@@ -47,5 +51,9 @@ class VideoArtist < ApplicationRecord
 
   def videos_url
     "https://www.youtube.com/channel/#{channel}/videos"
+  end
+
+  def self.start_alphabet
+    select("distinct SUBSTR(ltrim(en), 1 , 1) AS char").order("char").map(&:char).compact.map(&:upcase)
   end
 end
