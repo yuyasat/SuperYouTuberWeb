@@ -18,6 +18,17 @@ $(function() {
     $('.j-open-search-panel').toggleClass('is-hide');
     e.preventDefault();
   });
+
+  if($('.j-open-search-panel').data('default-show')) {
+    var prevScrollTop = 0;
+    $(window).scroll(function(){
+      var scrollTop = $(document).scrollTop();
+      if(prevScrollTop > scrollTop && scrollTop <= 100) {
+        $('.j-open-search-panel').removeClass('is-hide');
+      }
+      prevScrollTop = scrollTop;
+    })
+  }
 });
 
 $(function(){
