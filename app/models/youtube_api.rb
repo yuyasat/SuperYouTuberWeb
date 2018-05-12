@@ -28,8 +28,8 @@ class YoutubeApi
     end
   end
 
-  def self.create_video_artists
-    channel_ids =
+  def self.create_video_artists(channel_ids: nil)
+    channel_ids = channel_ids.presence ||
       Movie.where.not(channel: VideoArtist.select('video_artists.channel')).pluck(:channel).uniq
     channel_ids.each_slice(10) do |sliced_channel_ids|
       begin
@@ -49,8 +49,10 @@ class YoutubeApi
     end
   end
 
-  def self.set_insufficient_attributes_to_video_artists!
-    VideoArtist.insufficient.pluck(:channel).each_slice(20) do |channel_ids|
+  def self.set_insufficient_attributes_to_video_artists!(channel_ids: nil)
+    video_artists =
+      channel_ids.present? ? VideoArtist.where(channel: channel_ids) : VideoArtist.insufficient
+    video_artists.pluck(:channel).each_slice(20) do |channel_ids|
       parameters = {
         id: channel_ids.join(','), key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
       }

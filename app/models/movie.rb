@@ -20,6 +20,8 @@ class Movie < ApplicationRecord
   accepts_nested_attributes_for :movie_categories, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 
+  after_create :create_video_artist, unless: :video_artist
+
   validates :url, :key, :channel, :published_at, presence: true
   validates :url, :key, uniqueness: true
 
@@ -82,5 +84,14 @@ class Movie < ApplicationRecord
 
   def height(size = :mqdefault)
     SIZES[size][1]
+  end
+
+  private
+
+  def create_video_artist
+    ActiveRecord::Base.transaction do
+      YoutubeApi.create_video_artists(channel_ids: [channel])
+      YoutubeApi.set_insufficient_attributes_to_video_artists!(channel_ids: [channel])
+    end
   end
 end
