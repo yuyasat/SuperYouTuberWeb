@@ -7,6 +7,10 @@
           legend 動画情報更新
           .row{style="margin-bottom: 10px"}
             .form-group
+              label.col-sm-4.control-label for="movie_status" ステータス
+              = f.select :status, Movie.statuses_i18n.invert, {}, class: 'form-controll col-sm-7'
+          .row{style="margin-bottom: 10px"}
+            .form-group
               label.col-sm-4.control-label for="movie_url" URL
               = f.text_field :url, class: 'small form-controll col-sm-7', 'v-model': 'url'
           .row{style="margin-bottom: 10px"}

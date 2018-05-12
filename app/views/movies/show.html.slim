@@ -32,7 +32,7 @@
           a.button.is-size-s[href="#"]
             span もっと見る
     .l-row
-      = render partial: 'module/movie', collection: @movie.video_artist.movies.where.not(id: @movie.id).limit(5),
+      = render partial: 'module/movie', collection: @movie.video_artist.movies.active.where.not(id: @movie.id).limit(5),
                as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
 
 .l-container
@@ -43,5 +43,5 @@
         a.button.is-size-s[href="#"]
           span もっと見る
   .l-row
-    = render partial: 'module/movie', collection: @movie.categories.first.movies.where.not(id: @movie.id).limit(5),
+    = render partial: 'module/movie', collection: @movie.categories.first.movies.active.where.not(id: @movie.id).limit(5),
              as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }

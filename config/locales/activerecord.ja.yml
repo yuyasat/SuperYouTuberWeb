@@ -23,3 +23,9 @@ ja:
         title: 'タイトル'
         published_at: '公開日'
         url: 'URL'
+  enums:
+    movie:
+      status:
+        active: '表示'
+        deleted: 'YouTube上で削除'
+        invisible: 'SuperYouTuber上で非表示'

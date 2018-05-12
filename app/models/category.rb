@@ -45,7 +45,7 @@ class Category < ApplicationRecord
   def related_categories_movies
     Movie.where(
       id: MovieCategory.where(category: all_children_categories).select('movie_categories.movie_id')
-    ).order(published_at: :desc)
+    ).active.order(published_at: :desc)
   end
 
   def ancestor_categories(category = self, result = [], only_id: true)

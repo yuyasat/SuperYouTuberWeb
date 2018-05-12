@@ -20,6 +20,12 @@ class Movie < ApplicationRecord
   accepts_nested_attributes_for :movie_categories, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :locations, reject_if: :all_blank, allow_destroy: true
 
+  enum status: {
+    active: 1,
+    deleted: 2, # YouTuberが削除した
+    invisible: 3, # 非表示
+  }
+
   after_create :create_video_artist, unless: :video_artist
 
   validates :url, :key, :channel, :published_at, presence: true
@@ -41,7 +47,7 @@ class Movie < ApplicationRecord
   def self.grouped_by_categories(num: 10, target_category: Category)
     target_category.grouped_category_ids.map do |cat1, ids|
       movies = Movie.joins(:movie_categories)
-                    .distinct.merge(MovieCategory.where(category: ids))
+                    .active.distinct.merge(MovieCategory.where(category: ids))
                     .order(published_at: :desc).limit(num)
       next if movies.blank?
       [cat1, movies]
