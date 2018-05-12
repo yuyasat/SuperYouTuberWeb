@@ -51,6 +51,6 @@ class Admin::ApiController < ApplicationController
   end
 
   def video_artist_params
-    params.require(:video_artist).permit(:id, :channel, :title)
+    params.require(:video_artist).permit(:id, :channel, :title, :kana, :en)
   end
 end

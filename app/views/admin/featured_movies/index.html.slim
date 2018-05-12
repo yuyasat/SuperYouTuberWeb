@@ -40,14 +40,16 @@ table.table.table-striped.table-hover.admin.small
   tbody
     - @featured_movies.each do |featured_movie|
       tr
-        td = featured_movie.id
+        td = link_to featured_movie.id, admin_featured_movie_path(featured_movie)
         td
           = link_to featured_movie.url, alt: featured_movie.title, target: '_blank' do
             = image_tag featured_movie.default_url
-        td = featured_movie.key
+        td
+          div = featured_movie.key
+          div = link_to '編集', admin_movie_path(featured_movie.movie), target: '_blank'
         td = featured_movie.categories.map(&:name).join(', ')
         td
-          = featured_movie.channel.present? ? link_to(featured_movie.channel, featured_movie.channel_url, target: '_blank') : nil
+          = featured_movie.channel.present? ? link_to(featured_movie.video_artist&.title || featured_movie.channel, featured_movie.channel_url, target: '_blank') : nil
           br
           = featured_movie.title
         td = featured_movie.start_at&.strftime("%F %T")

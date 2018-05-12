@@ -5,7 +5,11 @@
   .breadcrumb.l-mb-xs-15.l-mb-sm-30
     ol
       li = link_to 'ホーム', root_path
-      li YouTuber一覧
+      - if params[:kana].blank?
+        li YouTuber一覧
+      - else
+        li = link_to 'YouTuber一覧', video_artists_path
+        li = params[:kana]
 
   .l-container.l-mb-xs-50
     .l-row
@@ -13,12 +17,10 @@
         .link-list.l-mb-xs-15
           p.link-list__head YouTuber一覧
           ul.link-list__list
-            - ['あ', 'か'].each do |char|
+            - VideoArtist::KANA.each do |char|
               li.header-border.small
-                = link_to char
+                = link_to char[0], video_artists_path(kana: char[0])
 
       .l-col-md-9
         .l-row
-          - @video_artists.each do |video_artist|
-            .l-col-sm-6.l-col-lg-4.l-mb-xs-15.l-mb-lg-20
-              = render 'module/account', account: video_artist
+          = render partial: 'module/account', collection: @video_artists, as: 'account'

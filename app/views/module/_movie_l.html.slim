@@ -16,5 +16,5 @@
             / span HikakinTV
             / span 視聴回数 65,262,070 回
             span 投稿日 = movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
-      p.movie__comment
-        | ダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミーダミー
+      - if movie.description.present?
+        p.movie__comment = movie.description

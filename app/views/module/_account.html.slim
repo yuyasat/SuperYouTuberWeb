@@ -1,10 +1,11 @@
-.account
-  .account__inner
-    - if account.medium_thumbnail_url.present?
-      .avatar.account__avatar
-        a[href=video_artist_path(account.channel)]
-          img[src=account.default_thumbnail_url alt=account.title]/
-    .account__text
-      .account__name
-        a[href=video_artist_path(account.channel)]=account.title
-      .account__comment=account.description.truncate(80, omission: '...')
+.l-col-sm-6.l-col-lg-4.l-mb-xs-15.l-mb-lg-20
+  .account
+    .account__inner
+      - if account.medium_thumbnail_url.present?
+        .avatar.account__avatar
+          a[href=video_artist_path(account.channel)]
+            img[src=account.default_thumbnail_url alt=account.title]/
+      .account__text
+        .account__name
+          a[href=video_artist_path(account.channel)]=account.title
+        .account__comment=account.description.truncate(80, omission: '...')

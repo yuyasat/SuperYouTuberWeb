@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'privacy-policy' => 'pages#privacy_policy'
   get 'contact' => 'pages#contact'
   get 'about' => 'pages#about'
+  get 'term' => 'pages#term'
   get 'component-library' => 'pages#component_library' if Rails.env.development?
 
   resources :categories, only: %i(index show) do
@@ -36,7 +37,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     resources :movies, only: %i(index show create update)
-    resources :featured_movies, only: %i(index create)
+    resources :featured_movies, only: %i(index show create update)
     resources :categories, only: %i(index show create update) do
       post :sort
       collection do

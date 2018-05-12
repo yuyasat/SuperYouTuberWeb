@@ -10,7 +10,7 @@
     .l-container
       .yt-video
         .yt-video__inner
-          iframe{id="myVideo" src="#{@movie.embed_url(autoplay: true, mute: true)}" frameborder="0" allowfullscreen="" style="width:100%;"}
+          iframe{id="myVideo" src="#{@movie.embed_url(autoplay: true, mute: false)}" frameborder="0" allowfullscreen="" style="width:100%;"}
 
   .l-container.l-mb-xs-15.l-mb-lg-35
     .movie-meta
@@ -32,7 +32,7 @@
           a.button.is-size-s[href="#"]
             span もっと見る
     .l-row
-      - @movie.video_artist.movies.limit(5).each.with_index do |movie, i|
+      - @movie.video_artist.movies.where.not(id: @movie.id).limit(5).each.with_index do |movie, i|
         .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
           = render 'module/movie', movie: movie
 
@@ -44,6 +44,6 @@
         a.button.is-size-s[href="#"]
           span もっと見る
   .l-row
-    - @movie.categories.first.movies.limit(5).each.with_index do |movie, i|
+    - @movie.categories.first.movies.where.not(id: @movie.id).limit(5).each.with_index do |movie, i|
       .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
         = render 'module/movie', movie: movie

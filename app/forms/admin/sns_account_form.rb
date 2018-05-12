@@ -10,6 +10,7 @@ class Admin::SnsAccountForm
     @sns_accounts = sns_accounts_params.reject { |p| p[:account].blank? }.map do |p|
       SnsAccount.find_or_initialize_by(p)
     end
+    @video_artist.attributes = video_artist_params
   end
 
   def save!
@@ -17,13 +18,14 @@ class Admin::SnsAccountForm
       unnecessary_account_ids = @video_artist.sns_accounts.map(&:id) - @sns_accounts.map(&:id)
       SnsAccount.where(id: unnecessary_account_ids).delete_all
       @sns_accounts.map(&:save!)
+      @video_artist.save!
     end
   end
 
   private
 
   def video_artist_params
-    @params.require(:video_artist).permit(:id, :channel, :title)
+    @params.require(:video_artist).permit(:id, :channel, :title, :kana, :en)
   end
 
   def sns_accounts_params

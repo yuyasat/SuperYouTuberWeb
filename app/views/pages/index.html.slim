@@ -2,35 +2,37 @@
   = t('.title')
 
 .l-main-content.is-no-breadcrumb.is-mobile-menu-show
-
-  .l-container.l-mb-xs-20.l-mb-lg-50
-    .l-row
-      - if @featured_movie.present?
-        .title.is-size-m.l-mb-xs-10.l-mb-md-20
-          .title__inner
-            p.title__title おすすめの動画
+  - if @featured_movies.present?
+    .l-container.l-mb-xs-20.l-mb-lg-50
+      .l-row
         .l-col-md-6
-          = render 'module/movie_l', movie: @featured_movie
-      .l-col-md-6
-        .title.is-size-m.l-mb-xs-10.l-mb-md-20
-          .title__inner
-            p.title__title おすすめの動画
-        .slider
-          .slider__wrapper
-            - @latest_movies.each_slice(5) do |sliced_movies|
-              - sliced_movies.each do |movie|
+          .title.is-size-m.l-mb-xs-10.l-mb-md-20
+            .title__inner
+              p.title__title おすすめの動画
+          .slider
+            .slider__wrapper
+              - @featured_movies.each do |movie|
                 .slider__slide
                   = render 'module/movie_l', movie: movie
-          .slider__pagination
-  
+            .slider__pagination
+
+  .l-container.l-mb-xs-50
+    .title.is-size-m.l-mb-xs-10.l-mb-md-20
+      .title__inner
+        p.title__title 新着YouTuber動画
+        .title__right-button
+    .l-row
+      - @latest_movies.each do |movie|
+        .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
+          = render 'module/movie', movie: movie
+
   - @category_movies.each do |cat1, movies|
     .l-container.l-mb-xs-50
       .title.is-size-m.l-mb-xs-10.l-mb-md-20
         .title__inner
           p.title__title = cat1.name
           .title__right-button
-            a.button.is-size-s[href=category_path(cat1)]
-              span もっと見る
+            = link_to 'もっと見る', category_path(cat1), class: 'button is-size-s'
 
       .l-row
         - movies.each_slice(5) do |sliced_movies|

@@ -30,6 +30,8 @@ class Admin::VideoArtistsController < ApplicationController
   private
 
   def video_artist_params
-    params.require(:video_artist).permit(:channel, :title, :editor_description, :description)
+    params.require(:video_artist).permit(
+      :channel, :title, :editor_description, :description, :kana, :en
+    )
   end
 end

@@ -16,6 +16,10 @@ html
     meta[name="viewport" content="width=device-width,initial-scale=1, user-scalable=no"]
   body
     = render 'tags/gtm_body'
-    = render params[:controller].start_with?('admin') ? 'layouts/admin_header' : 'layouts/header'
-    = yield
-    = render params[:controller].start_with?('admin') ? 'layouts/admin_footer' : 'layouts/footer'
+    = render admin? ? 'layouts/admin_header' : 'layouts/header'
+    - if admin?
+      .container
+        = yield
+    - else
+      = yield
+    = render admin? ? 'layouts/admin_footer' : 'layouts/footer'

@@ -21,7 +21,7 @@ table.table.table-striped.table-hover.admin.small
         td = movie.key
         td = movie.categories.map(&:name).join(', ')
         td
-          = movie.channel.present? ? link_to(movie.channel, movie.channel_url, target: '_blank') : nil
+          = movie.channel.present? ? link_to(movie.video_artist&.title || movie.channel, movie.channel_url, target: '_blank') : nil
           br
           = movie.title
           - if movie.locations.present?
