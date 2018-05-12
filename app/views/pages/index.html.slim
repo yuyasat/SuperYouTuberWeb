@@ -16,7 +16,7 @@
                   = render 'module/movie_l', movie: movie
             .slider__pagination
 
-        .l-col-md-6
+        /.l-col-md-6
           .ad.is-top-banner
             .ad__inner
               a href="#"
@@ -30,7 +30,7 @@
     .l-row
       = render partial: 'module/movie', collection: @latest_movies, as: 'movie',
                locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
-      .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
+      /.l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
         = render 'module/infeed_ad'
 
   - @category_movies.each do |cat1, movies|
