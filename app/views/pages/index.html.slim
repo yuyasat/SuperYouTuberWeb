@@ -5,7 +5,7 @@
   - if @featured_movies.present?
     .l-container.l-mb-xs-20.l-mb-lg-50
       .l-row
-        .l-col-md-6
+        .l-col-md-6.l-mb-xs-10
           .title.is-size-m.l-mb-xs-10.l-mb-md-20
             .title__inner
               p.title__title おすすめの動画
@@ -16,6 +16,12 @@
                   = render 'module/movie_l', movie: movie
             .slider__pagination
 
+        .l-col-md-6
+          .ad
+            .ad__inner.is-full-width
+              a href="#"
+                img[src="http://placehold.jp/336x280.png" alt=""]/
+
   .l-container.l-mb-xs-50
     .title.is-size-m.l-mb-xs-10.l-mb-md-20
       .title__inner
@@ -25,6 +31,8 @@
       - @latest_movies.each do |movie|
         .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
           = render 'module/movie', movie: movie
+      .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
+        = render 'module/infeed_ad'
 
   - @category_movies.each do |cat1, movies|
     .l-container.l-mb-xs-50
