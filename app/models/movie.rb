@@ -1,6 +1,4 @@
 class Movie < ApplicationRecord
-  paginates_per 50
-
   YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3'.freeze
 
   SIZES = {
@@ -52,6 +50,13 @@ class Movie < ApplicationRecord
       next if movies.blank?
       [cat1, movies]
     end.compact.to_h
+  end
+
+  def self.channels_order_by_latest_published
+    Rails.cache.fetch("#{self.name}.#{__method__}", expires_in: 3.hours) do
+      Movie.all.order(published_at: :desc)
+           .select(%|distinct channel, movies.published_at|).map(&:channel)
+    end
   end
 
   def category_changed?(new_categories)

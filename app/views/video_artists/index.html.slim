@@ -27,3 +27,5 @@
       .l-col-md-9
         .l-row
           = render partial: 'module/account', collection: @video_artists, as: 'account'
+        .l-row.l-mb-xs-30.l-mb-lg-50
+          = paginate @video_artists

@@ -27,15 +27,17 @@
         .video-list-header__video
           .yt-video
             .yt-video__inner
-              iframe{id="myVideo" src="#{video_artist.movies.latest_published.first.embed_url(autoplay: true, mute: false)}" frameborder="0" allowfullscreen="" style="width:100%;"}
+              iframe{id="myVideo" src="#{movies.latest_published.first.embed_url(autoplay: true, mute: false)}" frameborder="0" allowfullscreen="" style="width:100%;"}
 
 .l-container
   .title.is-size-m.l-mb-xs-10.l-mb-md-20
     .title__inner
-      p.title__title おすすめの動画
-      .title__right-button
+      /p.title__title おすすめの動画
+      /.title__right-button
         a.button.is-size-s[href="#"]
           span もっと見る
   .l-row
-    = render partial: 'module/movie', collection: video_artist.movies, as: 'movie',
+    = render partial: 'module/movie', collection: movies, as: 'movie',
              locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
+  .l-row
+    = paginate movies

@@ -10,4 +10,5 @@
         li = link_to @target_music_category.parent_category.name, @target_music_category.music_parent_path
       li = @target_music_category.name
 
-  = render @template, music_categories: @music_categories, category_movies: @category_movies, video_artist: @video_artist
+  = render @template, music_categories: @music_categories, category_movies: @category_movies,
+                      video_artist: @video_artist, movies: @movies

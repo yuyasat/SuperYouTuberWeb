@@ -31,6 +31,13 @@ class VideoArtist < ApplicationRecord
     columns = column_names.reject { |c| c.in?(%w(id created_at updated_at)) }
     where(columns.map { |c| "#{c} IS NULL" }.join(" OR "))
   }
+  scope :latest_published, -> {
+    order(
+      Movie.channels_order_by_latest_published.map { |ch|
+        "video_artists.channel = '#{ch}' desc"
+      }.join(", ")
+    )
+  }
   scope :start_with, ->(kana:, en:) {
     if kana.present?
       kana_column = KANA.select { |kanas| kanas.include?(kana) }.flatten
@@ -64,4 +71,5 @@ class VideoArtist < ApplicationRecord
   def self.start_alphabet
     select("distinct SUBSTR(ltrim(en), 1 , 1) AS char").order("char").map(&:char).compact.map(&:upcase)
   end
+
 end
