@@ -20,7 +20,7 @@
       .l-col-md-3
 
         .link-list.l-mb-xs-15
-          .link-list__head = @category.name
+          h1.link-list__head = @category.name
           ul.link-list__list
             - @category.children.includes(:parent_category).decorate.each do |cat|
               li

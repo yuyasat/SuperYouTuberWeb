@@ -6,4 +6,5 @@
     ol
       li = link_to 'ホーム', root_path
       li ミュージック
-  = render 'index', music_categories: @music_categories, category_movies: @category_movies
+  = render 'index', music_categories: @music_categories, category_movies: @category_movies,
+                    target_music_category: nil

@@ -2,7 +2,8 @@
   .l-row
     .l-col-md-3
       .link-list
-        .link-list__head アーティスト一覧
+        h1.link-list__head
+          = target_music_category.present? ? "#{target_music_category.name}のアーティスト一覧" : 'アーティスト一覧'
         ul.link-list__list
           - music_categories.each do |cat2|
             li
