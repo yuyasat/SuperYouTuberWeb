@@ -3,9 +3,14 @@
 
 .l-main-content
   .breadcrumb
-    ol
-      li= link_to 'ホーム', root_path
-      li= @movie.title
+    - @movie.categories.each do |c|
+      ol
+        li = link_to 'ホーム', root_path
+        - if c.music?
+          li = link_to 'ミュージック', music_index_path
+        - c.ancestor_categories(only_id: false).select { |c| !c.special_root? }.map(&:decorate).each do |cat|
+          li = link_to cat.name, cat.music? ? cat.music_path : cat.path
+        li = @movie.title
   .plate.is-bg-black-dark.l-mb-xs-15.l-mb-lg-35
     .l-container
       .yt-video

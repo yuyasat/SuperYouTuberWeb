@@ -6,8 +6,14 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id])
+    if params[:id].present?
+      category = Category.find(params[:id])
+      return redirect_to category.decorate.path, status: 301 unless category.root?
+    end
+
+    @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id])&.decorate
     raise ActiveRecord::RecordNotFound if @category.blank?
+    return redirect_to @category.music_path, status: 301 if @category.music?
 
     @movies = @category.related_categories_movies.page(params[:page]).per(30)
   end
