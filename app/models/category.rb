@@ -7,7 +7,7 @@ class Category < ApplicationRecord
   has_many :children, -> { order(:display_order, :created_at) }, class_name: 'Category', foreign_key: :parent_id
   before_create :set_full_name, if: -> { full_name.blank? }
   before_create :set_display_order
-  after_save :delete_special_category, if: -> { !mappable? && !music? }
+  after_save :delete_special_category, if: -> { special_category.present? && !mappable? && !music? }
 
   accepts_nested_attributes_for :special_category, reject_if: :all_blank, allow_destroy: true
 

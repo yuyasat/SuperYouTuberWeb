@@ -2,9 +2,9 @@
   .header
     .l-container.header__inner
       .header__logo-line
-        h1.header__logo[itemscope itemtype="http://schema.org/Organization"]
+        .header__logo[itemscope itemtype="http://schema.org/Organization"]
           a[href="/" itemprop="url"]
-            img[src=(asset_path "logo.svg") alt="Super YouTuber" itemprop="name"]/
+            img[src=(asset_path "logo.svg") alt="SuperYouTuber" itemprop="name"]/
         .header__serach-button-container.j-open-search-panel[class=(@mobile_menu_show ? "" : "is-hide") data-default-show=(@mobile_menu_show ? "1" : "0")]
           a.header__serach-button.is-open.j-open-search-panel-toggle href="#"
             span 動画をさがす

@@ -18,6 +18,12 @@ class PagesController < ApplicationController
   def term
   end
 
+  def sitemap
+    music_category = Category.find_by(id: SpecialCategory.where(url: 'music').select('category_id'))
+    category_movies = Movie.grouped_by_categories(num: 1, target_category: music_category)
+    @music_categories = Category.where(id: category_movies.keys.map(&:id)).decorate
+  end
+
   def component_library
   end
 end

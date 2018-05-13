@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'contact' => 'pages#contact'
   get 'about' => 'pages#about'
   get 'term' => 'pages#term'
+  get 'sitemap' => 'pages#sitemap'
   get 'component-library' => 'pages#component_library' if Rails.env.development?
 
   resources :categories, only: %i(index show) do

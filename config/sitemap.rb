@@ -5,14 +5,15 @@ SitemapGenerator::Sitemap.create do
   add about_path, priority: 0.3, changefreq: 'monthly'
   add term_path, priority: 0.3, changefreq: 'monthly'
   add privacy_policy_path, priority: 0.3, changefreq: 'monthly'
+  add sitemap_path, priority: 0.3, changefreq: 'daily'
 
-  Category.root.each do |cat1|
+  Category.root.select { |c| !c.special_root? }.each do |cat1|
     add category_path(cat1), priority: 0.7, changefreq: 'daily'
   end
-  Category.secondary.decorate.each do |cat2|
+  Category.secondary.decorate.select { |c| !c.mappable? && !c.music? }.each do |cat2|
     add cat2.path, priority: 0.5, changefreq: 'daily'
   end
-  Category.tertiary.decorate.each do |cat3|
+  Category.tertiary.decorate.select { |c| !c.mappable? && !c.music? }.each do |cat3|
     add cat3.path, priority: 0.5, changefreq: 'daily'
   end
 

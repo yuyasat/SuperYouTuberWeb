@@ -2,15 +2,15 @@
   .footer
     .footer__inner
       .footer__logo
-        a[href="#"]
-          img[src=(asset_path "logo.svg") alt="Super YouTuber"]/
+        a[href="/" itemprop="url"]
+          img[src=(asset_path "logo.svg") alt="SuperYouTuber" itemprop="name"]
       .footer__nav
         - [\
             # ['編集者ブログ', '#'], \
             ['このサイトについて', about_path], \
             ['利用規約', term_path], \
             ['プライバシーポリシー', privacy_policy_path], \
-            ['サイトマップ', '#'], \
+            ['サイトマップ', sitemap_path], \
           ].each do |label, url|
           li = link_to label, url
       .footer__social
@@ -34,4 +34,4 @@
           ].each do |label, url|
           li
             a[href=url] = label
-      small.footer__copyright © 2018 Super YouTuber.com
+      small.footer__copyright © 2018 SuperYouTuber.com

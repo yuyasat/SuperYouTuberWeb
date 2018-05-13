@@ -1,0 +1,38 @@
+.l-main-content
+  .breadcrumb.l-mb-sm-30
+    ol
+      li = link_to 'ホーム', root_path
+      li サイトマップ
+
+  .l-container
+    .l-row.is-align-center
+      .l-col-lg-8
+        .title.is-size-l.l-mb-xs-30.l-mb-md-50
+          .title__inner
+            h1.title__title サイトマップ
+        .formatted-text.l-mb-xs-50
+          h2
+            | 規約・運営・その他
+          p
+            ul
+              li = link_to 'このサイトについて', about_path
+              li = link_to '利用規約', term_path
+              li = link_to 'プライバシーポリシー', privacy_policy_path
+          h2 = link_to 'カテゴリ一覧', categories_path
+          - Category.root.sort_by_display_order.select { |c| !c.special_root? }.each do |cat1|
+            h3 = link_to cat1.name, category_path(cat1)
+            ul
+            - cat1.children.decorate.each do |cat2|
+              li
+                = link_to cat2.name, cat2.path
+                - if cat2.children.present?
+                  = raw "（#{cat2.children.decorate.sort_by { |cat3| [cat3.display_order, cat3.created_at] }.map { |cat3| link_to cat3.name, cat3.path }.join(', ')}）"
+          h2 = link_to 'ミュージック', music_index_path
+          ul
+            - @music_categories.each do |cat2|
+              li
+                = link_to cat2.name, cat2.music_path
+                - if cat2.children.present?
+                  = raw "（#{cat2.children.decorate.sort_by { |cat3| [cat3.display_order, cat3.created_at] }.map { |cat3| link_to cat3.name, cat3.music_path }.join(', ')}）"
+
+
