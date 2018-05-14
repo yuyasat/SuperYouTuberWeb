@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    = render 'tags/google_adsense' unless admin?
     = render 'tags/gtm_head'
     title = content_for?(:title) ? yield(:title) : t('pages.index.title')
     meta[name='description' content="#{content_for?(:description) ? yield(:description) : t('pages.index.description') }"]
