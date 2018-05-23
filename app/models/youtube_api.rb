@@ -117,7 +117,7 @@ class YoutubeApi
       m.url = "https://www.youtube.com/watch?v=#{m.key}"
       m.published_at = Time.zone.parse(item.dig('snippet', 'publishedAt'))
       m.channel = item.dig('snippet', 'channelId')
-      m.categories << category
+      m.categories << category if m.categories.blank?
 
       mv_titles << "#{m.key}, #{m.title}"
       unless dry_run
