@@ -39,12 +39,27 @@
   }
   ul {
     margin-bottom: 5px;
+    > li {
+      padding-left: 1em;
+      &:before {
+        content:"・";
+      }
+    }
+  }
+  ol {
+    margin-bottom: 5px;
+    counter-reset: count;
+    > li {
+      padding-left: 3em;
+      &:before {
+        counter-increment:count;
+        content: "（" counter(count) "）";
+      }
+    }
   }
   li {
     position: relative;
-    padding-left: 1em;
     &:before {
-      content:"・";
       position: absolute;
       left: 0;
       top: 0;
