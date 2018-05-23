@@ -4,3 +4,4 @@ ja:
       title: 'カテゴリ一覧 - SuperYouTuber'
     show:
       title: '「%{category}」の動画一覧 - SuperYouTuber'
+      description: '「%{category}」の動画紹介ページです。このカテゴリでは、%{count}の動画を紹介していますのでぜひご覧ください。- SuperYouTuber'
