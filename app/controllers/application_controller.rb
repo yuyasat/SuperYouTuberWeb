@@ -6,10 +6,12 @@ class ApplicationController < ActionController::Base
   before_action :set_categories
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # Errors are checkd from bottom
-  rescue_from StandardError, with: :render_500
-  rescue_from ActionController::RoutingError, with: :render_404
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  unless Rails.env.development?
+    # Errors are checkd from bottom
+    rescue_from StandardError, with: :render_500
+    rescue_from ActionController::RoutingError, with: :render_404
+    rescue_from ActiveRecord::RecordNotFound, with: :render_404
+  end
 
   %w(404 500).each do |status_code|
     define_method("render_#{status_code}") do |exception = nil|
