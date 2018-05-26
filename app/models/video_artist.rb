@@ -34,6 +34,9 @@ class VideoArtist < ApplicationRecord
   scope :latest_published, -> {
     joins(:movies).eager_load(:movies).order('movies.published_at desc')
   }
+  scope :ordr_by_movies_count, ->(sort_by = 'desc') {
+    joins(:movies).group('video_artists.id').order("count(video_artists.id) #{sort_by}")
+  }
   scope :start_with, ->(kana:, en:) {
     if kana.present?
       kana_column = KANA.select { |kanas| kanas.include?(kana) }.flatten

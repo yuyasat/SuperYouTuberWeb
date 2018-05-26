@@ -3,6 +3,7 @@ class Admin::VideoArtistsController < AdminController
     @video_artists = scoped_video_artist(params).page(params[:page]).per(500)
     @max_published_at = Movie.group(:channel).maximum(:published_at)
     @min_published_at = Movie.group(:channel).minimum(:published_at)
+    @movie_count = VideoArtist.joins(:movies).group('video_artists.id').count
   end
 
   def sns
@@ -32,11 +33,17 @@ class Admin::VideoArtistsController < AdminController
   def scoped_video_artist(params)
     return VideoArtist.all.order(:id) if params[:sort].blank?
 
-    permitted_sort_params = params.require(:sort).permit('movies.published_at', 'video_artists.id')
+    permitted_sort_params = params.require(:sort).permit(
+      'movies.published_at', 'video_artists.id', 'movie_count'
+    )
 
     return VideoArtist.all.order(:id) if permitted_sort_params.blank?
-    VideoArtist.joins(:movies).eager_load(:movies).order(
-      permitted_sort_params.to_h.map { |k, v| "#{k} #{v}" }.join(', ')
+    return VideoArtist.ordr_by_movies_count(params[:sort][:movie_count]) if params[:sort][:movie_count].present?
+
+    va = VideoArtist.joins(:movies).eager_load(:movies).order(
+      permitted_sort_params.to_h.reject { |k, v|
+        k == 'movie_count'
+      }.map { |k, v| "#{k} #{v}" }.join(', ')
     )
   end
 

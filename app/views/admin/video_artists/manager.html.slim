@@ -7,19 +7,27 @@
       tr
         th
           | id
-          = link_to manager_admin_video_artists_path(sort: sort_by_array('video_artists.id')) do
+          = link_to manager_admin_video_artists_path(sort: { 'video_artists.id': sort_by(params['video_artists.id']) }) do
             i class="fa #{sort_fa_class('video_artists.id')}"
+        th 紹介ページ
+        th
+          | 動画数
+          = link_to manager_admin_video_artists_path(sort: { movie_count: sort_by(params[:movie_count]) }) do
+            i class="fa #{sort_fa_class('movie_count')}"
         th 登録動画最古公開時刻
         th
           | 登録動画最新公開時刻
-          = link_to manager_admin_video_artists_path(sort: sort_by_array('movies.published_at')) do
+          = link_to manager_admin_video_artists_path(sort: { 'movies.published_at': sort_by(params['movies.published_at']) }) do
             i class="fa #{sort_fa_class('movies.published_at')}"
-        th タイトル
         th.text-center = '/videos'
+        th タイトル
     tbody
       - @video_artists.each do |va|
         tr
           td = link_to va.id, admin_video_artist_path(va)
+          td.text-center = link_to video_artist_path(va.channel), target: '_blank' do
+            i.fa.fa-external-link
+          td = @movie_count[va.id]
           td = @min_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
           td = @max_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
           td.text-center = link_to va.videos_url, target: '_blank' do
