@@ -32,11 +32,7 @@ class VideoArtist < ApplicationRecord
     where(columns.map { |c| "#{c} IS NULL" }.join(" OR "))
   }
   scope :latest_published, -> {
-    order(
-      Movie.channels_order_by_latest_published.map { |ch|
-        "video_artists.channel = '#{ch}' desc"
-      }.join(", ")
-    )
+    joins(:movies).eager_load(:movies).order('movies.published_at desc')
   }
   scope :start_with, ->(kana:, en:) {
     if kana.present?

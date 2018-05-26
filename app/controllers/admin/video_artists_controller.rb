@@ -1,6 +1,6 @@
 class Admin::VideoArtistsController < AdminController
   def manager
-    @video_artists = VideoArtist.all.order(:id).page(params[:page]).per(500)
+    @video_artists = scoped_video_artist(params).page(params[:page]).per(500)
     @max_published_at = Movie.group(:channel).maximum(:published_at)
     @min_published_at = Movie.group(:channel).minimum(:published_at)
   end
@@ -28,6 +28,17 @@ class Admin::VideoArtistsController < AdminController
   end
 
   private
+
+  def scoped_video_artist(params)
+    return VideoArtist.all.order(:id) if params[:sort].blank?
+
+    permitted_sort_params = params.require(:sort).permit('movies.published_at', 'video_artists.id')
+
+    return VideoArtist.all.order(:id) if permitted_sort_params.blank?
+    VideoArtist.joins(:movies).eager_load(:movies).order(
+      permitted_sort_params.to_h.map { |k, v| "#{k} #{v}" }.join(', ')
+    )
+  end
 
   def video_artist_params
     params.require(:video_artist).permit(

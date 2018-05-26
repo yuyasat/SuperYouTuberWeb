@@ -5,9 +5,15 @@
   table.table.table-striped.table-hover.admin.small
     thead
       tr
-        th id
+        th
+          | id
+          = link_to manager_admin_video_artists_path(sort: sort_by_array('video_artists.id')) do
+            i class="fa #{sort_fa_class('video_artists.id')}"
         th 登録動画最古公開時刻
-        th 登録動画最新公開時刻
+        th
+          | 登録動画最新公開時刻
+          = link_to manager_admin_video_artists_path(sort: sort_by_array('movies.published_at')) do
+            i class="fa #{sort_fa_class('movies.published_at')}"
         th タイトル
         th.text-center = '/videos'
     tbody
