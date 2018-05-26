@@ -6,19 +6,19 @@
     thead
       tr
         th id
-        th タイトル
-        th 登録動画最新公開時刻
         th 登録動画最古公開時刻
+        th 登録動画最新公開時刻
+        th タイトル
         th.text-center = '/videos'
     tbody
       - @video_artists.each do |va|
         tr
           td = link_to va.id, admin_video_artist_path(va)
-          td = link_to va.title, va.channel_url, target: '_blank'
-          td = @max_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
           td = @min_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
+          td = @max_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
           td.text-center = link_to va.videos_url, target: '_blank' do
             i.fa.fa-external-link
+          td = link_to va.title, va.channel_url, target: '_blank'
 
 .row.text-right
   = paginate @video_artists
