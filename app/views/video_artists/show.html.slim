@@ -1,5 +1,13 @@
 - content_for :title do
   = t('.title', video_artist: @video_artist.title)
+- content_for :description do
+  = t('.description', video_artist: @video_artist.title, categories: @video_artist.categories_str)
+- content_for :og_title do
+  = t('.title', video_artist: @video_artist.title)
+- content_for :og_description do
+  = t('.description', video_artist: @video_artist.title, categories: @video_artist.categories_str)
+- content_for :og_image do
+  = @video_artist.medium_thumbnail_url
 
 .l-main-content
   .breadcrumb.l-mb-xs-15.l-mb-sm-30

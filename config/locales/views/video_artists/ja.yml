@@ -3,4 +3,5 @@ ja:
     index:
       title: YouTuber一覧 - Super YouTuber
     show:
-      title: "%{video_artist}の紹介ページ - Super YouTuber"
+      title: "%{video_artist}さんの紹介ページ - Super YouTuber"
+      description: "%{video_artist}さんの動画を紹介しています。動画は、%{categories}のカテゴリに属しています。"

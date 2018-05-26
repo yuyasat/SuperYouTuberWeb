@@ -10,7 +10,7 @@ class VideoArtistsController < ApplicationController
   end
 
   def show
-    @video_artist = VideoArtist.find_by(channel: params[:id])
+    @video_artist = VideoArtist.find_by(channel: params[:id]).decorate
     @movies = @video_artist.movies.latest_published.page(params[:page]).per(24)
     @instagram_ogp = OpenGraph.new(@video_artist.instagram.url) if @video_artist.instagram.present?
   end

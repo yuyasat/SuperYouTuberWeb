@@ -68,6 +68,10 @@ class VideoArtist < ApplicationRecord
     "https://www.youtube.com/channel/#{channel}/videos"
   end
 
+  def categories
+    Category.where(id: MovieCategory.where(movie: movies).select('category_id'))
+  end
+
   def self.start_alphabet
     select("distinct SUBSTR(ltrim(en), 1 , 1) AS char").order("char").map(&:char).compact.map(&:upcase)
   end
