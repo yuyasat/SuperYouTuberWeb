@@ -1,6 +1,6 @@
 .page-header.text-center.admin
   .row
-    .well.bs-component.col-xs-10
+    .well.bs-component.col-xs-12
       = render 'admin/error_message'
       = form_for([:admin, @video_artist], class: 'form-horizontal') do |f|
         fieldset
@@ -26,10 +26,13 @@
             .form-group
               .text-right
                 = f.submit '更新', class: 'btn btn-primary'
-    .well.bs-component.col-xs-10
+    .well.bs-component.col-xs-12
       h2.h4 ="#{@video_artist.title}の関連ページ"
       ul
         li = link_to 'SuperYoutuberのYouTuberページ', video_artist_path(@video_artist.channel), target: '_blank'
         li = link_to 'Youtubeページ', @video_artist.channel_url, target: '_blank'
         li = link_to 'Twitterページ', @video_artist.twitter.url, target: '_blank' if @video_artist.twitter.present?
         li = link_to 'Instagramページ', @video_artist.instagram.url, target: '_blank' if @video_artist.instagram.present?
+    - if @movies.present?
+      .col-xs-12
+        = render 'admin/movie_list', movies: @movies

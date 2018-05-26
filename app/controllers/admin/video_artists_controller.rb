@@ -13,6 +13,7 @@ class Admin::VideoArtistsController < AdminController
 
   def show
     @video_artist = VideoArtist.find(params[:id])
+    @movies = @video_artist.movies.page(params[:page]).per(100)
   end
 
   def update
