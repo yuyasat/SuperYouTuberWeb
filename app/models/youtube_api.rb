@@ -127,7 +127,7 @@ class YoutubeApi
     mv_titles
   end
 
-  def self.get_latest_published_at(channel)
+  def self.update_latest_published_at(channel)
     parameters = {
       channelId: channel, key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
       order: 'date', maxResults: 1,

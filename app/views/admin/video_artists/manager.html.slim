@@ -19,6 +19,10 @@
           | 登録動画最新公開時刻
           = link_to manager_admin_video_artists_path(sort: { 'movies.published_at': sort_by(params['movies.published_at']) }) do
             i class="fa #{sort_fa_class('movies.published_at')}"
+        th
+          | 最新動画公開時刻
+          = link_to manager_admin_video_artists_path(sort: { 'video_artists.latest_published_at': sort_by(params['video_artists.latest_published_at']) }) do
+            i class="fa #{sort_fa_class('video_artists.latest_published_at')}"
         th.text-center = '/videos'
         th タイトル
     tbody
@@ -30,9 +34,13 @@
           td = @movie_count[va.id]
           td = @min_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
           td = @max_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
+          td = va.latest_published_at&.strftime("%F %T")
           td.text-center = link_to va.videos_url, target: '_blank' do
             i.fa.fa-external-link
           td = link_to va.title, va.channel_url, target: '_blank'
 
 .row.text-right
   = paginate @video_artists
+  p
+    = button_to '最新動画公開時刻を更新（１日１回まで）', update_latest_published_at_admin_video_artists_path,
+                method: :put, class: 'btn btn-danger'

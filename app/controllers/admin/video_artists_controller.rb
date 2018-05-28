@@ -29,13 +29,22 @@ class Admin::VideoArtistsController < AdminController
     redirect_to admin_video_artist_path(video_artist), flash: message
   end
 
+  def update_latest_published_at
+    if params[:channel].blank?
+      VideoArtist.update_latest_published_at
+    else
+      VideoArtist.update_latest_published_at(params[:channel])
+    end
+    redirect_to manager_admin_video_artists_path
+  end
+
   private
 
   def scoped_video_artist(params)
     return VideoArtist.all.order(:id) if params[:sort].blank?
 
     permitted_sort_params = params.require(:sort).permit(
-      'movies.published_at', 'video_artists.id', 'movie_count'
+      'movies.published_at', 'video_artists.id', 'video_artists.latest_published_at', 'movie_count'
     )
 
     return VideoArtist.all.order(:id) if permitted_sort_params.blank?

@@ -54,6 +54,7 @@ Rails.application.routes.draw do
       collection do
         get :sns
         get :manager
+        put :update_latest_published_at
       end
     end
     namespace :api do
