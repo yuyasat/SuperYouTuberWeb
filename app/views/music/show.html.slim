@@ -1,5 +1,15 @@
 - content_for :title do
-  = t('.title', artist: @video_artist&.title || @target_music_category.name)
+  = t('.title', video_artist: @video_artist&.title || @target_music_category.name)
+- content_for :description do
+  = t('.description', video_artist: @video_artist&.title || @target_music_category.name,
+                      movie_count: @movies&.total_count || @target_music_category.related_categories_movies.count)
+- content_for :og_title do
+  = t('.title', video_artist: @video_artist&.title || @target_music_category.name)
+- content_for :og_description do
+  = t('.description', video_artist: @video_artist&.title || @target_music_category.name,
+                      movie_count: @movies&.count || @category_movies.values.flatten.length)
+- content_for :og_image do
+  = (@video_artist || @category_movies.keys.first.main_video_artist).medium_thumbnail_url
 
 .l-main-content
   .breadcrumb.l-mb-sm-30
