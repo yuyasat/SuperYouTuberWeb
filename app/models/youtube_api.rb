@@ -126,4 +126,16 @@ class YoutubeApi
     end
     mv_titles
   end
+
+  def self.get_latest_published_at(channel)
+    parameters = {
+      channelId: channel, key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
+      order: 'date', maxResults: 1,
+    }
+    res = Typhoeus.get("#{URL}/search", params: parameters)
+    item = JSON.parse(res.body)['items'].first
+    va = VideoArtist.find_by(channel: channel)
+    va.latest_published_at = item.dig('snippet', 'publishedAt')
+    va.save!
+  end
 end
