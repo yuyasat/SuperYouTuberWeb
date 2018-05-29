@@ -31,10 +31,21 @@ class VideoArtist < ApplicationRecord
     columns = column_names.reject { |c| c.in?(%w(id created_at updated_at)) }
     where(columns.map { |c| "#{c} IS NULL" }.join(" OR "))
   }
-  scope :latest_published, -> {
-    joins(:movies).eager_load(:movies).order('movies.published_at desc')
+  scope :latest_published, ->(sort_by = 'desc') {
+    va_at = arel_table
+    mv_at = Movie.arel_table
+
+    movies_latest_registered_published_at =
+      mv_at.project(Arel.sql('movies.channel as channel, MAX(published_at) as published_at'))
+           .group('movies.channel').as('movies_latest_registered_published_at')
+
+    join_conds =
+      va_at.join(movies_latest_registered_published_at, Arel::Nodes::InnerJoin)
+           .on(movies_latest_registered_published_at[:channel].eq(va_at[:channel])).join_sources
+
+    joins(join_conds).order("movies_latest_registered_published_at.published_at #{sort_by}")
   }
-  scope :ordr_by_movies_count, ->(sort_by = 'desc') {
+  scope :order_by_movies_count, ->(sort_by = 'desc') {
     joins(:movies).group('video_artists.id').order("count(video_artists.id) #{sort_by}")
   }
   scope :start_with, ->(kana:, en:) {

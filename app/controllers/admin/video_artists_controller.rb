@@ -48,9 +48,10 @@ class Admin::VideoArtistsController < AdminController
     )
 
     return VideoArtist.all.order(:id) if permitted_sort_params.blank?
-    return VideoArtist.ordr_by_movies_count(params[:sort][:movie_count]) if params[:sort][:movie_count].present?
+    return VideoArtist.order_by_movies_count(params[:sort][:movie_count]) if params[:sort][:movie_count].present?
+    return VideoArtist.latest_published(params[:sort]['movies.published_at']) if params[:sort]['movies.published_at'].present?
 
-    va = VideoArtist.joins(:movies).eager_load(:movies).order(
+    VideoArtist.joins(:movies).eager_load(:movies).order(
       permitted_sort_params.to_h.reject { |k, v|
         k == 'movie_count'
       }.map { |k, v| "#{k} #{v}" }.join(', ')
