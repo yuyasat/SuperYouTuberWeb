@@ -1,0 +1,46 @@
+body {
+  background: #F7F7F7;
+  color: #222;
+  font-family: Arial, sans-serif;
+  line-height: 1;
+}
+.outer {
+  display: table;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+.inner {
+  display: table-cell;
+  vertical-align: middle;
+  align-content: center;
+  text-align: center;
+  padding: 15px;
+}
+.logo {
+  margin: 0 0 1.5em;
+}
+.logo img {
+  max-width: 198px;
+  width: 50%;
+}
+.code {
+  font-size: 64px;
+  font-weight: bold;
+  margin: 0 0 0.1em;
+}
+.status {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 0 1.5em;
+}
+.message {
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.2;
+}
+.message span {
+  display: inline-block;
+}
