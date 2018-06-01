@@ -22,7 +22,7 @@ class VideoArtist < ApplicationRecord
   has_many :sns_accounts
   has_many :twitter_accounts
   has_many :instagram_accounts
-  has_many :movies, -> { order(published_at: :desc) }, foreign_key: 'channel', primary_key: 'channel'
+  has_many :movies, foreign_key: 'channel', primary_key: 'channel'
 
   accepts_nested_attributes_for :sns_accounts, allow_destroy: true
   delegate :timeline_url, to: :twitter_accounts
@@ -60,6 +60,11 @@ class VideoArtist < ApplicationRecord
 
   def channel_url
     "https://www.youtube.com/channel/#{channel}"
+  end
+
+  def latest_published_movies
+    return movies.order(id: :desc) if channel == 'UCd7IaeJx3BjvQ5MQbJMowvw'
+    movies.latest_published
   end
 
   def twitter
