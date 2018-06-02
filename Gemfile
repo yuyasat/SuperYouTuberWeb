@@ -53,7 +53,7 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-its'
   gem 'rails-controller-testing', require: false
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'capybara'
   gem 'capybara-webkit'
   gem 'poltergeist'

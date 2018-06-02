@@ -44,7 +44,7 @@ RSpec.configure do |config|
     config.include ::Rails::Controller::Testing::Integration, type: type
   end
   config.include RSpec::Rails::RequestExampleGroup, type: :request
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

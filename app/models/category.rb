@@ -164,6 +164,7 @@ class Category < ApplicationRecord
 
   def set_display_order
     if root?
+      return unless self.class.root.exists?
       self.display_order = self.class.root.sort_by_display_order.last.display_order + 1
       return
     end
