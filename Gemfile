@@ -55,7 +55,6 @@ group :test do
   gem 'rails-controller-testing', require: false
   gem 'factory_bot_rails'
   gem 'capybara'
-  gem 'capybara-webkit'
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'simplecov'
