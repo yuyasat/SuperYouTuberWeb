@@ -54,6 +54,13 @@ jobs:
             - vendor/bundle
             - frontend/node_modules
       - run:
+          name: Execute Assets Precompile and s3 sync
+          command: |
+            if [ -n "`echo $CIRCLE_BRANCH | egrep -E 'develop|master'`" ]; then
+              RAILS_ENV=production bundle exec rake assets:precompile
+              aws s3 sync public/assets/ s3://prod-super-youtuber/public/assets
+            fi
+      - run:
           name: Database Setup
           command: bundle exec rake db:create db:migrate
       - run:
