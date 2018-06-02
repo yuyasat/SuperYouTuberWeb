@@ -1,0 +1,62 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5-node-browsers
+        environment:
+          TZ: "/usr/share/zoneinfo/Asia/Tokyo"
+          BUNDLE_PATH: vendor/bundle
+          PGHOST: 127.0.0.1
+          PGUSER: super-youtuber
+          RAILS_ENV: test
+          CIRCLE_ARTIFACTS: /tmp/artifacts
+      - image: circleci/postgres:9.5-alpine
+        environment:
+          POSTGRES_USER: super-youtuber
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - Rails-Gemfile-Yarn-{{ checksum "Gemfile.lock" }}-{{ checksum "frontend/yarn.lock" }}
+            # Find the most recent cache used from any branch
+            - Rails-Gemfile-Yarn-
+      - run:
+          name: Install Chrome
+          command: |
+            sudo apt install -y libappindicator3-1
+            curl -L -o google-chrome.deb https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+            sudo dpkg -i google-chrome.deb
+            sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
+            rm google-chrome.deb
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
+      - run:
+          name: Install Frontend Dependencies
+          command: cd frontend; yarn install
+      - run:
+          name: Build Frontend
+          command: cd frontend; yarn release
+      - save_cache:
+          key: Rails-Gemfile-Yarn-{{ checksum "Gemfile.lock" }}-{{ checksum "frontend/yarn.lock" }}
+          paths:
+            - vendor/bundle
+            - frontend/node_modules
+      - run:
+          name: Database Setup
+          command: bundle exec rake db:create db:migrate
+      - run:
+          name: Run Rails Tests
+          command: |
+            TEST_FILES="$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)"
+
+            bundle exec rspec --format progress \
+                            --out /tmp/test-results/rspec.xml \
+                            $TEST_FILES
+
+      - store_artifacts:
+          path: /tmp/artifacts
+          destination: test-results
