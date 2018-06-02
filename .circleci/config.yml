@@ -25,6 +25,13 @@ jobs:
             # Find the most recent cache used from any branch
             - Rails-Gemfile-Yarn-
       - run:
+          name: Install aws command
+          command: |
+            wget https://bootstrap.pypa.io/get-pip.py
+            sudo python get-pip.py
+            sudo apt-get install python-dev
+            sudo pip install awscli
+      - run:
           name: Install Chrome
           command: |
             sudo apt install -y libappindicator3-1
