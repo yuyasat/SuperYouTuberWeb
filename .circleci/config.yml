@@ -27,10 +27,12 @@ jobs:
       - run:
           name: Install aws command
           command: |
-            wget https://bootstrap.pypa.io/get-pip.py
-            sudo python get-pip.py
-            sudo apt-get install python-dev
-            sudo pip install awscli
+            if [ -n "`echo $CIRCLE_BRANCH | egrep -E 'develop|master'`" ]; then
+              wget https://bootstrap.pypa.io/get-pip.py
+              sudo python get-pip.py
+              sudo apt-get install python-dev
+              sudo pip install awscli
+            fi
       - run:
           name: Install Chrome
           command: |
