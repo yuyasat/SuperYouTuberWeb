@@ -22,7 +22,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: yt_summary_test
+  database: <%= ENV['RDS_DB_NAME'] || 'yt_summary_test' %>
 
 production:
   <<: *default
