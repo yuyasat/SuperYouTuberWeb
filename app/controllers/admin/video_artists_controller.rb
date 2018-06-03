@@ -35,17 +35,15 @@ class Admin::VideoArtistsController < AdminController
     else
       VideoArtist.update_latest_published_at(params[:channel])
     end
-    redirect_to manager_admin_video_artists_path
+    redirect_to manager_admin_video_artists_path(
+      channel: params[:channel], sort: permitted_sort_params
+    )
   end
 
   private
 
   def scoped_video_artist(params)
     return VideoArtist.all.order(:id) if params[:sort].blank?
-
-    permitted_sort_params = params.require(:sort).permit(
-      'movies.published_at', 'video_artists.id', 'video_artists.latest_published_at', 'movie_count'
-    )
 
     return VideoArtist.all.order(:id) if permitted_sort_params.blank?
     return VideoArtist.order_by_movies_count(params[:sort][:movie_count]) if params[:sort][:movie_count].present?
@@ -55,6 +53,12 @@ class Admin::VideoArtistsController < AdminController
       permitted_sort_params.to_h.reject { |k, v|
         k == 'movie_count'
       }.map { |k, v| "#{k} #{v}" }.join(', ')
+    )
+  end
+
+  def permitted_sort_params
+    params.require(:sort).permit(
+      'movies.published_at', 'video_artists.id', 'video_artists.latest_published_at', 'movie_count'
     )
   end
 

@@ -78,6 +78,11 @@ i {
         @include fa("\f0fe");
       }
     }
+    &.fa-refresh {
+      &:before {
+        @include fa("\f021");
+      }
+    }
     &.fa-save {
       &:before {
         @include fa("\f0c7");

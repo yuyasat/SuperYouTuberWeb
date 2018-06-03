@@ -25,6 +25,7 @@
             i class="fa #{sort_fa_class('video_artists.latest_published_at')}"
         th.text-center = '/videos'
         th タイトル
+        th 更新
     tbody
       - @video_artists.each do |va|
         tr
@@ -38,6 +39,9 @@
           td.text-center = link_to va.videos_url, target: '_blank' do
             i.fa.fa-external-link
           td = link_to va.title, va.channel_url, target: '_blank'
+          td
+            = button_to update_latest_published_at_admin_video_artists_path(params.permit!.merge(channel: va.channel)), method: :put do
+              i.fa.fa-refresh
 
 .row.text-right
   = paginate @video_artists

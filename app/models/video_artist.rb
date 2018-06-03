@@ -93,7 +93,9 @@ class VideoArtist < ApplicationRecord
     select("distinct SUBSTR(ltrim(en), 1 , 1) AS char").order("char").map(&:char).compact.map(&:upcase)
   end
 
-  def self.update_latest_published_at
+  def self.update_latest_published_at(channel = nil)
+    return YoutubeApi.update_latest_published_at(channel) if channel.present?
+
     where('latest_published_at > ?', Time.current - 30.days).or(
       where(latest_published_at: nil)
     ).find_each do |va|
