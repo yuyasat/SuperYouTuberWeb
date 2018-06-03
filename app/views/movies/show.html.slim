@@ -45,7 +45,7 @@
           .title__right-button
             = link_to 'もっと見る', video_artist_path(@movie.video_artist.channel), class: 'button is-size-s'
     .l-row
-      = render partial: 'module/movie', collection: @movie.video_artist.movies.active.where.not(id: @movie.id).limit(12),
+      = render partial: 'module/movie', collection: @movie.video_artist.latest_published_movies.active.where.not(id: @movie.id).limit(12),
                as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
 
 - @movie.categories.decorate.select { |c| !c.music? }.each do |cat|
