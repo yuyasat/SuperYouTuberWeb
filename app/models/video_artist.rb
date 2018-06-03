@@ -63,7 +63,9 @@ class VideoArtist < ApplicationRecord
   end
 
   def latest_published_movies
-    return movies.order(id: :desc) if channel == 'UCd7IaeJx3BjvQ5MQbJMowvw'
+    return movies.order(id: :desc) if channel.in?(%w|
+      UCd7IaeJx3BjvQ5MQbJMowvw UCeqlHZDmUEQQHYqnei8doYg
+    |)
     movies.latest_published
   end
 
