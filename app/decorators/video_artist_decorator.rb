@@ -4,4 +4,9 @@ class VideoArtistDecorator < Draper::Decorator
   def categories_str
     categories.map(&:name).join(', ')
   end
+
+  def title_with_music_artist(target_category)
+    return title if categories.count == 1
+    "#{title}（#{target_category.name}）"
+  end
 end

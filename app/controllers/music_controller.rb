@@ -20,7 +20,7 @@ class MusicController < ApplicationController
     end
 
     @template = 'video_artists/show'
-    @video_artist = @target_music_category.main_video_artist
-    @movies = @video_artist.movies.latest_published.page(params[:page]).per(24)
+    @video_artist = @target_music_category.main_video_artist.decorate
+    @movies = @target_music_category.movies.latest_published.page(params[:page]).per(24)
   end
 end
