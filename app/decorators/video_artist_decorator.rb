@@ -6,7 +6,7 @@ class VideoArtistDecorator < Draper::Decorator
   end
 
   def title_with_music_artist(target_category)
-    return title if categories.count == 1
+    return title if target_category.blank? || categories.count == 1
     "#{title}（#{target_category.name}）"
   end
 end
