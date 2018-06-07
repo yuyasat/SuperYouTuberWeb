@@ -57,6 +57,7 @@ class Admin::VideoArtistsController < AdminController
   end
 
   def permitted_sort_params
+    return params.permit if params[:sort].blank?
     params.require(:sort).permit(
       'movies.published_at', 'video_artists.id', 'video_artists.latest_published_at', 'movie_count'
     )
