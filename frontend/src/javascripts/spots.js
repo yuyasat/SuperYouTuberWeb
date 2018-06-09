@@ -29,8 +29,9 @@ function set_markes(movies, previousMap) {
         map: map
       });
       const contentString = `
-        <img src="${movie.mqdefault_url}" width="20%">
-      `
+        <div class="thumbnail is-movie is-on-map">
+          <a href="/movies/${movie.id}">
+            <img src="${movie.mqdefault_url}"></a></div>`;
       const infoWindow = new google.maps.InfoWindow(Object.assign({}, {
         content: contentString,
         disableAutoPan: true,
