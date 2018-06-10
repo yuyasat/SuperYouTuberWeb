@@ -1,57 +1,22 @@
 .l-main-content
-  .l-container.l-mb-xs-50
-    .l-row
-      input#pac-input.controls{type="text" placeholder="所在地・場所の名称"}
-      #map{style="height: 400px; width: 100%;"}
-
-css:
-  #map {
-    width: 80%;
-    height: 400px;
-    background-color: grey;
-  }
-  .controls {
-      margin-top: 10px;
-      border: 1px solid transparent;
-      border-radius: 2px 0 0 2px;
-      box-sizing: border-box;
-      -moz-box-sizing: border-box;
-      height: 32px;
-      outline: none;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-    }
-
-    #pac-input {
-      background-color: #fff;
-      font-family: Roboto;
-      font-size: 15px;
-      font-weight: 300;
-      padding: 0 11px 0 13px;
-      text-overflow: ellipsis;
-      width: 300px;
-    }
-
-    #pac-input:focus {
-      border-color: #4d90fe;
-    }
-
-    .pac-container {
-      font-family: Roboto;
-    }
-
-    #type-selector {
-      color: #fff;
-      background-color: #4d90fe;
-      padding: 5px 11px 0px 11px;
-    }
-
-    #type-selector label {
-      font-family: Roboto;
-      font-size: 13px;
-      font-weight: 300;
-    }
-    #target {
-      width: 345px;
-    }
+  .breadcrumb.l-mb-xs-30
+    ol
+      li= link_to 'ホーム', root_path
+      li 場所の動画
+  .l-container
+    .title.is-size-l.l-mb-xs-30
+      .title__inner
+        h1.title__title
+          i.fa.fa-search
+          | 場所の動画
+    .map.l-mb-xs-30
+      .l-row.is-align-center
+        .l-col-xs-12.l-col-lg-8
+          .map__keyword.l-mb-xs-30.l-mb-lg-50
+            p.map__keyword-title 目的の場所を入力してください
+            .field.is-l
+              input#pac-input{type="text" placeholder="所在地・場所の名称"}
+      .map__map-container
+        #map.map__map
 
 = javascript_include_tag 'spots'

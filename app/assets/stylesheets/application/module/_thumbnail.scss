@@ -51,4 +51,10 @@
       }
     }
   }
+  &.is-on-map {
+    width: 80px;
+    @include screen-size(md) {
+      width: 150px;
+    }
+  }
 }
