@@ -1,6 +1,6 @@
 class Admin::VideoArtistsController < AdminController
   def manager
-    @video_artists = scoped_video_artist(params).page(params[:page]).per(500)
+    @video_artists = scoped_video_artist(params).having_non_deleted_movies.page(params[:page]).per(500)
     @max_published_at = Movie.group(:channel).maximum(:published_at)
     @min_published_at = Movie.group(:channel).minimum(:published_at)
     @movie_count = VideoArtist.joins(:movies).group('video_artists.id').count
@@ -43,23 +43,29 @@ class Admin::VideoArtistsController < AdminController
   private
 
   def scoped_video_artist(params)
-    return VideoArtist.all.order(:id) if params[:sort].blank?
-
-    return VideoArtist.all.order(:id) if permitted_sort_params.blank?
-    return VideoArtist.order_by_movies_count(params[:sort][:movie_count]) if params[:sort][:movie_count].present?
-    return VideoArtist.latest_published(params[:sort]['movies.published_at']) if params[:sort]['movies.published_at'].present?
-
-    VideoArtist.joins(:movies).eager_load(:movies).order(
-      permitted_sort_params.to_h.reject { |k, v|
-        k == 'movie_count'
-      }.map { |k, v| "#{k} #{v}" }.join(', ')
-    )
+    case
+    when params[:sort].blank? || permitted_sort_params.blank?
+      VideoArtist.all.order(:id)
+    when params[:sort][:movie_count].present?
+      VideoArtist.order_by_movies_count(params[:sort][:movie_count])
+    when params[:sort]['movies.published_at'].present?
+      VideoArtist.latest_published(params[:sort]['movies.published_at'])
+    when params[:sort]['video_artists.unupdated_period'].present?
+      VideoArtist.order_by_ununpdated_period(params[:sort]['video_artists.unupdated_period'])
+    else
+      VideoArtist.joins(:movies).eager_load(:movies).order(
+        permitted_sort_params.to_h.reject { |k, v|
+          k == 'movie_count'
+        }.map { |k, v| "#{k} #{v}" }.join(', ')
+      )
+    end
   end
 
   def permitted_sort_params
     return params.permit if params[:sort].blank?
     params.require(:sort).permit(
-      'movies.published_at', 'video_artists.id', 'video_artists.latest_published_at', 'movie_count'
+      'video_artists.id', 'video_artists.latest_published_at', 'video_artists.unupdated_period',
+      'movies.published_at', 'movie_count'
     )
   end
 

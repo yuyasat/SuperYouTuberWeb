@@ -48,6 +48,20 @@ class VideoArtist < ApplicationRecord
   scope :order_by_movies_count, ->(sort_by = 'desc') {
     joins(:movies).group('video_artists.id').order("count(video_artists.id) #{sort_by}")
   }
+  scope :order_by_ununpdated_period, ->(sort_by = 'desc') {
+    joins(%|
+      INNER JOIN (
+        SELECT
+          "movies"."channel" AS movies_channel,
+          MAX(published_at) AS max_published_at
+        FROM
+          "movies"
+        GROUP BY
+          "movies"."channel"
+      ) AS movies_max_published_at
+      ON video_artists.channel = movies_max_published_at.movies_channel
+    |).order("video_artists.latest_published_at - movies_max_published_at.max_published_at #{sort_by}")
+  }
   scope :start_with, ->(kana:, en:) {
     if kana.present?
       kana_column = KANA.select { |kanas| kanas.include?(kana) }.flatten
@@ -56,6 +70,9 @@ class VideoArtist < ApplicationRecord
       alphabet_group = ALPHABET_GROUP.select { |alp| alp.include?(en.first) }.flatten
       where(alphabet_group.map { |c| "en like '#{c.downcase}%'" }.join(' or ')).order(:en)
     end
+  }
+  scope :having_non_deleted_movies, -> {
+    where(channel: Movie.non_deleted.select('movies.channel').distinct)
   }
 
   def channel_url

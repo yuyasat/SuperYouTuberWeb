@@ -7,22 +7,27 @@
       tr
         th
           | id
-          = link_to manager_admin_video_artists_path(sort: { 'video_artists.id': sort_by(params['video_artists.id']) }) do
+          = link_to manager_admin_video_artists_path(sort: { 'video_artists.id': sort_by(params.dig(:sort, 'video_artists.id')) }) do
             i class="fa #{sort_fa_class('video_artists.id')}"
         th 紹介ページ
         th
           | 動画数
-          = link_to manager_admin_video_artists_path(sort: { movie_count: sort_by(params[:movie_count]) }) do
+          = link_to manager_admin_video_artists_path(sort: { movie_count: sort_by(params.dig(:sort, :movie_count)) }) do
             i class="fa #{sort_fa_class('movie_count')}"
         th 登録動画最古公開時刻
         th
           | 登録動画最新公開時刻
-          = link_to manager_admin_video_artists_path(sort: { 'movies.published_at': sort_by(params['movies.published_at']) }) do
+          = link_to manager_admin_video_artists_path(sort: { 'movies.published_at': sort_by(params.dig(:sort, 'movies.published_at')) }) do
             i class="fa #{sort_fa_class('movies.published_at')}"
         th
           | 最新動画公開時刻
-          = link_to manager_admin_video_artists_path(sort: { 'video_artists.latest_published_at': sort_by(params['video_artists.latest_published_at']) }) do
+          = link_to manager_admin_video_artists_path(sort: { 'video_artists.latest_published_at': sort_by(params.dig(:sort, 'video_artists.latest_published_at')) }) do
             i class="fa #{sort_fa_class('video_artists.latest_published_at')}"
+        th
+          | 差分
+          = link_to manager_admin_video_artists_path(sort: { 'video_artists.unupdated_period': sort_by(params.dig(:sort, 'video_artists.unupdated_period')) }) do
+            i class="fa #{sort_fa_class('video_artists.unupdated_period')}"
+
         th.text-center = '/videos'
         th タイトル
         th 更新
@@ -36,6 +41,7 @@
           td = @min_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
           td = @max_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
           td = va.latest_published_at&.strftime("%F %T")
+          td = time_diff(va.latest_published_at, @max_published_at[va.channel]&.in_time_zone)
           td.text-center = link_to va.videos_url, target: '_blank' do
             i.fa.fa-external-link
           td = link_to va.title, va.channel_url, target: '_blank'

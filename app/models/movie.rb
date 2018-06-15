@@ -41,6 +41,7 @@ class Movie < ApplicationRecord
       ).distinct.select(:movie_id)
     )
   }
+  scope :non_deleted, -> { where(status: Movie.statuses.except(:deleted).values) }
 
   def self.grouped_by_categories(num: 10, target_category: Category)
     target_category.grouped_category_ids.map do |cat1, ids|
