@@ -19,6 +19,9 @@ class Category < ApplicationRecord
   scope :have_movies, -> {
     where(id: MovieCategory.select('distinct category_id'))
   }
+  scope :mappable, -> {
+    where(id: Category.find_by(name: 'マップ').all_children_categories)
+  }
 
   def root?
     parent_id == 0
@@ -38,6 +41,10 @@ class Category < ApplicationRecord
 
   def special_root?
     name.in?(%|マップ ミュージックPV|)
+  end
+
+  def special_secondary?
+    name.in?(%|ジャンルからさがす|)
   end
 
   def mappable?

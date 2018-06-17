@@ -5,6 +5,12 @@ class CategoryDecorator < Draper::Decorator
     "/categories/#{ancestor_categories.join('/')}"
   end
 
+  def spots_path
+    "/spots/categories/#{ancestor_categories(only_id: false).reject { |ac|
+      ac.root? && mappable?
+    }.map(&:id).join('/')}"
+  end
+
   def music_root_artist?
     parent_category.name == 'ミュージックPV'
   end

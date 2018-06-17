@@ -27,7 +27,12 @@ Rails.application.routes.draw do
   end
 
   namespace :spots do
-    resources :categories
+    resources :categories, only: %i(index show) do
+      collection do
+        get ':cat2', action: :show
+        get ':cat2/:cat3', action: :show
+      end
+    end
   end
 
   namespace :internal do

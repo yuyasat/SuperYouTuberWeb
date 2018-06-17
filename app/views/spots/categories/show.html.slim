@@ -1,0 +1,29 @@
+.l-main-content
+  .breadcrumb.l-mb-xs-15.l-mb-sm-30
+    ol
+      li= link_to 'ホーム', root_path
+      - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
+        - if @category.id == cat.id
+          li = cat.name
+        - else
+          li = link_to cat.name, cat.spots_path
+
+  .l-container
+    .l-row
+      .l-col-md-3
+        .link-list.l-mb-xs-15
+          h1.link-list__head = @category.name
+          ul.link-list__list
+            - @category.children.includes(:parent_category).decorate.each do |cat|
+              li
+                = link_to cat.name, cat.spots_path
+            - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
+              - unless @category.id == cat.id
+                li = link_to "#{cat.name}一覧に戻る", cat.spots_path
+
+      .l-col-md-9
+        .l-row.l-mb-xs-10.l-mb-lg-20
+          = render partial: 'module/movie', collection: @movies, as: 'movie',
+                   locals: { clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20' }
+        .l-row.l-mb-xs-30.l-mb-lg-50
+          = paginate @movies
