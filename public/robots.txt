@@ -3,4 +3,4 @@
 # To ban all spiders from the entire site uncomment the next two lines:
 # User-agent: *
 # Disallow: /
-Sitemap: https://s3-ap-northeast-1.amazonaws.com/prod-super-youtuber/public/sitemap.xml.gz
+# Sitemap: https://s3-ap-northeast-1.amazonaws.com/prod-super-youtuber/public/sitemap.xml.gz
