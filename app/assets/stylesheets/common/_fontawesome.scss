@@ -68,6 +68,11 @@ i {
         @include fa("\f146");
       }
     }
+    &.fa-music {
+      &:before {
+        @include fa("\f001");
+      }
+    }
     &.fa-plus {
       &:before {
         @include fa("\f067");

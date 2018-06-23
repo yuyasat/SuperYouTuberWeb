@@ -7,27 +7,37 @@
       tr
         th
           | id
-          = link_to manager_admin_video_artists_path(sort: { 'video_artists.id': sort_by(params.dig(:sort, 'video_artists.id')) }) do
+          br
+          = link_to manager_admin_video_artists_path(sort: (params.permit![:sort]&.slice('video_artists.music') || {}).merge('video_artists.id': sort_by(params.dig(:sort, 'video_artists.id')))) do
             i class="fa #{sort_fa_class('video_artists.id')}"
         th 紹介ページ
         th
           | 動画数
-          = link_to manager_admin_video_artists_path(sort: { movie_count: sort_by(params.dig(:sort, :movie_count)) }) do
+          br
+          = link_to manager_admin_video_artists_path(sort: (params.permit![:sort]&.slice('video_artists.music') || {}).merge(movie_count: sort_by(params.dig(:sort, :movie_count)))) do
             i class="fa #{sort_fa_class('movie_count')}"
         th 登録動画最古公開時刻
         th
           | 登録動画最新公開時刻
-          = link_to manager_admin_video_artists_path(sort: { 'movies.published_at': sort_by(params.dig(:sort, 'movies.published_at')) }) do
+          br
+          = link_to manager_admin_video_artists_path(sort: (params.permit![:sort]&.slice('video_artists.music') || {}).merge('movies.published_at': sort_by(params.dig(:sort, 'movies.published_at')))) do
             i class="fa #{sort_fa_class('movies.published_at')}"
         th
           | 最新動画公開時刻
-          = link_to manager_admin_video_artists_path(sort: { 'video_artists.latest_published_at': sort_by(params.dig(:sort, 'video_artists.latest_published_at')) }) do
+          br
+          = link_to manager_admin_video_artists_path(sort: (params.permit![:sort]&.slice('video_artists.music') || {}).merge('video_artists.latest_published_at': sort_by(params.dig(:sort, 'video_artists.latest_published_at')))) do
             i class="fa #{sort_fa_class('video_artists.latest_published_at')}"
         th
           | 差分
-          = link_to manager_admin_video_artists_path(sort: { 'video_artists.unupdated_period': sort_by(params.dig(:sort, 'video_artists.unupdated_period')) }) do
+          br
+          = link_to manager_admin_video_artists_path(sort: (params.permit![:sort]&.slice('video_artists.music') || {}).merge('video_artists.unupdated_period': sort_by(params.dig(:sort, 'video_artists.unupdated_period')))) do
             i class="fa #{sort_fa_class('video_artists.unupdated_period')}"
 
+        th.text-center
+          i.fa.fa-music
+          br
+          = link_to manager_admin_video_artists_path(sort: (params.permit![:sort] || {}).merge('video_artists.music': sort_by(params.dig(:sort, 'video_artists.music')))) do
+            i class="fa #{sort_fa_class('video_artists.music')}"
         th.text-center = '/videos'
         th タイトル
         th 更新
@@ -38,13 +48,17 @@
           td.text-center = link_to video_artist_path(va.channel), target: '_blank' do
             i.fa.fa-external-link
           td = @movie_count[va.id]
-          td = @min_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
-          td = @max_published_at[va.channel]&.in_time_zone&.strftime("%F %T")
-          td = va.latest_published_at&.strftime("%F %T")
+          td = @min_published_at[va.channel]&.in_time_zone&.strftime("'%y-%m-%d %H:%M")
+          td = @max_published_at[va.channel]&.in_time_zone&.strftime("'%y-%m-%d %H:%M")
+          td = va.latest_published_at&.strftime("'%y-%m-%d %H:%M")
           td = time_diff(va.latest_published_at, @max_published_at[va.channel]&.in_time_zone)
+          td
+            - if VideoArtist.music_video_artists_channels.include?(va.channel)
+              i.fa.fa-music
           td.text-center = link_to va.videos_url, target: '_blank' do
             i.fa.fa-external-link
-          td = link_to va.title, va.channel_url, target: '_blank'
+          td
+            = link_to va.title, va.channel_url, target: '_blank'
           td
             = button_to update_latest_published_at_admin_video_artists_path(params.permit!.merge(channel: va.channel)), method: :put do
               i.fa.fa-refresh

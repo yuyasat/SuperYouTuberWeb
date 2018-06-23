@@ -43,19 +43,22 @@ class Admin::VideoArtistsController < AdminController
   private
 
   def scoped_video_artist(params)
+    va = VideoArtist
+    va = va.order_by_music(params[:sort]['video_artists.music']) if params.dig(:sort, 'video_artists.music').present?
+
     case
     when params[:sort].blank? || permitted_sort_params.blank?
-      VideoArtist.all.order(:id)
+      va = va.all.order(:id)
     when params[:sort][:movie_count].present?
-      VideoArtist.order_by_movies_count(params[:sort][:movie_count])
+      va = va.order_by_movies_count(params[:sort][:movie_count])
     when params[:sort]['movies.published_at'].present?
-      VideoArtist.latest_published(params[:sort]['movies.published_at'])
+      va = va.latest_published(params[:sort]['movies.published_at'])
     when params[:sort]['video_artists.unupdated_period'].present?
-      VideoArtist.order_by_ununpdated_period(params[:sort]['video_artists.unupdated_period'])
+      va = va.order_by_ununpdated_period(params[:sort]['video_artists.unupdated_period'])
     else
-      VideoArtist.joins(:movies).eager_load(:movies).order(
+      va = va.joins(:movies).eager_load(:movies).order(
         permitted_sort_params.to_h.reject { |k, v|
-          k == 'movie_count'
+          k.in?(['movie_count', 'video_artists.music'])
         }.map { |k, v| "#{k} #{v}" }.join(', ')
       )
     end
@@ -65,7 +68,7 @@ class Admin::VideoArtistsController < AdminController
     return params.permit if params[:sort].blank?
     params.require(:sort).permit(
       'video_artists.id', 'video_artists.latest_published_at', 'video_artists.unupdated_period',
-      'movies.published_at', 'movie_count'
+      'movies.published_at', 'movie_count', 'video_artists.music'
     )
   end
 

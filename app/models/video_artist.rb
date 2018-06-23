@@ -62,6 +62,11 @@ class VideoArtist < ApplicationRecord
       ON video_artists.channel = movies_max_published_at.movies_channel
     |).order("video_artists.latest_published_at - movies_max_published_at.max_published_at #{sort_by}")
   }
+  scope :order_by_music, ->(sort_by = 'desc') {
+    order(%|
+      video_artists.channel = ANY(ARRAY['#{music_video_artists_channels.join("','")}']) #{sort_by}
+    |)
+  }
   scope :start_with, ->(kana:, en:) {
     if kana.present?
       kana_column = KANA.select { |kanas| kanas.include?(kana) }.flatten
@@ -104,6 +109,18 @@ class VideoArtist < ApplicationRecord
 
   def categories
     Category.where(id: MovieCategory.where(movie: movies).select('category_id'))
+  end
+
+  def music?
+    categories.any?(&:music?)
+  end
+
+  def self.music_video_artists_channels
+    RequestStore.fetch("#{name}.#{__method__}") do
+      Category.musicable.no_children.includes(:movies).map { |cat|
+        cat.movies.group_by(&:channel).max_by { |_k, v| v.size }.first
+      }.uniq
+    end
   end
 
   def self.start_alphabet

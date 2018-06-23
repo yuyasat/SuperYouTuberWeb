@@ -19,9 +19,11 @@ class Category < ApplicationRecord
   scope :have_movies, -> {
     where(id: MovieCategory.select('distinct category_id'))
   }
+  scope :no_children, -> { where.not(id: Category.select(:parent_id).distinct) }
   scope :mappable, -> {
     where(id: Category.find_by(name: 'マップ').all_children_categories)
   }
+  scope :musicable, -> { where(id: Category.music.all_children_categories) }
 
   def root?
     parent_id == 0
