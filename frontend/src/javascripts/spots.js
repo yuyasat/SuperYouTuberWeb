@@ -99,7 +99,11 @@ function getMovieLocations(map) {
         content: contentString,
         disableAutoPan: true,
       }, {}));
-      infoWindow.open(map, marker)
+      ['mouseover', 'click'].forEach((e) => {
+        marker.addListener(e, function() {
+          infoWindow.open(map, marker)
+        })
+      })
 
       return marker
     })
