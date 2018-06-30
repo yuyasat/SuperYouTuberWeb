@@ -5,7 +5,8 @@ import MarkerClusterer from 'node-js-marker-clusterer'
 
 $(function() {
   const script = document.createElement('script');
-  script.src="//maps.googleapis.com/maps/api/js?key=AIzaSyDVIj2EXnKBKcpcx-UZQGD3H7hK45bMMzE&libraries=places&callback=initMapWithSeachBox"
+  script.src="//maps.googleapis.com/maps/api/js?key=AIzaSyDExAntRdU2ReT82ebon-L8XGf9lUNZucA&libraries=places&callback=initMapWithSeachBox"
+
   document.getElementsByTagName('head')[0].appendChild(script);
 
 //  const markerClusterJs = document.createElement('script')
@@ -82,30 +83,26 @@ function getMovieLocations(map) {
   config.withCredentials = true;
 
   const successFn = (res) => {
-    const movies = res.data
+    const locations = res.data
 
-    const markers = _.flatten(
-      movies.map(function(movie, i) {
-        return movie.locations.map(function(loc, j) {
-          const marker = new google.maps.Marker({
-            position: {  lat: loc.latitude, lng: loc.longitude },
-          })
-
-          const contentString = `
-            <div class="thumbnail is-movie is-on-map">
-              <a href="/movies/${movie.id}" target="_blank"><img src="${movie.mqdefault_url}"></a>
-            </div>
-          `
-          const infoWindow = new google.maps.InfoWindow(Object.assign({}, {
-            content: contentString,
-            disableAutoPan: true,
-          }, {}));
-          infoWindow.open(map, marker)
-
-          return marker
-        })
+    const markers = locations.map(function(loc, i) {
+      const marker = new google.maps.Marker({
+        position: {  lat: loc.latitude, lng: loc.longitude },
       })
-    )
+
+      const contentString = `
+        <div class="thumbnail is-movie is-on-map">
+          <a href="/movies/${loc.movie.id}" target="_blank"><img src="${loc.movie.mqdefault_url}"></a>
+        </div>
+      `
+      const infoWindow = new google.maps.InfoWindow(Object.assign({}, {
+        content: contentString,
+        disableAutoPan: true,
+      }, {}));
+      infoWindow.open(map, marker)
+
+      return marker
+    })
 
     const markerCluster = new MarkerClusterer(map, markers, {
       styles: [{
