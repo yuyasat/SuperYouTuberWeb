@@ -14,6 +14,7 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id])&.decorate
     raise ActiveRecord::RecordNotFound if @category.blank?
     return redirect_to @category.music_path, status: 301 if @category.music?
+    return redirect_to @category.spots_path, status: 301 if @category.mappable?
 
     @movies = @category.related_categories_movies.page(params[:page]).per(30)
   end
