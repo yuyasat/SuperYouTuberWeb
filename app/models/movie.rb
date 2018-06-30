@@ -41,6 +41,7 @@ class Movie < ApplicationRecord
       ).distinct.select(:movie_id)
     )
   }
+  scope :having_location, -> { where(id: Location.distinct.select(:movie_id)) }
   scope :non_deleted, -> { where(status: Movie.statuses.except(:deleted).values) }
   scope :mappable, -> {
     where(id: MovieCategory.where(category: Category.mappable).select('movie_categories.movie_id'))
