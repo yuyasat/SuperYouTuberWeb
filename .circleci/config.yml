@@ -72,6 +72,7 @@ jobs:
 
             bundle exec rspec --format progress \
                             --out /tmp/test-results/rspec.xml \
+                            --format progress \
                             $TEST_FILES
 
       - store_artifacts:
