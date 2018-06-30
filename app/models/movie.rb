@@ -31,6 +31,7 @@ class Movie < ApplicationRecord
 
   scope :latest_published, -> { order(published_at: :desc) }
   scope :of_category, ->(category, only_self: false) {
+    category = category.is_a?(Category) ? category : Category.find(category)
     target_categories = only_self ? category : category.all_children_categories
     where(id: MovieCategory.where(category: target_categories).select('movie_categories.movie_id'))
   }

@@ -20,10 +20,26 @@
             - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
               - unless @category.id == cat.id
                 li = link_to "#{cat.name}一覧に戻る", cat.spots_path
-
       .l-col-md-9
+        .title.is-size-l.l-mb-xs-30
+          .title__inner
+            h1.title__title
+              i.fa.fa-search
+              | #{@category.name}
+        .map.l-mb-xs-30
+          .l-row.is-align-center
+            .l-col-xs-12.l-col-lg-8
+              .map__keyword.l-mb-xs-30.l-mb-lg-50
+                p.map__keyword-title 目的の場所を入力してください
+                .field.is-l
+                  input#pac-input{type="text" placeholder="所在地・場所の名称"}
+          .map__map-container
+            #map.map__map[data-category-id="#{@category.id}"]
+
         .l-row.l-mb-xs-10.l-mb-lg-20
           = render partial: 'module/movie', collection: @movies, as: 'movie',
                    locals: { clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20' }
         .l-row.l-mb-xs-30.l-mb-lg-50
           = paginate @movies
+
+= javascript_include_tag 'spots'

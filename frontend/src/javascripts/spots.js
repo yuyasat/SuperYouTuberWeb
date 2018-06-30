@@ -76,6 +76,7 @@ function getMovieLocations(map) {
   const config = {
     method: 'get',
     params: {
+     category_id: $('#map').data().categoryId,
     },
   };
   config.withCredentials = true;
@@ -92,7 +93,7 @@ function getMovieLocations(map) {
 
           const contentString = `
             <div class="thumbnail is-movie is-on-map">
-              <a href="/movies/${movie.id}"><img src="${movie.mqdefault_url}"></a>
+              <a href="/movies/${movie.id}" target="_blank"><img src="${movie.mqdefault_url}"></a>
             </div>
           `
           const infoWindow = new google.maps.InfoWindow(Object.assign({}, {
