@@ -9,6 +9,7 @@ select count(*) AS tag_count from tags;
 select count(*) AS users_count from users;
 select count(*) AS video_artists_count from video_artists;
 select count(*) AS special_categories_count from special_categories;
+select count(*) AS advertisements_count from advertisements;
 
 delete from categories;
 delete from featured_movies;
@@ -21,3 +22,4 @@ delete from tags;
 delete from users;
 delete from video_artists;
 delete from special_categories;
+delete from advertisements;
