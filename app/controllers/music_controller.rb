@@ -1,7 +1,7 @@
 class MusicController < ApplicationController
   def index
     music_category = Category.find_by(id: SpecialCategory.where(url: 'music').select('category_id'))
-    @category_movies = Movie.grouped_by_categories(num: 10, target_category: music_category)
+    @category_movies = Movie.grouped_by_categories(num: 6, target_category: music_category)
     @music_categories =
       Category.where(id: @category_movies.keys.map(&:id)).sort_by_display_order.decorate
   end

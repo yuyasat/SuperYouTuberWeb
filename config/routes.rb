@@ -62,6 +62,7 @@ Rails.application.routes.draw do
         put :update_latest_published_at
       end
     end
+    resources :advertisements, only: %i(index create update)
     namespace :api do
       get :movies
       get :movie_info

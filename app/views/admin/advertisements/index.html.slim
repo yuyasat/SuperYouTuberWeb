@@ -1,0 +1,73 @@
+.page-header
+  .row
+    .well.bs-component.small
+      = render 'admin/error_message'
+      = form_for([:admin, @advertisement], class: 'form-horizontal') do |f|
+        fieldset
+          legend 新規作成
+          .col-xs-6
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-4.control-label for="advertisement_path" path
+                = f.text_field :path, class: 'form-controll col-xs-8 admin-text', placeholder: '/movies/1234'
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-4.control-label for="advertisement_location" 場所
+                = f.select :location, Advertisement.locations.keys, {}, class: 'form-controll col-xs-8 admin-text'
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-4.control-label for="advertisement_target" ターゲット
+                = f.text_field :target, default: nil, class: 'form-controll col-xs-8 admin-text', placeholder: '{ "type": "YouTuber" } or { "type": "Category", "id": 1 }'
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-4.control-label for="advertisement_target" start at
+                = f.datetime_select :start_at, default: Time.current
+            .row{style="margin-bottom: 10px"}
+              .form-group
+                label.col-xs-4.control-label for="advertisement_device" デバイス
+                = f.select :device, Advertisement.devices.keys, {}, default: 'both', class: 'form-controll col-xs-8 admin-text'
+          .col-xs-6
+            .row{style="margin-bottom: 8px"}
+              .form-group
+                label.col-xs-2.control-label.small for="movie_description" アフィリエイトタグ
+                = f.text_area :content, class: 'form-controll col-xs-10', rows: 4
+            .row.text-right
+              .form-group
+                = f.submit '作成', class: 'btn btn-primary'
+
+table.table.table-striped.table-hover.admin.small
+  thead
+    tr[id="ad-#{@advertisements.first.id}"]
+      th id
+      th
+      th
+      th content
+      th image
+  tbody
+    - @advertisements.each.with_index(0) do |ad, i|
+      = form_for([:admin, ad]) do |f|
+        tr
+          td[rowspan="5"] = ad.id
+          td path
+          td = f.text_field :path, size: 20
+          td[rowspan="5"]
+            div
+              = f.text_area :content, size: '50x10'
+            .text-right
+              = f.submit '更新'
+          td[rowspan="5"] = image_tag ad.content.match(/<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/).captures.first
+        tr
+          td 場所
+          td = f.select :location, Advertisement.locations.keys, {}, class: 'form-controll col-sm-7'
+        tr
+          td ターゲット
+          td = f.text_field :target, value: ad.target.to_json
+        tr
+          td 開始時刻
+          td = raw f.datetime_select(:start_at).split("&mdash;").join("<br>")
+        tr[id="ad-#{@advertisements[i + 1]&.id}"]
+          td 終了時刻
+          td = raw f.datetime_select(:end_at, include_blank: true, default: nil).split("&mdash;").join("<br>")
+
+.row.text-right
+  = paginate @advertisements

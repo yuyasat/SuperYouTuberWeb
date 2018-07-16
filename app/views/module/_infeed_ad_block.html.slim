@@ -1,0 +1,10 @@
+- if (advertisement = sample_ad).present?
+  = render partial: 'module/movie', collection: movies[0..num - 2], as: 'movie',
+    locals: { clazz: clazz }
+  div[class="#{clazz}"]
+    = render 'module/infeed_ad', ads_infeed: advertisement
+  = render partial: 'module/movie', collection: movies[num - 1..-2], as: 'movie',
+    locals: { clazz: clazz }
+- else
+  = render partial: 'module/movie', collection: movies, as: 'movie',
+    locals: { clazz: clazz }

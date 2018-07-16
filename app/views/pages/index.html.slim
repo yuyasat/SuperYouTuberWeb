@@ -12,12 +12,12 @@
                 .slider__slide
                   = render 'module/movie_l', movie: movie
             .slider__pagination
-
-        /.l-col-md-6
-          .ad.is-top-banner
-            .ad__inner
-              a href="#"
-                img[src="http://placehold.jp/336x280.png" alt=""]/
+        - if (ads_top = @advertisements.top.sample).present?
+          .l-col-md-6
+            .ad.is-top-banner
+              .ad__inner
+                div 広告
+                div = raw ads_top.content
 
   .l-container.l-mb-xs-50
     .title.is-size-m.l-mb-xs-10.l-mb-md-20
@@ -25,10 +25,9 @@
         p.title__title 新着YouTuber動画
         .title__right-button
     .l-row
-      = render partial: 'module/movie', collection: @latest_movies, as: 'movie',
-               locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
-      /.l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
-        = render 'module/infeed_ad'
+      = render 'module/infeed_ad_block',
+               num: 4, movies: @latest_movies, sample_ad: @advertisements.infeed.latest.sample,
+               clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
 
   - @category_movies.each do |cat1, movies|
     .l-container.l-mb-xs-50
@@ -39,8 +38,10 @@
             = link_to 'もっと見る', category_path(cat1), class: 'button is-size-s'
 
       .l-row
-        = render partial: 'module/movie', collection: movies, as: 'movie',
-                 locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
+        = render 'module/infeed_ad_block',
+                 num: 4, movies: movies, sample_ad: @advertisements.infeed.category(cat1).sample,
+                 clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
+
       .l-row.is-align-center
         .l-col-md-4
           a.button.is-width-full[href=category_path(cat1)]

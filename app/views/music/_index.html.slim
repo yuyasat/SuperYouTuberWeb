@@ -19,8 +19,9 @@
                 = link_to decorated_cat2.music_path, class: 'button is-size-s' do
                   span もっと見る
           .l-row
-             = render partial: 'module/movie', collection: movies, as: 'movie',
-                      locals: { clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20' }
+             = render 'module/infeed_ad_block',
+                      num: 3, movies: movies, sample_ad: @advertisements.infeed.music(decorated_cat2.music_path).sample,
+                      clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20'
 
           .l-row.is-align-center
             .l-col-md-4

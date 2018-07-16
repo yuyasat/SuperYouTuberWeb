@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502800000) do
+ActiveRecord::Schema.define(version: 20180716000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "advertisements", force: :cascade do |t|
+    t.string "path", null: false
+    t.integer "device", default: 3, null: false
+    t.integer "location", null: false
+    t.jsonb "target"
+    t.datetime "start_at", null: false
+    t.datetime "end_at"
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name", null: false
