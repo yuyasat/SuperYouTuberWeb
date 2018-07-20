@@ -5,17 +5,21 @@
       li 場所の動画
   .l-container
 
-  .l-container
+  .l-container#spots-categories
     .l-row
       .l-col-md-3.l-mb-xs-15
         .link-list
-          - @root_category.decorate.each do |cat2|
-            h2.link-list__head
-              = link_to cat2.name, cat2.spots_path
-            ul.link-list__list
-              - cat2.children.decorate.each do |cat3|
-                li
-                  = link_to cat3.name, cat3.spots_path
+          - @root_category.decorate.flatten.each.with_index do |cat2, i|
+            .accordion
+              h2.link-list__head[@click="toggle(#{i})"] = cat2.name
+            transition[
+              v-on:before-enter="onBeforeEnter" v-on:enter="onEnter"
+              v-on:before-leave="onBeforeLeave" v-on:leave="onLeave"
+            ]
+              ul.link-list__list.accordion-body[v-show="show(#{i})" v-cloak]
+                - cat2.children.decorate.each do |cat3|
+                  li
+                    = link_to cat3.name, cat3.spots_path
       .l-col-md-9
         .title.is-size-l.l-mb-xs-30
           .title__inner
@@ -48,5 +52,15 @@
               .l-col-md-4
                 = link_to cat1.spots_path, class: 'button is-width-full' do
                   span もっと見る
-
+css:
+  .accordion:hover {
+    cursor: pointer;
+  }
+  .accordion-body {
+    transition: 150ms ease-out;
+  }
+  [v-cloak] {
+    display: none
+  },
+= javascript_include_tag 'spots_categories'
 = javascript_include_tag 'spots'
