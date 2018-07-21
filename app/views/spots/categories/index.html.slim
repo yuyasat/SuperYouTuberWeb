@@ -8,8 +8,8 @@
   .l-container#spots-categories
     .l-row
       .l-col-md-3.l-mb-xs-15
-        .link-list
-          - @root_category.decorate.flatten.each.with_index do |cat2, i|
+        - @root_category.decorate.flatten.each.with_index do |cat2, i|
+          .link-list.is-accordion[:class="{'is-shown':show(#{i})}"]
             .accordion
               h2.link-list__head[@click="toggle(#{i})"] = cat2.name
             transition[
