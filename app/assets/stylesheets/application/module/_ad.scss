@@ -33,4 +33,11 @@
       }
     }
   }
+  &__sponsored {
+    display: inline-block;
+    &__text {
+      text-align: left;
+      padding-top: -5px;
+    }
+  }
 }
