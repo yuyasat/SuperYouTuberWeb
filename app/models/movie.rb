@@ -1,4 +1,9 @@
+require 'elasticsearch/model'
+
 class Movie < ApplicationRecord
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3'.freeze
 
   SIZES = {
