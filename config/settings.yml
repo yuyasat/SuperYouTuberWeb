@@ -1,0 +1,20 @@
+elasticsearch:
+  index:
+    number_of_shards: 1
+    number_of_replicas: 0
+    analysis:
+      tokenizer:
+        ja_text_tokenizer:
+          type: 'kuromoji_tokenizer'
+          mode: 'search'
+      analyzer:
+        ja_text_analyzer:
+          tokenizer: 'ja_text_tokenizer'
+          type: 'custom'
+          char_filter:
+            - 'icu_normalizer'
+          filter:
+            - 'pos_filter'
+      filter:
+        pos_filter:
+          type: 'kuromoji_part_of_speech'

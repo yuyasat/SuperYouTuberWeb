@@ -18,6 +18,7 @@ gem 'kaminari'
 gem 'gon'
 gem 'unicorn'
 gem 'typhoeus'
+gem 'config'
 gem 'nokogiri'
 gem "rgeo-proj4"
 gem 'activerecord-import'
@@ -25,6 +26,8 @@ gem 'activerecord-postgis-adapter'
 gem 'enum_help'
 gem 'rails_12factor', group: :production
 gem 'sitemap_generator'
+gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '6.x'
+gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '6.x'
 
 group :development do
   gem 'web-console', '~> 2.0'

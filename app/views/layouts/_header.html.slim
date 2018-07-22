@@ -21,14 +21,13 @@
 
       .header__search-panel.j-open-search-panel[class=(@mobile_menu_show ? "" : "is-hide")]
         /.header__keyword-search
-
-          / keyword-search
-          .keyword-search
-            .keyword-search__field-wrap
-              .field
-                input type="text" placeholder="キーワード"/
-            .keyword-search__submit
-              button.button 検索
+          = form_tag(search_index_path, method: :get) do
+            .keyword-search
+              .keyword-search__field-wrap
+                .field
+                  = text_field_tag 'keyword', '', placeholder: 'キーワード'
+              .keyword-search__submit
+                 button.button 検索
         .header__menu
 
           / menu
