@@ -12,6 +12,7 @@ module.exports = {
     adminCategoryShow: './src/javascripts/admin/Category/Show',
     adminVideoArtist: './src/javascripts/admin/VideoArtist',
     spots: './src/javascripts/spots',
+    spots_categories: './src/javascripts/spots_categories',
   },
   output: {
     path: path.resolve(__dirname, '../../app/assets/javascripts'),
