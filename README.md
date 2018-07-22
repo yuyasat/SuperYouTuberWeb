@@ -12,6 +12,14 @@
     - `CREATE EXTENSION pgcrypto;`
     - `bin/rails db:migrate`
 
+* Elasticserach Setup
+  - `cd tools`
+  - `docker-compose up`
+  - Create Indices in rails console
+    - `Movie.__elasticsearch__.create_index!`
+  - Import Data
+    - `Movie.__elasticsearch__.import(query: -> { includes(:categories, :video_artist) })`
+
 * How to run the test suite
   - `RAILS_ENV=test bin/rspec spec`
 
