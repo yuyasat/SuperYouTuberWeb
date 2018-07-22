@@ -26,6 +26,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :search, only: :index
+
   namespace :spots do
     resources :categories, only: %i(index show) do
       collection do

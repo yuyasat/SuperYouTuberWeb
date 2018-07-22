@@ -1,5 +1,5 @@
 class Search::Base
-  DEFAULT_PER = 30
+  DEFAULT_PER = 24
 
   def execute(options = {})
     self.class.execute(model, query, options)
