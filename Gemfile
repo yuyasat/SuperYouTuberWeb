@@ -18,6 +18,7 @@ gem 'kaminari'
 gem 'gon'
 gem 'unicorn'
 gem 'typhoeus'
+gem 'config'
 gem 'nokogiri'
 gem "rgeo-proj4"
 gem 'activerecord-import'

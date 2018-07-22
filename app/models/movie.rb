@@ -4,6 +4,31 @@ class Movie < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
+  # Elasticsearch Settings
+  index_name "#{Rails.env}-yt_summary-#{self.name.downcase}"
+  settings index: Settings.elasticsearch.index.to_hash do
+    mappings dynamic: 'false' do
+      indexes :id, type: :long
+      indexes :key, type: :keyword, index: true
+      indexes :title, type: :text, index: true, analyzer: :ja_text_analyzer
+      indexes :status, type: :keyword, index: true
+      indexes :published_at, type: :date, format: 'date_time_no_millis'
+
+      indexes :categories do
+        indexes :name, type: :keyword, index: :true
+        indexes :full_name, type: :text, index: true, analyzer: :ja_text_analyzer
+      end
+
+      indexes :video_artist do
+        indexes :channel, type: :keyword, index: true
+        indexes :title, type: :text, index: true, analyzer: :ja_text_analyzer
+        indexes :editor_description, type: :text, index: true, analyzer: :ja_text_analyzer
+        indexes :description, type: :text, index: true, analyzer: :ja_text_analyzer
+        indexes :kana, type: :keyword, index: :true
+      end
+    end
+  end
+
   YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3'.freeze
 
   SIZES = {
@@ -110,7 +135,22 @@ class Movie < ApplicationRecord
     SIZES[size][1]
   end
 
+  def as_indexed_json(options={})
+    as_json(
+      only: %i(id key title status),
+      methods: %i(published_at_without_milliseconds),
+      include: {
+        categories: { only: %i(name full_name) },
+        video_artist: { only: %i(channel title editor_description description kana) },
+      }
+    )
+  end
+
   private
+
+  def published_at_without_milliseconds
+    published_at.strftime("%Y-%m-%d %H:%M:%S %z")
+  end
 
   def create_video_artist
     ActiveRecord::Base.transaction do
