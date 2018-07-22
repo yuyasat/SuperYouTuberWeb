@@ -3,14 +3,27 @@
   border: 1px solid color(gray, light);
   border-radius: 5px;
   overflow: hidden;
+  &.is-accordion &__head:before {
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 0.5em);
+    transition: transform 0.3s ease;
+    line-height: 1;
+    @include fa("\f107");
+    font-size: 20px;
+  }
+  &.is-accordion.is-shown &__head:before {
+    transform: rotate(-180deg);
+  }
   &__head {
+    position: relative;
     background: #ce1612;
     color: #fff;
     font-weight: bold;
     padding: 10px;
-    margin-bottom: 5px;
   }
   &__list {
+    padding-top: 5px;
     >li {
       &:nth-last-child(n + 2){
         border-bottom: 1px solid color(gray, light);
