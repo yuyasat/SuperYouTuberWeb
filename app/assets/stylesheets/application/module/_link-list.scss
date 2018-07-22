@@ -9,7 +9,7 @@
     top: calc(50% - 0.5em);
     transition: transform 0.3s ease;
     line-height: 1;
-    @include fa("\f106");
+    @include fa("\f107");
     font-size: 20px;
   }
   &.is-accordion.is-shown &__head:before {
