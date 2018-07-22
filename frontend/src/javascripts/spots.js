@@ -5,7 +5,7 @@ import MarkerClusterer from 'node-js-marker-clusterer'
 
 $(function() {
   const script = document.createElement('script');
-  script.src="//maps.googleapis.com/maps/api/js?key=AIzaSyDExAntRdU2ReT82ebon-L8XGf9lUNZucA&libraries=places&callback=initMapWithSeachBox"
+  script.src="//maps.googleapis.com/maps/api/js?key=AIzaSyDVIj2EXnKBKcpcx-UZQGD3H7hK45bMMzE&libraries=places&callback=initMapWithSeachBox"
 
   document.getElementsByTagName('head')[0].appendChild(script);
 
