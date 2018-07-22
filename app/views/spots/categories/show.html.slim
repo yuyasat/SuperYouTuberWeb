@@ -8,18 +8,23 @@
         - else
           li = link_to cat.name, cat.spots_path
 
-  .l-container
+  .l-container#spots-categories
     .l-row
       .l-col-md-3
-        .link-list.l-mb-xs-15
-          h1.link-list__head = @category.name
+        .link-list.l-mb-xs-15.is-accordion[:class="{'is-shown':show(0)}"]
+          .accordion
+            h1.link-list__head[@click="toggle(0)"] = @category.name
           ul.link-list__list
             - @category.children.includes(:parent_category).decorate.each do |cat|
-              li
-                = link_to cat.name, cat.spots_path
+              transition[
+                v-on:before-enter="onBeforeEnter" v-on:enter="onEnter"
+                v-on:before-leave="onBeforeLeave" v-on:leave="onLeave"
+              ]
+                li.accordion-body[v-show="show(0)" v-cloak]
+                  = link_to cat.name, cat.spots_path
             - @category.ancestor_categories(only_id: false).map(&:decorate).each do |cat|
-              - unless @category.id == cat.id
-                li = link_to "#{cat.name}一覧に戻る", cat.spots_path
+              - if @category.id != cat.id
+                li = link_to "#{cat.name}に戻る", cat.spots_path
       .l-col-md-9
         .title.is-size-l.l-mb-xs-30
           .title__inner
@@ -42,4 +47,5 @@
         .l-row.l-mb-xs-30.l-mb-lg-50
           = paginate @movies
 
+= javascript_include_tag 'spots_categories'
 = javascript_include_tag 'spots'
