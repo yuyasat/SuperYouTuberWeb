@@ -27,7 +27,7 @@ jobs:
       - run:
           name: Install aws command
           command: |
-            if [ -n "`echo $CIRCLE_BRANCH | egrep -E 'develop|master'`" ]; then
+            if [[ $CIRCLE_BRANCH =~ develop|master && $CIRCLE_NODE_INDEX -eq 0 ]]; then
               wget https://bootstrap.pypa.io/get-pip.py
               sudo python get-pip.py
               sudo apt-get install python-dev
@@ -58,7 +58,7 @@ jobs:
       - run:
           name: Execute Assets Precompile and s3 sync
           command: |
-            if [ -n "`echo $CIRCLE_BRANCH | egrep -E 'develop|master'`" ]; then
+            if [[ $CIRCLE_BRANCH =~ develop|master && $CIRCLE_NODE_INDEX -eq 0 ]]; then
               RAILS_ENV=production bundle exec rake assets:precompile
               aws s3 sync public/assets/ s3://prod-super-youtuber/public/assets
             fi
