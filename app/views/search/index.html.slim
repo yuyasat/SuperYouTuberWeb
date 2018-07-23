@@ -16,7 +16,7 @@
     - else
       .l-row
         = render 'module/infeed_ad_block',
-                 num: 4, movies: @movies, sample_ad: @advertisements.infeed.latest.sample,
+                 num: 4, movies: @movies, sample_ad: @advertisements.infeed.sample,
                  clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
       .l-row.l-mb-xs-30.l-mb-lg-50
         = paginate @movies

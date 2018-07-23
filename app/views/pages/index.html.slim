@@ -26,7 +26,7 @@
         .title__right-button
     .l-row
       = render 'module/infeed_ad_block',
-               num: 4, movies: @latest_movies, sample_ad: @advertisements.infeed.latest.sample,
+               num: 4, movies: @latest_movies, sample_ad: @advertisements.infeed.latest_published.sample,
                clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
 
   - @category_movies.each do |cat1, movies|

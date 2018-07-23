@@ -15,7 +15,7 @@ class Advertisement < ApplicationRecord
   scope :active, ->(now = Time.current) {
     where(t[:start_at].lteq(now)).where(t[:end_at].eq(nil).or(t[:end_at].gt(now)))
   }
-  scope :latest, -> { where("LOWER(target ->> 'type') = 'latest'") }
+  scope :latest_published, -> { where("LOWER(target ->> 'type') = 'latest'") }
   scope :youtuber, -> { where("LOWER(target ->> 'type') = 'youtuber'") }
   scope :category, ->(category_or_id = nil) {
     cat_id = category_or_id.is_a?(Category) ? category_or_id.id : category_or_id
