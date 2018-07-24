@@ -41,7 +41,7 @@
       .l-col-md-9
         .l-row.l-mb-xs-10.l-mb-lg-20
           = render 'module/infeed_ad_block',
-                   num: 3, movies: @movies, sample_ad: @advertisements.infeed.sample,
+                   num: 3, movies: @movies, sample_ad: @advertisements.memory_scope(infeed: true).sample,
                    clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20'
         .l-row.l-mb-xs-30.l-mb-lg-50
           = paginate @movies

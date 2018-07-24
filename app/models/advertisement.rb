@@ -29,4 +29,36 @@ class Advertisement < ApplicationRecord
   }
 
   validates :start_at, presence: true
+
+  def latest_published?
+    target_type == 'latest'
+  end
+
+  def youtuber?
+    target_type == 'youtuber'
+  end
+
+  def category?(category_or_id = nil)
+    cat_id = category_or_id.is_a?(Category) ? category_or_id.id : category_or_id
+    if category_or_id.blank?
+      target_type == 'category'
+    else
+      target_type == 'category' && target['id'] == cat_id
+    end
+  end
+
+  def music?(music_url = nil)
+    music_url = music_url.gsub('/music/', '')
+    if music_url.blank?
+      target_type == 'music'
+    else
+      target_type == 'music' && target['id'] == music_url
+    end
+  end
+
+  private
+
+  def target_type
+    target['type']&.downcase
+  end
 end

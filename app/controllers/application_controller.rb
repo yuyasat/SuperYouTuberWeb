@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :set_categories, :retrieve_advertisement
+  before_action :set_categories
+  before_action :retrieve_advertisement, unless: :admin?
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   unless Rails.env.development?
@@ -45,7 +48,9 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_advertisement
-    @advertisements = Advertisement.active.where(path: request.path)
+    @advertisements = AdvertisementsDecorator.decorate(
+      Advertisement.active.where(path: request.path)
+    )
   end
 
   def clear_session_errors
