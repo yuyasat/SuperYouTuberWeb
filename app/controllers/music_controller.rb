@@ -13,6 +13,8 @@ class MusicController < ApplicationController
 
     @target_music_category = @special_category.category.decorate
 
+    return redirect_to action: :index, status: 301 if @target_music_category.root?
+
     if @target_music_category.children.present?
       @category_movies = Movie.grouped_by_categories(num: 10, target_category: @target_music_category)
       @template = 'index'
