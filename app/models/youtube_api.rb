@@ -134,7 +134,9 @@ class YoutubeApi
     }
     res = Typhoeus.get("#{URL}/search", params: parameters)
     item = JSON.parse(res.body)['items']&.first
-    return if item.blank?
+    if item.blank?
+      Bugsnag.notify(response: res.inspect)
+    end
     va = VideoArtist.find_by(channel: channel)
     va.latest_published_at = item.dig('snippet', 'publishedAt')
     va.save!
