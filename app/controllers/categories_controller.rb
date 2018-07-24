@@ -11,8 +11,7 @@ class CategoriesController < ApplicationController
       return redirect_to category.decorate.path, status: 301 unless category.root?
     end
 
-    @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id])&.decorate
-    raise ActiveRecord::RecordNotFound if @category.blank?
+    @category = Category.find(params[:cat3].presence || params[:cat2].presence || params[:id]).decorate
     return redirect_to @category.music_path, status: 301 if @category.music?
     return redirect_to @category.spots_path, status: 301 if @category.mappable?
 
