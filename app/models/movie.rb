@@ -79,13 +79,17 @@ class Movie < ApplicationRecord
   }
 
   def self.grouped_by_categories(num: 10, target_category: Category)
-    target_category.grouped_category_ids.map do |cat1, ids|
-      movies = Movie.joins(:movie_categories)
-                    .active.distinct.merge(MovieCategory.where(category: ids))
-                    .order(published_at: :desc).limit(num)
-      next if movies.blank?
-      [cat1, movies]
-    end.compact.to_h
+    {
+      target_category => target_category.try(:movies).presence
+    }.merge(
+      target_category.grouped_category_ids.map do |cat1, ids|
+        movies = Movie.joins(:movie_categories)
+                      .active.distinct.merge(MovieCategory.where(category: ids))
+                      .order(published_at: :desc).limit(num)
+        next if movies.blank?
+        [cat1, movies]
+      end.compact.to_h
+    ).compact
   end
 
   def self.channels_order_by_latest_published
