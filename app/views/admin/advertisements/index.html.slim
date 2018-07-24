@@ -16,16 +16,16 @@
                 = f.select :location, Advertisement.locations.keys, {}, class: 'form-controll col-xs-8 admin-text'
             .row{style="margin-bottom: 10px"}
               .form-group
+                label.col-xs-4.control-label for="advertisement_device" デバイス
+                = f.select :device, Advertisement.devices.keys, {}, default: 'both', class: 'form-controll col-xs-8 admin-text'
+            .row{style="margin-bottom: 10px"}
+              .form-group
                 label.col-xs-4.control-label for="advertisement_target" ターゲット
                 = f.text_field :target, default: nil, class: 'form-controll col-xs-8 admin-text', placeholder: '{ "type": "YouTuber" } or { "type": "Category", "id": 1 }'
             .row{style="margin-bottom: 10px"}
               .form-group
                 label.col-xs-4.control-label for="advertisement_target" start at
                 = f.datetime_select :start_at, default: Time.current
-            .row{style="margin-bottom: 10px"}
-              .form-group
-                label.col-xs-4.control-label for="advertisement_device" デバイス
-                = f.select :device, Advertisement.devices.keys, {}, default: 'both', class: 'form-controll col-xs-8 admin-text'
           .col-xs-6
             .row{style="margin-bottom: 8px"}
               .form-group
@@ -47,27 +47,31 @@ table.table.table-striped.table-hover.admin.small
     - @advertisements.each.with_index(0) do |ad, i|
       = form_for([:admin, ad]) do |f|
         tr
-          td[rowspan="5"] = ad.id
+          td[rowspan="6"] = ad.id
           td path
           td = f.text_field :path, size: 20
-          td[rowspan="5"]
+          td[rowspan="4" colspan="2"]
             div
-              = f.text_area :content, size: '50x10'
+              = f.text_area :content, size: '50x8'
             .text-right
               = f.submit '更新'
-          td[rowspan="5"] = image_tag ad.content.match(/<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/).captures.first
+          td[rowspan="6"] = ad.image_url ? image_tag(ad.image_url) : ''
         tr
           td 場所
           td = f.select :location, Advertisement.locations.keys, {}, class: 'form-controll col-sm-7'
         tr
+          td デバイス
+          td = f.select :device, Advertisement.devices.keys, {}, class: 'form-controll col-sm-7'
+        tr
           td ターゲット
           td = f.text_field :target, value: ad.target.to_json
-        tr
-          td 開始時刻
-          td = raw f.datetime_select(:start_at).split("&mdash;").join("<br>")
         tr[id="ad-#{@advertisements[i + 1]&.id}"]
+          td 開始時刻
+          td[colspan="3"]
+            span = f.datetime_select(:start_at)
+        tr
           td 終了時刻
-          td = raw f.datetime_select(:end_at, include_blank: true, default: nil).split("&mdash;").join("<br>")
-
+          td[colspan="3"]
+            span = f.datetime_select(:end_at, include_blank: true, default: nil)
 .row.text-right
   = paginate @advertisements

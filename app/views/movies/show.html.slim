@@ -45,17 +45,11 @@
           .title__right-button
             = link_to 'もっと見る', video_artist_path(@movie.video_artist.channel), class: 'button is-size-s'
     .l-row
+    .l-row
       - movies = @movie.video_artist.latest_published_movies.active.where.not(id: @movie.id).limit(12)
-      - if (advertisement = @advertisements.memory_scope(infeed: true, youtuber: true).sample).present?
-        = render partial: 'module/movie', collection: movies[0..2],
-                 as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
-        .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
-          = render 'module/infeed_ad', ads_infeed: advertisement
-        = render partial: 'module/movie', collection: movies[3..-2],
-                 as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
-      - else
-        = render partial: 'module/movie', collection: movies,
-                 as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
+      = render 'module/infeed_ad_block',
+               num: 4, movies: movies, sample_ad: @advertisements.memory_scope(browser, infeed: true, youtuber: true).sample,
+               clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
 
 - @movie.categories.decorate.select { |c| !c.music? }.each do |cat|
   .l-container
@@ -67,13 +61,6 @@
             = link_to 'もっと見る', cat.path, class: 'button is-size-s'
     .l-row
       - movies = cat.movies.active.latest_published.where.not(id: @movie.id).limit(12)
-      - if (advertisement = @advertisements.memory_scope(infeed: true, category: cat.id).sample).present?
-        = render partial: 'module/movie', collection: movies[0..2],
-                 as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
-        .l-col-sm-6.l-col-md-4.l-col-lg-3.l-mb-xs-10.l-mb-lg-20
-          = render 'module/infeed_ad', ads_infeed: advertisement
-        = render partial: 'module/movie', collection: movies[3..-2],
-                 as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
-      - else
-        = render partial: 'module/movie', collection: movies,
-                 as: 'movie', locals: { clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20' }
+      = render 'module/infeed_ad_block',
+               num: 4, movies: movies, sample_ad: @advertisements.memory_scope(browser, infeed: true, category: cat.id).sample,
+               clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'

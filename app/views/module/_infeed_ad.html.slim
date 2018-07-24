@@ -3,4 +3,5 @@
     .ad__inner
       .ad__sponsored
         = raw ads_infeed.content
-        .ad__sponsored__text 広告
+        - unless ads_infeed.content.start_with?("<script")
+          .ad__sponsored__text 広告

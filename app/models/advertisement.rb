@@ -6,8 +6,8 @@ class Advertisement < ApplicationRecord
     bottom: 4,
   }
   enum device: {
-    pc: 1,
-    sp: 2,
+    only_pc: 1,
+    only_sp: 2,
     both: 3,
   }
 
@@ -29,6 +29,14 @@ class Advertisement < ApplicationRecord
   }
 
   validates :start_at, presence: true
+
+  def pc?
+    both? || only_pc?
+  end
+
+  def sp?
+    both? || only_sp?
+  end
 
   def latest_published?
     target_type == 'latest'
@@ -54,6 +62,10 @@ class Advertisement < ApplicationRecord
     else
       target_type == 'music' && target['id'] == music_url
     end
+  end
+
+  def image_url
+    content.match(/<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/)&.captures&.first
   end
 
   private

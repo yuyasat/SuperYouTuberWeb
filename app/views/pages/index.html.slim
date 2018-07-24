@@ -12,7 +12,7 @@
                 .slider__slide
                   = render 'module/movie_l', movie: movie
             .slider__pagination
-        - if (ads_top = @advertisements.memory_scope(top: true).sample).present?
+        - if (ads_top = @advertisements.memory_scope(browser, top: true).sample).present?
           .l-col-md-6
             .ad.is-top-banner
               .ad__inner
@@ -26,7 +26,8 @@
         .title__right-button
     .l-row
       = render 'module/infeed_ad_block',
-               num: 4, movies: @latest_movies, sample_ad: @advertisements.memory_scope(infeed: true, latest_published: true).sample,
+               num: 4, movies: @latest_movies,
+               sample_ad: @advertisements.memory_scope(browser, infeed: true, latest_published: true).sample,
                clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
 
   - @category_movies.each do |cat1, movies|
@@ -39,7 +40,8 @@
 
       .l-row
         = render 'module/infeed_ad_block',
-                 num: 4, movies: movies, sample_ad: @advertisements.memory_scope(infeed: true, category: cat1).sample,
+                 num: 4, movies: movies,
+                 sample_ad: @advertisements.memory_scope(browser, infeed: true, category: cat1).sample,
                  clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
 
       .l-row.is-align-center

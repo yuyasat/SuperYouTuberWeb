@@ -27,7 +27,7 @@
                   = link_to 'もっと見る', category_path(cat1), class: 'button is-size-s'
             .l-row
               = render 'module/infeed_ad_block',
-                       num: 3, movies: movies, sample_ad: @advertisements.memory_scope(infeed: true, category: cat1).sample,
+                       num: 3, movies: movies, sample_ad: @advertisements.memory_scope(browser, infeed: true, category: cat1).sample,
                        clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20'
             .l-row.is-align-center
               .l-col-md-4
