@@ -19,6 +19,7 @@ gem 'gon'
 gem 'unicorn'
 gem 'typhoeus'
 gem 'config'
+gem "bugsnag", "~> 6.8"
 gem 'nokogiri'
 gem "rgeo-proj4"
 gem 'activerecord-import'
