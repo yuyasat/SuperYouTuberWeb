@@ -1,7 +1,9 @@
-.infeed-ad
-  .ad
-    .ad__inner
-      .ad__sponsored
-        = raw ads_infeed.content
-        - unless ads_infeed.content.start_with?("<script")
+- if ads_infeed.content.start_with?("<script")
+  = raw ads_infeed.content
+- else
+  .infeed-ad
+    .ad
+      .ad__inner
+        .ad__sponsored
+          = raw ads_infeed.content
           .ad__sponsored__text 広告
