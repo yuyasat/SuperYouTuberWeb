@@ -64,6 +64,10 @@ class Advertisement < ApplicationRecord
     end
   end
 
+  def orders
+    target['orders'].to_a
+  end
+
   def image_url
     content.match(/<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/)&.captures&.first
   end

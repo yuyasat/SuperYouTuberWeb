@@ -9,7 +9,7 @@
             li
               = link_to cat2.name, cat2.decorate.music_path
     .l-col-md-9
-      - category_movies.each do |cat2, movies|
+      - category_movies.each.with_index(1) do |(cat2, movies), i|
         - decorated_cat2 = cat2.decorate
         .l-mb-xs-50
           .title.is-size-m.l-mb-xs-10.l-mb-md-20
@@ -22,7 +22,7 @@
           .l-row
              = render 'module/infeed_ad_block',
                       num: 3, movies: movies,
-                      sample_ad: @advertisements.memory_scope(browser, infeed: true, music: decorated_cat2.music_path).sample,
+                      sample_ad: @advertisements.memory_scope(browser, i, infeed: true, music: decorated_cat2.music_path).sample,
                       clazz: 'l-col-sm-6 l-col-lg-4 l-mb-xs-10 l-mb-lg-20'
 
           - unless cat2.children.present?
