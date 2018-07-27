@@ -35,6 +35,9 @@
         p.movie-meta__desc = @movie.description
         p.movie-meta__date = @movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
         p.movie-meta__publisher = link_to @movie.video_artist.title, video_artist_path(@movie.video_artist.channel)
+- if (ad = @advertisements.memory_scope(browser, infeed: true).sample).present?
+  .l-container
+    = raw ad.content
 
 - if @movie.video_artist.present?
   .l-container
@@ -51,7 +54,7 @@
                num: 4, movies: movies, sample_ad: @advertisements.memory_scope(browser, infeed: true, youtuber: true).sample,
                clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
 
-- @movie.categories.decorate.select { |c| !c.music? }.each do |cat|
+- @movie.categories.decorate.select { |c| !c.music? }.each.with_index(1) do |cat, i|
   .l-container
     .title.is-size-m.l-mb-xs-10.l-mb-md-20
       .title__inner
@@ -62,5 +65,5 @@
     .l-row
       - movies = cat.movies.active.latest_published.where.not(id: @movie.id).limit(12)
       = render 'module/infeed_ad_block',
-               num: 4, movies: movies, sample_ad: @advertisements.memory_scope(browser, infeed: true, category: cat.id).sample,
+               num: 4, movies: movies, sample_ad: @advertisements.memory_scope(browser, i, infeed: true, category: cat.id).sample,
                clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
