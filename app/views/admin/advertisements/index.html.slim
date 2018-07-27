@@ -12,6 +12,10 @@
                 = f.text_field :path, class: 'form-controll col-xs-8 admin-text', placeholder: '/movies/1234'
             .row{style="margin-bottom: 10px"}
               .form-group
+                label.col-xs-4.control-label for="advertisement_match_type" 一致タイプ
+                = f.select :match_type, Advertisement.match_types.keys, {}, class: 'form-controll col-xs-8 admin-text'
+            .row{style="margin-bottom: 10px"}
+              .form-group
                 label.col-xs-4.control-label for="advertisement_location" 場所
                 = f.select :location, Advertisement.locations.keys, {}, class: 'form-controll col-xs-8 admin-text'
             .row{style="margin-bottom: 10px"}
@@ -22,11 +26,11 @@
               .form-group
                 label.col-xs-4.control-label for="advertisement_target" ターゲット
                 = f.text_field :target, default: nil, class: 'form-controll col-xs-8 admin-text', placeholder: '{ "type": "YouTuber" } or { "type": "Category", "id": 1 }'
+          .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
                 label.col-xs-4.control-label for="advertisement_target" start at
                 = f.datetime_select :start_at, default: Time.current
-          .col-xs-6
             .row{style="margin-bottom: 8px"}
               .form-group
                 label.col-xs-2.control-label.small for="movie_description" アフィリエイトタグ
@@ -47,7 +51,7 @@ table.table.table-striped.table-hover.admin.small
     - @advertisements.each.with_index(0) do |ad, i|
       = form_for([:admin, ad]) do |f|
         tr
-          td[rowspan="6"] = ad.id
+          td[rowspan="7"] = ad.id
           td path
           td = f.text_field :path, size: 20
           td[rowspan="4" colspan="2"]
@@ -55,7 +59,10 @@ table.table.table-striped.table-hover.admin.small
               = f.text_area :content, size: '50x8'
             .text-right
               = f.submit '更新'
-          td[rowspan="6"] = ad.image_url ? image_tag(ad.image_url) : ''
+          td[rowspan="7"] = ad.image_url ? image_tag(ad.image_url) : ''
+        tr
+          td 一致タイプ
+          td = f.select :match_type, Advertisement.match_types.keys, {}, class: 'form-controll col-sm-7'
         tr
           td 場所
           td = f.select :location, Advertisement.locations.keys, {}, class: 'form-controll col-sm-7'
@@ -64,7 +71,7 @@ table.table.table-striped.table-hover.admin.small
           td = f.select :device, Advertisement.devices.keys, {}, class: 'form-controll col-sm-7'
         tr
           td ターゲット
-          td = f.text_field :target, value: ad.target.to_json
+          td[colspan="3"] = f.text_field :target, size: 80, value: ad.target.to_json
         tr[id="ad-#{@advertisements[i + 1]&.id}"]
           td 開始時刻
           td[colspan="3"]

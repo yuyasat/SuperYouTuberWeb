@@ -1,15 +1,7 @@
 class Advertisement < ApplicationRecord
-  enum location: {
-    top: 1,
-    infeed: 2,
-    middle: 3,
-    bottom: 4,
-  }
-  enum device: {
-    only_pc: 1,
-    only_sp: 2,
-    both: 3,
-  }
+  enum location: { top: 1, infeed: 2, middle: 3, bottom: 4 }
+  enum device: { only_pc: 1, only_sp: 2, both: 3 }
+  enum match_type: { perfect: 1, regex: 2 }, _prefix: true
 
   t = arel_table
   scope :active, ->(now = Time.current) {

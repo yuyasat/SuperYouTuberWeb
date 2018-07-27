@@ -31,7 +31,7 @@ class Admin::AdvertisementsController < AdminController
   def ad_params
     params[:advertisement][:target] = JSON.parse(params[:advertisement][:target])
     params.require(:advertisement).permit(
-      :path, :device, :location, :content, :start_at, :end_at,
+      :path, :match_type, :device, :location, :content, :start_at, :end_at,
       target: [:id, :type, :url, orders: []]
     )
   end
