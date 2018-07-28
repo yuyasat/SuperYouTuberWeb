@@ -51,9 +51,10 @@ class ApplicationController < ActionController::Base
   end
 
   def retrieve_advertisement
+    path = request.path == '/search' ? request.fullpath : request.path
     @advertisements = AdvertisementsDecorator.decorate(
       Advertisement.active.match_type_perfect.where(path: request.path).presence ||
-      Advertisement.active.match_type_regex.where("'#{request.path}' ~ path")
+      Advertisement.active.match_type_regex.where("'#{path}' ~ path")
     )
   end
 
