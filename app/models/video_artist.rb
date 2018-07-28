@@ -104,7 +104,9 @@ class VideoArtist < ApplicationRecord
   end
 
   def videos_url
-    "https://www.youtube.com/channel/#{channel}/videos"
+    "https://www.youtube.com/channel/#{channel}/videos#{
+      VideoArtist.music_video_artists_channels.include?(channel) ? '?sort=dd&view=64' : ''
+    }"
   end
 
   def categories
