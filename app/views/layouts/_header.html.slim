@@ -20,7 +20,7 @@
             i.fa.fa-times
 
       .header__search-panel.j-open-search-panel[class=(@mobile_menu_show ? "" : "is-hide")]
-        /.header__keyword-search
+        .header__keyword-search
           = form_tag(search_index_path, method: :get) do
             .keyword-search
               .keyword-search__field-wrap
