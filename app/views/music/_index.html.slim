@@ -9,6 +9,12 @@
             li
               = link_to cat2.name, cat2.decorate.music_path
     .l-col-md-9
+      - if (ad = @advertisements.memory_scope(browser, top: true).sample).present?
+        .infeed-ad
+          .ad.is-top-oblong
+            .ad__inner
+              = raw ad.content
+
       - category_movies.each.with_index(1) do |(cat2, movies), i|
         - decorated_cat2 = cat2.decorate
         .l-mb-xs-50
@@ -30,3 +36,8 @@
               .l-col-md-4
                 = link_to decorated_cat2.music_path, class: 'button is-width-full' do
                   span もっと見る
+          - if (ad = @advertisements.memory_scope(browser, i, middle: true, category: cat2).sample).present?
+            .infeed-ad
+              .ad.is-oblong
+                .ad__inner
+                  = raw ad.content
