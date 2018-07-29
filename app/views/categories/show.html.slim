@@ -28,7 +28,7 @@
       .l-col-md-3
 
         .link-list.l-mb-xs-15
-          h1.link-list__head = @category.name
+          .link-list__head = @category.name
           ul.link-list__list
             - @category.children.includes(:parent_category).decorate.each do |cat|
               li
@@ -39,6 +39,11 @@
             li = link_to "カテゴリ一覧に戻る", '/categories'
 
       .l-col-md-9
+        .title.is-size-m.l-mb-xs-10.l-mb-md-20
+          .title__inner
+            h1.title__title = @category.name
+          - if @category.description.present?
+            = @category.description
         .l-row.l-mb-xs-10.l-mb-lg-20
           = render 'module/infeed_ad_block',
                    num: 3, movies: @movies, sample_ad: @advertisements.memory_scope(browser, infeed: true).sample,
