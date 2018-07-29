@@ -27,6 +27,10 @@
               .form-group
                 label.col-xs-4.control-label for="category_full_name" カテゴリ名（省略しない）
                 = f.text_field :full_name, class: 'form-controll col-xs-8 admin-text'
+            .row{style="margin-bottom: 8px"}
+              .form-group
+                label.col-xs-2.control-label.small for="category_description" 説明文
+                = f.text_area :description, class: 'form-controll col-xs-10', rows: 4
           .row.col-xs-12.text-right
             .form-group
               .col-sm-6.text-left

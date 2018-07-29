@@ -74,7 +74,7 @@ class Admin::CategoriesController < AdminController
 
   def category_params
     params.require(:category).permit(
-      :name, :full_name, :parent_id,
+      :name, :full_name, :parent_id, :description,
       special_category_attributes: %i(url),
     )
   end
