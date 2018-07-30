@@ -1,0 +1,25 @@
+.category-head {
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1) 30%, rgba(255, 255, 255, 0) 100%);
+  border-radius: 5px 5px 0 0;
+  padding: 20px;
+  @include screen-size(lg) {
+    padding: 45px 30px 40px;
+  }
+  &__title {
+    @include font(ll);
+    text-align: center;
+    @include screen-size(lg) {
+      @include font(lll);
+    }
+  }
+  &__description {
+    margin-top: 10px;
+    line-height: 1.75;
+    @include screen-size(md) {
+      @include font(l);
+    }
+    @include screen-size(lg) {
+      margin-top: 20px;
+    }
+  }
+}
