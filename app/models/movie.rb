@@ -100,7 +100,7 @@ class Movie < ApplicationRecord
   end
 
   def category_changed?(new_categories)
-    (movie_categories.pluck(:category_id) - new_categories.map(&:id)).present?
+    movie_categories.pluck(:category_id).sort != new_categories.map(&:category_id).sort
   end
 
   def locations_changed?(locations_params_values)
