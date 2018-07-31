@@ -16,5 +16,6 @@ class CategoriesController < ApplicationController
     return redirect_to @category.spots_path, status: 301 if @category.mappable?
 
     @movies = @category.related_categories_movies.page(params[:page]).per(30)
+    redirect_to request.path, status: 301 if @movies.blank?
   end
 end
