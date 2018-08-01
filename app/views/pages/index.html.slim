@@ -14,10 +14,14 @@
             .slider__pagination
         - if (ads_top = @advertisements.memory_scope(browser, top: true).sample).present?
           .l-col-md-6
-            .ad.is-top-banner
-              .ad__inner
-                div 広告
-                div = raw ads_top.content
+            - if ads_top.content.start_with?('<script')
+              div = raw ads_top.content
+              .ad__sponsored__text 広告
+            - else
+              .ad.is-top-banner
+                .ad__inner
+                  div = raw ads_top.content
+                  div 広告
 
   .l-container.l-mb-xs-50
     .title.is-size-m.l-mb-xs-10.l-mb-md-20
