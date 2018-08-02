@@ -64,6 +64,10 @@ class Advertisement < ApplicationRecord
     content.match(/<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/)&.captures&.first
   end
 
+  def script_tag?
+    content.start_with?('<script')
+  end
+
   private
 
   def target_type

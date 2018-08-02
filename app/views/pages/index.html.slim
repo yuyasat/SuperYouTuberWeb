@@ -14,7 +14,7 @@
             .slider__pagination
         - if (ads_top = @advertisements.memory_scope(browser, top: true).sample).present?
           .l-col-md-6
-            - if ads_top.content.start_with?('<script')
+            - if ads_top.script_tag?
               div = raw ads_top.content
               .ad__sponsored__text 広告
             - else
