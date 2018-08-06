@@ -73,7 +73,7 @@ function setSearchBox(map) {
 }
 
 function getMovieLocations(map) {
-  const url = `/internal/api/movie_location?path=${location.pathname}`
+  const url = `/internal/api/movie_location`
   const config = {
     method: 'get',
     params: {

@@ -1,6 +1,9 @@
 class Internal::ApiController < ApplicationController
   def movie_location
-    target_cat = params[:path].gsub('/spots/categories', '').split("/").delete_if(&:blank?).last
+    raise ActiveRecord::RecordNotFound if request.referer.blank?
+    target_cat = request.referer.gsub(
+      "#{request.protocol}#{request.env['HTTP_HOST']}/spots/categories", ''
+    ).split('/').delete_if(&:blank?).last
 
     locations = Location.joins(:movie).merge(
       target_cat.present? ? Movie.active.of_category(Category.find(target_cat)) : Movie.active
