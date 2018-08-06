@@ -36,16 +36,7 @@
         p.movie-meta__date = @movie.published_at.strftime("%Y年%-m月%-d日 %H:%M")
         p.movie-meta__publisher = link_to @movie.video_artist.title, video_artist_path(@movie.video_artist.channel)
 
-- if (ad = @advertisements.memory_scope(browser, top: true).sample).present?
-  - if ad.script_tag?
-    .l-container
-      div = raw ad.content
-      .ad__sponsored__text 広告
-  - else
-    .ad
-      .ad__inner
-        div = raw ad.content
-        div 広告
+= render 'module/page_top_ad', ad: @advertisements.memory_scope(browser, top: true).sample
 
 - if @movie.video_artist.present?
   .l-container

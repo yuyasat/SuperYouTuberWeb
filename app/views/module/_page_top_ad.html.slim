@@ -1,0 +1,10 @@
+- if ad.present?
+  - if ad.script_tag?
+    .l-container
+      div = raw ad.content
+      .ad__sponsored__text 広告
+  - else
+    .ad
+      .ad__inner
+        div = raw ad.content
+        div 広告
