@@ -1,4 +1,10 @@
 class AdvertisementsDecorator < Draper::CollectionDecorator
+  delegate :present?, to: :object
+
+  def include_nend?(browser)
+    memory_scope(browser).any? { |ad| ad.content.include?('nend') }
+  end
+
   def memory_scope(browser, index = nil, **scopes)
     object.select do |ad|
       scopes.merge(sp: !!browser.mobile?, pc: !browser.mobile?).select { |_, v| v }.all? do |k, v|

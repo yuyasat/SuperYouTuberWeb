@@ -1,1 +1,2 @@
-script src="https://js1.nend.net/js/nendAdLoader.js" type="text/javascript"
+- if @advertisements.present? && @advertisements.include_nend?(browser)
+  script src="https://js1.nend.net/js/nendAdLoader.js" type="text/javascript"
