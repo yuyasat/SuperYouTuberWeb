@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180729000000) do
+ActiveRecord::Schema.define(version: 20180808000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,15 @@ ActiveRecord::Schema.define(version: 20180729000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["movie_id"], name: "index_locations_on_movie_id"
+  end
+
+  create_table "memos", force: :cascade do |t|
+    t.string "target_type"
+    t.bigint "target_id"
+    t.text "content", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["target_type", "target_id"], name: "index_memos_on_target_type_and_target_id"
   end
 
   create_table "movie_categories", id: :serial, force: :cascade do |t|

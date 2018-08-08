@@ -23,8 +23,10 @@ class VideoArtist < ApplicationRecord
   has_many :twitter_accounts
   has_many :instagram_accounts
   has_many :movies, foreign_key: 'channel', primary_key: 'channel'
+  has_many :memos, -> { order(updated_at: :desc) }, as: :target, dependent: :delete_all
 
-  accepts_nested_attributes_for :sns_accounts, allow_destroy: true
+  accepts_nested_attributes_for :sns_accounts, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :memos, reject_if: :all_blank, allow_destroy: true
   delegate :timeline_url, to: :twitter_accounts
 
   scope :insufficient, -> {

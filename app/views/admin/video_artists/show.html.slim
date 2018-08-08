@@ -22,6 +22,11 @@
             .form-group
               label.col-xs-4.control-label.small for="video_artist_description" 説明文
               = f.text_area :description, class: 'small form-controll col-xs-8 admin-text', rows: 6
+          = f.fields_for :memos, @video_artist.memos.first || @video_artist.memos.new do |memo_f|
+            .row.admin-form
+              .form-group
+                label.col-xs-4.control-label.small for="video_artist_memos_content" メモ
+                = memo_f.text_area :content, class: 'small form-controll col-xs-8 admin-text', rows: 6
           .row.admin-form
             .form-group
               .text-right

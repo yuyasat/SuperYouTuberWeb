@@ -1,6 +1,7 @@
 class Admin::VideoArtistsController < AdminController
   def manager
-    @video_artists = scoped_video_artist(params).having_non_deleted_movies.page(params[:page]).per(500)
+    @video_artists = scoped_video_artist(params).having_non_deleted_movies
+                                                .includes(:memos).page(params[:page]).per(500)
     @max_published_at = Movie.group(:channel).maximum(:published_at)
     @min_published_at = Movie.group(:channel).minimum(:published_at)
     @movie_count = VideoArtist.joins(:movies).group('video_artists.id').count
@@ -12,8 +13,10 @@ class Admin::VideoArtistsController < AdminController
   end
 
   def show
-    @video_artist = VideoArtist.find(params[:id])
-    @movies = @video_artist.movies.page(params[:page]).per(100)
+    @video_artist = VideoArtist.includes(:instagram_accounts, :twitter_accounts).find(params[:id])
+    @movies = @video_artist.movies.includes(
+      :video_artist, :categories, :locations
+    ).page(params[:page]).per(100)
   end
 
   def update
@@ -74,7 +77,8 @@ class Admin::VideoArtistsController < AdminController
 
   def video_artist_params
     params.require(:video_artist).permit(
-      :channel, :title, :editor_description, :description, :kana, :en
+      :channel, :title, :editor_description, :description, :kana, :en,
+      memos_attributes: %i(content),
     )
   end
 end
