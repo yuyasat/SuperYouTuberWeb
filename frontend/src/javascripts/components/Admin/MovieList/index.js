@@ -28,11 +28,13 @@ export default Vue.extend({
         <tr v-for="movie in this.movies">
           <td><a :href="'/admin/movies/' + movie.id" target="_blank">{{ movie.id }}</a></td>
           <td>
-            <a :alt="movie.title" target="_blank" :href="movie.url">
+            <a :alt="movie.title" target="_blank" :href="'/movies/' + movie.id">
               <img :src="movie.default_url" :alt="movie.title">
             </a>
           </td>
-          <td>{{ movie.key }}</td>
+          <td>
+            <a :alt="movie.title" target="_blank" :href="movie.url">{{ movie.key }}</a>
+          </td>
           <td>{{ movie.categories.map((cat) => { return cat.name }).join(', ') }}</td>
           <td>
             <div><a target="_blank" :href="movie.channel_url">{{ channelTitle(movie) }}</a></div>
