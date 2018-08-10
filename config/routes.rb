@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  if Rails.env.development?
+    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/internal/graphql"
+  end
+
   devise_for :users
   root 'pages#index'
   get 'privacy-policy' => 'pages#privacy_policy'
@@ -41,6 +45,7 @@ Rails.application.routes.draw do
     namespace :api do
       get :movie_location
     end
+    post 'graphql', to: "graphql#execute"
   end
 
   namespace :admin do
