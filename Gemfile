@@ -30,6 +30,7 @@ gem 'rails_12factor', group: :production
 gem 'sitemap_generator'
 gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '6.x'
 gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '6.x'
+gem 'graphql'
 
 group :development do
   gem 'web-console', '~> 2.0'
@@ -39,6 +40,7 @@ group :development do
   gem 'html2slim'
   gem 'rb-readline'
   gem 'travis'
+  gem 'graphiql-rails'
 end
 
 group :development, :test do
