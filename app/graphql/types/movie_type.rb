@@ -8,5 +8,7 @@ module Types
     field :description, String, null: false
     field :published_at, String, null: false
     field :channel, String, null: false
+    field :default_url, String, null: false
+    field :mqdefault_url, String, null: false
   end
 end
