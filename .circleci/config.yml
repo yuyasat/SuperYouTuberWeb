@@ -42,6 +42,21 @@ jobs:
             sudo sed -i 's|HERE/chrome\"|HERE/chrome\" --disable-setuid-sandbox|g' /opt/google/chrome/google-chrome
             rm google-chrome.deb
       - run:
+          name: Install kakasi
+          command: |
+            if [ ! -e /tmp/kakasi-2.3.6 ]; then
+              cd /tmp/
+              wget http://kakasi.namazu.org/stable/kakasi-2.3.6.tar.gz
+
+              gzip -dc kakasi-2.3.6.tar.gz | tar xvf -
+
+              cd kakasi-2.3.6
+
+              ./configure
+              make
+              sudo make install
+            fi
+      - run:
           name: Bundle Install
           command: bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run:
