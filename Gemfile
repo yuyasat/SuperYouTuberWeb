@@ -54,10 +54,9 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-stack_explorer'
   gem 'awesome_print'
-  gem 'hirb'
-  gem 'hirb-unicode'
   gem 'spring-commands-rspec'
   gem 'rails-erd'
+  gem 'rubocop', '~> 0.58.2', require: false
 end
 
 group :test do

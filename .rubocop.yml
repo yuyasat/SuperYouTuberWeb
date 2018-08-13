@@ -1,7 +1,5 @@
 AllCops:
-  Include:
-    - '**/Rakefile'
-    - '**/config.ru'
+  TargetRubyVersion: 2.5
   Exclude:
     - 'vendor/**/*'
     - 'bin/*'
@@ -45,12 +43,8 @@ FormatString:
   EnforcedStyle: sprintf
 
 # Maximum line length
-LineLength:
+Metrics/LineLength:
   Max: 100
-
-# Whatever we should use "postfix if/unless"
-IfUnlessModifier:
-  MaxLineLength: 100
 
 # Maximum method length
 MethodLength:
@@ -65,7 +59,9 @@ StringLiterals:
   EnforcedStyle: single_quotes
 
 # Put a comma after the last item of a multiline array or hash
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
   EnforcedStyleForMultiline: comma
 
 # Allow empty condition in case statements
