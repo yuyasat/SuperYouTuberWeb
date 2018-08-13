@@ -29,12 +29,12 @@ i {
       &:before {
         @include fa("\f0d7");
       }
-    },
+    }
     &.fa-caret-up {
       &:before {
         @include fa("\f0d8");
       }
-    },
+    }
     &.fa-check {
       &:before {
         @include fa("\f00c");
