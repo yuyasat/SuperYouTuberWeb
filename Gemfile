@@ -31,6 +31,7 @@ gem 'sitemap_generator'
 gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '6.x'
 gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '6.x'
 gem 'graphql'
+gem 'kakasi'
 
 group :development do
   gem 'web-console', '~> 2.0'
