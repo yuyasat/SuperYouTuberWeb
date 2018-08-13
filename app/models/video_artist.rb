@@ -139,14 +139,14 @@ class VideoArtist < ApplicationRecord
       end
     end.compact.join
   rescue => e
-    Bugsnag.notify("(Handled) Kana Convert Failed", id: id, title: title)
+    Bugsnag.notify("(Handled) Kana Convert Failed. id: #{id}, title: #{title}")
     title
   end
 
   def en_converted_from_title
     Kakasi.kakasi('-Ja -Ka -Ha', title).tr(' ', '').downcase
   rescue => e
-    Bugsnag.notify("(Handled) En Convert Failed", id: id, title: title)
+    Bugsnag.notify("(Handled) En Convert Failed. id: #{id}, title: #{title}")
     title
   end
 
