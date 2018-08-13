@@ -29,6 +29,8 @@ class VideoArtist < ApplicationRecord
   accepts_nested_attributes_for :memos, reject_if: :all_blank, allow_destroy: true
   delegate :timeline_url, to: :twitter_accounts
 
+  after_create :set_kana_and_en!, if: -> { kana.blank? || en.blank? }
+
   scope :insufficient, -> {
     columns = column_names.reject { |c| c.in?(%w(id created_at updated_at)) }
     where(columns.map { |c| "#{c} IS NULL" }.join(" OR "))
@@ -119,6 +121,35 @@ class VideoArtist < ApplicationRecord
     categories.any?(&:music?)
   end
 
+
+  def kana_converted_from_title
+    Kakasi.kakasi(
+      '-w',
+      title.gsub(
+        /[!"#$%'()\*\+\-\.,\/:;<=>?\[\\\]^_`{|}~]/, '' # except & and @
+      ).gsub(
+        /[&@]/, '&' => 'あんど', '@' => 'あっと'
+      )
+    ).split.map do |str|
+      case str
+      when /\A[a-zA-Z]+\z/     then str.downcase.to_kana                      # アルファベット
+      when /\A\d+\z/          then Kakasi.kakasi('-JH', str.to_i.to_j(:all)) # 数字
+      when /\A\d+[a-zA-Z]+\z/ then nil                                       # 数字+アルファベット
+      else                         Kakasi.kakasi('-JH -KH', str)
+      end
+    end.compact.join
+  rescue => e
+    Bugsnag.notify("(Handled) Kana Convert Failed", id: id, title: title)
+    title
+  end
+
+  def en_converted_from_title
+    Kakasi.kakasi('-Ja -Ka -Ha', title).tr(' ', '').downcase
+  rescue => e
+    Bugsnag.notify("(Handled) En Convert Failed", id: id, title: title)
+    title
+  end
+
   def self.music_video_artists_channels
     RequestStore.fetch("#{name}.#{__method__}") do
       Category.musicable.no_children.includes(:movies).map { |cat|
@@ -139,5 +170,11 @@ class VideoArtist < ApplicationRecord
     ).find_each do |va|
       YoutubeApi.update_latest_published_at(va.channel)
     end
+  end
+
+  private
+
+  def set_kana_and_en!
+    update!(kana: kana_converted_from_title, en: en_converted_from_title)
   end
 end
