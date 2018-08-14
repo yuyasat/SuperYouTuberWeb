@@ -92,6 +92,9 @@ class VideoArtist < ApplicationRecord
   scope :having_non_deleted_movies, -> {
     where(channel: Movie.non_deleted.select('movies.channel').distinct)
   }
+  scope :having_movie_registration_definitions, -> {
+    where(id: MovieRegistrationDefinition.select(:video_artist_id).distinct)
+  }
 
   def channel_url
     "https://www.youtube.com/channel/#{channel}"

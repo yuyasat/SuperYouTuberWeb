@@ -75,6 +75,7 @@ Rails.application.routes.draw do
       end
     end
     resources :advertisements, only: %i(index create update)
+    resources :movie_registration_definitions, only: %i(index)
     namespace :api do
       get :movies
       get :movie_info
