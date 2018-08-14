@@ -5,6 +5,10 @@ class Admin::MoviesController < AdminController
     set_gon_attributes
   end
 
+  def auto_registered
+    @movies = Movie.registered_type_auto.order(created_at: :desc).page(params[:page]).per(100)
+  end
+
   def show
     @movie = Movie.find(params[:id])
     set_gon_attributes

@@ -29,3 +29,7 @@ ja:
         active: '表示'
         deleted: 'YouTube上で削除'
         invisible: 'SuperYouTuber上で非表示'
+      registered_type:
+        manual: '手動'
+        auto: '自動'
+        auto_checked: '確認済み'

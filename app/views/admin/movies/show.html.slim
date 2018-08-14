@@ -11,6 +11,13 @@
               = f.select :status, Movie.statuses_i18n.invert, {}, class: 'form-controll col-sm-7'
           .row{style="margin-bottom: 10px"}
             .form-group
+              .col-sm-4.control-label 自動登録
+              - Movie.registered_types.each do |k, v|
+                .col-sm-2
+                  = f.radio_button :registered_type, k, checked: @movie.public_send("registered_type_#{k}?")
+                  = f.label "registered_type_#{k}", I18n.t('enums.movie.registered_type')[k.to_sym]
+          .row{style="margin-bottom: 10px"}
+            .form-group
               label.col-sm-4.control-label for="movie_url" URL
               = f.text_field :url, class: 'small form-controll col-sm-7', 'v-model': 'url'
           .row{style="margin-bottom: 10px"}

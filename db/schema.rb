@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180808000000) do
+ActiveRecord::Schema.define(version: 20180814000000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,17 @@ ActiveRecord::Schema.define(version: 20180808000000) do
     t.index ["movie_id"], name: "index_movie_categories_on_movie_id"
   end
 
+  create_table "movie_registration_definitions", force: :cascade do |t|
+    t.bigint "video_artist_id", null: false
+    t.bigint "category_id", null: false
+    t.string "definition", null: false
+    t.integer "match_type", default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_movie_registration_definitions_on_category_id"
+    t.index ["video_artist_id"], name: "index_movie_registration_definitions_on_video_artist_id"
+  end
+
   create_table "movie_tags", id: :serial, force: :cascade do |t|
     t.integer "movie_id", null: false
     t.integer "tag_id", null: false
@@ -94,6 +105,7 @@ ActiveRecord::Schema.define(version: 20180808000000) do
     t.datetime "updated_at", null: false
     t.datetime "published_at"
     t.string "channel"
+    t.integer "registered_type", default: 1, null: false
   end
 
   create_table "sns_accounts", id: :serial, force: :cascade do |t|
@@ -157,6 +169,7 @@ ActiveRecord::Schema.define(version: 20180808000000) do
     t.string "kana"
     t.string "en"
     t.datetime "latest_published_at"
+    t.integer "auto_movie_registration_type", default: 0, null: false
   end
 
 end

@@ -1,6 +1,6 @@
 .page-header.text-center.admin
   .row
-    .well.bs-component.col-xs-12
+    .well.bs-component.col-xs-12#admin-video-artists-show
       = render 'admin/error_message'
       = form_for([:admin, @video_artist], class: 'form-horizontal') do |f|
         fieldset
@@ -29,6 +29,13 @@
                 = memo_f.text_area :content, class: 'small form-controll col-xs-8 admin-text', rows: 6
           .row.admin-form
             .form-group
+              label.col-xs-4.control-label.small for="video_artist_description" 動画自動登録タイプ
+              = f.select :auto_movie_registration_type, VideoArtist.auto_movie_registration_types.keys, {}, class: 'form-controll col-xs-8 admin-text'
+          .row.admin-form
+            .row{v-for="(def, index) in definitionArray" v-cloak=""}
+              movie-registration-definition[:definition="def" :index="index" :category-list=Category.html_options(with_root: false)]
+          .row.admin-form
+            .form-group
               .text-right
                 = f.submit '更新', class: 'btn btn-primary'
     .well.bs-component.col-xs-12
@@ -41,3 +48,5 @@
     - if @movies.present?
       .col-xs-12
         = render 'admin/movie_list', movies: @movies
+
+= javascript_include_tag 'adminVideoArtistShow'

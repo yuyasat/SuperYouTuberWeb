@@ -14,7 +14,7 @@ table.table.table-striped.table-hover.admin.small
   tbody
     - movies.each do |movie|
       tr
-        td = link_to movie.id, admin_movie_path(movie)
+        td = link_to movie.id, admin_movie_path(movie), target: '_blank'
         td
           = link_to movie.url, alt: movie.title, target: '_blank' do
             = image_tag movie.default_url

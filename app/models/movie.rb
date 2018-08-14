@@ -53,6 +53,11 @@ class Movie < ApplicationRecord
     deleted: 2, # YouTuberが削除した
     invisible: 3, # 非表示
   }
+  enum registered_type: {
+    manual: 1,
+    auto: 2,
+    auto_checked: 3,
+  }, _prefix: true
 
   after_create :create_video_artist, unless: :video_artist
 
