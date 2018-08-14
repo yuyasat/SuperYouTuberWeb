@@ -1,3 +1,4 @@
+var VueLoaderPlugin = require('vue-loader/lib/plugin')
 var webpack = require('webpack');
 var path = require('path')
 var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
@@ -11,6 +12,7 @@ module.exports = {
     adminCategory: './src/javascripts/admin/Category',
     adminCategoryShow: './src/javascripts/admin/Category/Show',
     adminVideoArtist: './src/javascripts/admin/VideoArtist',
+    adminVideoArtistShow: './src/javascripts/admin/VideoArtist/Show',
     spots: './src/javascripts/spots',
     spots_categories: './src/javascripts/spots_categories',
   },
@@ -20,7 +22,8 @@ module.exports = {
   },
   plugins: [
     new webpack.ProvidePlugin({ $: 'jquery', jQuery: 'jquery' }),
-    new UglifyJsPlugin()
+    new UglifyJsPlugin(),
+    new VueLoaderPlugin(),
   ],
   module: {
     rules: [
@@ -31,7 +34,7 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        use: ['vue-loader', 'eslint-loader']
+        use: ['vue-loader']
       },
       {
         test: /\.scss$/,
