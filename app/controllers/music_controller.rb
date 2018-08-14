@@ -23,7 +23,7 @@ class MusicController < ApplicationController
 
     @template = 'video_artists/show'
     @video_artist = @target_music_category.main_video_artist.decorate
-    @movies = @target_music_category.movies.latest_published.page(params[:page]).per(24)
+    @movies = @target_music_category.movies.active.latest_published.page(params[:page]).per(24)
     if @movies.blank? && @target_music_category.movies.latest_published.present?
       redirect_to music_path(@special_category.url)
     elsif @movies.blank?
