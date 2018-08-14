@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     resources :movies, only: %i(index show create update) do
       collection do
         get :auto_registered
+        get :deleted
       end
     end
     resources :featured_movies, only: %i(index show create update)

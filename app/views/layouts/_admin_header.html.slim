@@ -15,6 +15,7 @@ header
             ul.dropdown-menu role="menu"
               li.small = link_to '動画一覧', admin_movies_path
               li.small = link_to '自動登録された動画一覧', auto_registered_admin_movies_path
+              li.small = link_to 'YouTube場で削除された動画一覧', deleted_admin_movies_path
           li = link_to 'おすすめ動画', admin_featured_movies_path
           li.dropdown
             = link_to 'YouTuber', ''
