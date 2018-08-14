@@ -92,8 +92,8 @@ class VideoArtist < ApplicationRecord
   scope :having_non_deleted_movies, -> {
     where(channel: Movie.non_deleted.select('movies.channel').distinct)
   }
-  scope :having_movie_registration_definitions, -> {
-    where(id: MovieRegistrationDefinition.select(:video_artist_id).distinct)
+  scope :auto_movie_registration_type_all_or_if_definition_exists, -> {
+    where(auto_movie_registration_type: auto_movie_registration_types.except('no').values)
   }
 
   def channel_url
