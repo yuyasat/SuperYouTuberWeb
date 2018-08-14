@@ -16,7 +16,7 @@ class Admin::VideoArtistsController < AdminController
     @video_artist = VideoArtist.includes(:instagram_accounts, :twitter_accounts).find(params[:id])
     @movies = @video_artist.movies.includes(
       :video_artist, :categories, :locations
-    ).page(params[:page]).per(100)
+    ).order(published_at: :desc).page(params[:page]).per(100)
     gon.movie_registration_definitions = @video_artist.movie_registration_definitions
   end
 
