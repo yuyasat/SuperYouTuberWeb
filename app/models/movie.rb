@@ -155,6 +155,13 @@ class Movie < ApplicationRecord
     )
   end
 
+  def self.check_deleted_movies
+    Movie.active.each do |movie|
+      response = Typhoeus.get(movie.mqdefault_url)
+      movie.deleted! if response.code == 404
+    end
+  end
+
   private
 
   def published_at_without_milliseconds
