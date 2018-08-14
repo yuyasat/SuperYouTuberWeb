@@ -108,7 +108,7 @@ class YoutubeApi
     mv_titles.flatten
   end
 
-  def self.save_items!(items, category, dry_run)
+  def self.save_items!(items, category, dry_run, auto = false)
     mv_titles = []
     items.each do |item|
       m = Movie.find_or_initialize_by(key: item.dig('id', 'videoId'))
@@ -117,7 +117,9 @@ class YoutubeApi
       m.url = "https://www.youtube.com/watch?v=#{m.key}"
       m.published_at = Time.zone.parse(item.dig('snippet', 'publishedAt'))
       m.channel = item.dig('snippet', 'channelId')
-      m.categories << category if m.categories.blank?
+      m.categories << category if m.categories.blank? && category.present?
+      m.status = 'invisible' if category.blank?
+      m.registered_type = 'auto' if auto
 
       mv_titles << "#{m.key}, #{m.title}"
       unless dry_run
@@ -128,17 +130,33 @@ class YoutubeApi
   end
 
   def self.update_latest_published_at(channel)
+    va = channel.is_a?(VideoArtist) ? channel : VideoArtist.find_by(channel: channel)
     parameters = {
-      channelId: channel, key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
-      order: 'date', maxResults: 1,
+      channelId: va.channel, key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
+      order: 'date', maxResults: va.auto_movie_registration_type_no? ? 1 : 3,
     }
     res = Typhoeus.get("#{URL}/search", params: parameters)
-    item = JSON.parse(res.body)['items']&.first
-    if item.blank?
+    items = JSON.parse(res.body)['items']
+    if items.blank?
       Bugsnag.notify(response: res.inspect)
     end
-    va = VideoArtist.find_by(channel: channel)
-    va.latest_published_at = item.dig('snippet', 'publishedAt')
+    save_items_with_defined_category!(items, va) unless va.auto_movie_registration_type_no?
+
+    latest_published_at = items.max { |item|
+      Time.zone.parse(item.dig("snippet", "publishedAt"))
+    }.dig('snippet', 'publishedAt')
+    va.latest_published_at = latest_published_at
+    va.movies
     va.save!
+  end
+
+  def self.save_items_with_defined_category!(items, video_artist)
+    items.each do |item|
+      mrd = video_artist.movie_registration_definitions.find do |m|
+        /#{m.definition}/ =~ item.dig('snippet', 'title')
+      end
+      next if mrd.blank? && video_artist.auto_movie_registration_type_if_definition_exists?
+      save_items!([item], mrd&.category, false, true)
+    end
   end
 end

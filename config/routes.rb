@@ -49,7 +49,11 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :movies, only: %i(index show create update)
+    resources :movies, only: %i(index show create update) do
+      collection do
+        get :auto_registered
+      end
+    end
     resources :featured_movies, only: %i(index show create update)
     resources :categories, only: %i(index show create update) do
       post :sort

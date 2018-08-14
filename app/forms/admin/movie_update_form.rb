@@ -38,7 +38,7 @@ class Admin::MovieUpdateForm
 
   def movie_params
     row_params = params.require(:movie).permit(
-      :url, :key, :status, :title, :published_at, :channel, :description,
+      :url, :key, :status, :title, :published_at, :channel, :description, :registered_type,
       movie_categories_attributes: %i(category_id),
       locations_attributes: %i(latlong latitude longitude),
     )

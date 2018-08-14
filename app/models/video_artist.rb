@@ -24,10 +24,19 @@ class VideoArtist < ApplicationRecord
   has_many :instagram_accounts
   has_many :movies, foreign_key: 'channel', primary_key: 'channel'
   has_many :memos, -> { order(updated_at: :desc) }, as: :target, dependent: :delete_all
+  has_many :movie_registration_definitions
 
   accepts_nested_attributes_for :sns_accounts, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :memos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :movie_registration_definitions,
+                                reject_if: :all_blank, allow_destroy: true
   delegate :timeline_url, to: :twitter_accounts
+
+  enum auto_movie_registration_type: {
+    no: 0,
+    all: 1,
+    if_definition_exists: 2,
+  }, _prefix: true
 
   after_create :set_kana_and_en!, if: -> { kana.blank? || en.blank? }
 
@@ -148,6 +157,18 @@ class VideoArtist < ApplicationRecord
   rescue => e
     Bugsnag.notify("(Handled) En Convert Failed. id: #{id}, title: #{title}")
     title
+  end
+
+  def movie_registration_definitions_changed?(new_movie_registration_definitions)
+    movie_registration_definitions.sort_by { |d|
+      [d.category_id, d.definition]
+    }.map { |mrd|
+      mrd.slice(:category_id, :definition, :match_type)
+    } != new_movie_registration_definitions.sort_by { |d|
+      [d.category_id, d.definition]
+    }.map { |mrd|
+      mrd.slice(:category_id, :definition, :match_type)
+    }
   end
 
   def self.music_video_artists_channels

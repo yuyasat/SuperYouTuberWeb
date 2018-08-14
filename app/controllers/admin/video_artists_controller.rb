@@ -17,19 +17,15 @@ class Admin::VideoArtistsController < AdminController
     @movies = @video_artist.movies.includes(
       :video_artist, :categories, :locations
     ).page(params[:page]).per(100)
+    gon.movie_registration_definitions = @video_artist.movie_registration_definitions
   end
 
   def update
-    video_artist = VideoArtist.find_by(channel: video_artist_params[:channel])
-    video_artist.assign_attributes(video_artist_params)
+    form = Admin::VideoArtistUpdateForm.new(params)
+    form.assign_attributes
+    message = form.save
 
-    message = if video_artist.save
-                { success: "#{video_artist.channel}を更新しました" }
-              else
-                { error: video_artist.customized_error_full_messages }
-              end
-
-    redirect_to admin_video_artist_path(video_artist), flash: message
+    redirect_to admin_video_artist_path(form.video_artist), flash: message
   end
 
   def update_latest_published_at
@@ -72,13 +68,6 @@ class Admin::VideoArtistsController < AdminController
     params.require(:sort).permit(
       'video_artists.id', 'video_artists.latest_published_at', 'video_artists.unupdated_period',
       'movies.published_at', 'movie_count', 'video_artists.music'
-    )
-  end
-
-  def video_artist_params
-    params.require(:video_artist).permit(
-      :channel, :title, :editor_description, :description, :kana, :en,
-      memos_attributes: %i(content),
     )
   end
 end
