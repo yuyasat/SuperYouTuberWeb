@@ -37,4 +37,4 @@ ja:
       auto_movie_registration_type:
         ignore: '自動登録しない'
         all: '必ず登録'
-        if_definition_exists: '自動登録動画に定義されている場合のみ'
+        if_definition_exists: '自動動画登録に定義されている場合のみ'
