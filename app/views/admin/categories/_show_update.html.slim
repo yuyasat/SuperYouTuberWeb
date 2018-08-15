@@ -4,7 +4,10 @@
       = render 'admin/error_message'
       = form_for([:admin, @category], class: 'form-horizontal') do |f|
         fieldset
-          legend カテゴリの更新
+          legend
+            | カテゴリの更新（
+            = raw @category.ancestor_categories(only_id: false).map { |cat| link_to cat.name, admin_category_path(cat) }.join(" > ")
+            |）
           .col-xs-6
             .row{style="margin-bottom: 10px"}
               .form-group
