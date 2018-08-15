@@ -112,6 +112,7 @@ class YoutubeApi
     mv_titles = []
     items.each do |item|
       m = Movie.find_or_initialize_by(key: item.dig('id', 'videoId'))
+      next if m.persisted?
       m.title = item.dig('snippet', 'title')
       m.description = item.dig('snippet', 'description')
       m.url = "https://www.youtube.com/watch?v=#{m.key}"
