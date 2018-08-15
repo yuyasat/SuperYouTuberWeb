@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import _ from 'lodash'
 
 Vue.use(Vuex)
 
 const initialDefinitionArray = function() {
   if (gon.movie_registration_definitions.length !== 0) { return gon.movie_registration_definitions }
 
-  return [{ regex: '', categoryId: '', index: 0 }]
+  return [{ regex: '', category_id: '', index: 0 }]
 }
 
 const state = {
@@ -14,15 +15,18 @@ const state = {
 }
 
 const mutations = {
-  addDifinition(state, index) {
+  addDefinition(state, index) {
     let defArray = state.definitionArray
-    defArray.splice(index + 1, 0, { regex: '', categoryId: '', index: index + 1 })
+
+    defArray.splice(index + 1, 0, {
+      regex: '', category_id: defArray[0].category_id, index: index + 1
+    })
     defArray.slice(index + 2, defArray.length).forEach((definition) => {
       definition.index++
     })
-    state.definitionArray = _.orderBy(definitionArray, 'index')
+    state.definitionArray = _.orderBy(defArray, 'index')
   },
-  removeDifinition(state, index) {
+  removeDefinition(state, index) {
     const definitionArray = state.definitionArray
     state.definitionArray = definitionArray.filter(function(definition) {
       return definition.index !== index

@@ -17,7 +17,7 @@ class Admin::VideoArtistsController < AdminController
     @movies = @video_artist.movies.includes(
       :video_artist, :categories, :locations
     ).order(published_at: :desc).page(params[:page]).per(100)
-    gon.movie_registration_definitions = @video_artist.movie_registration_definitions
+    gon.movie_registration_definitions = @video_artist.most_relevant_movie_registration_definitions
   end
 
   def update

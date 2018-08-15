@@ -23,6 +23,7 @@ class VideoArtist < ApplicationRecord
   has_many :twitter_accounts
   has_many :instagram_accounts
   has_many :movies, foreign_key: 'channel', primary_key: 'channel'
+  has_many :movie_categories, through: :movies
   has_many :memos, -> { order(updated_at: :desc) }, as: :target, dependent: :delete_all
   has_many :movie_registration_definitions
 
@@ -133,6 +134,14 @@ class VideoArtist < ApplicationRecord
     categories.any?(&:music?)
   end
 
+  def most_relevant_category
+    movie_categories.group(:category).count.max_by { |_k, v| v }.first
+  end
+
+  def most_relevant_movie_registration_definitions
+    movie_registration_definitions.presence ||
+      [movie_registration_definitions.new(category: most_relevant_category)]
+  end
 
   def kana_converted_from_title
     Kakasi.kakasi(

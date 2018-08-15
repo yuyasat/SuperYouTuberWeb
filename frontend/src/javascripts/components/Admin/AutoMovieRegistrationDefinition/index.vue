@@ -38,10 +38,10 @@
     },
     methods: {
       addDefinition() {
-        store.commit('addDifinition', this.index)
+        store.commit('addDefinition', this.index)
       },
       removeDefinition() {
-        store.commit('removeDifinition', this.index)
+        store.commit('removeDefinition', this.index)
       },
     },
   }
