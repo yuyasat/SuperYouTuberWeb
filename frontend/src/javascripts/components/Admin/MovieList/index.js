@@ -35,9 +35,13 @@ export default Vue.extend({
           <td>
             <a :alt="movie.title" target="_blank" :href="movie.url">{{ movie.key }}</a>
           </td>
-          <td>{{ movie.categories.map((cat) => { return cat.name }).join(', ') }}</td>
+          <td v-html="categoryLinks(movie)"></td>
           <td>
-            <div><a target="_blank" :href="movie.channel_url">{{ channelTitle(movie) }}</a></div>
+            <div>
+              {{ channelTitle(movie) }}
+              [<a target="_blank" :href=channelAdminUrl(movie) target="_blank">管理画面</a>]
+              [<a target="_blank" :href="movie.channel_url" target="_blank">本家</a>]
+            </div>
             <div>{{ movie.title }}</div>
             <div v-for="loc in movie.locations">
               {{ loc.latitude + ', ' + loc.longitude }}
@@ -96,5 +100,14 @@ export default Vue.extend({
     channelTitle(movie) {
       return movie.video_artist === undefined ? movie.channel : movie.video_artist.title
     },
+    channelAdminUrl(movie) {
+      return movie.video_artist === undefined ?
+        movie.channel : `/admin/video_artists/${movie.video_artist.id}`
+    },
+    categoryLinks(movie) {
+      return movie.categories.map((cat) => {
+        return `<a href="/admin/categories/${cat.id}" target="_blank">${cat.name}</a>`
+      }).join(', ')
+    }
   },
 })

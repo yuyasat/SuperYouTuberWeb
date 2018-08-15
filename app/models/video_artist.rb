@@ -94,7 +94,7 @@ class VideoArtist < ApplicationRecord
     where(channel: Movie.non_deleted.select('movies.channel').distinct)
   }
   scope :auto_movie_registration_type_all_or_if_definition_exists, -> {
-    where(auto_movie_registration_type: auto_movie_registration_types.except('no').values)
+    where(auto_movie_registration_type: auto_movie_registration_types.except('ignore').values)
   }
 
   def channel_url
@@ -139,7 +139,7 @@ class VideoArtist < ApplicationRecord
   end
 
   def most_relevant_movie_registration_definitions
-    movie_registration_definitions.presence ||
+    movie_registration_definitions.order(:created_at).presence ||
       [movie_registration_definitions.new(category: most_relevant_category)]
   end
 

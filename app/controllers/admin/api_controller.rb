@@ -21,8 +21,8 @@ class Admin::ApiController < AdminController
     movies_json = searched_movies.as_json(
                     methods: %i(default_url channel_url),
                     include: {
-                      video_artist: { only: %i(title) },
-                      categories: { only: %i(name) },
+                      video_artist: { only: %i(id title) },
+                      categories: { only: %i(id name) },
                       locations: { methods: %i(latitude longitude latlong) },
                     }
                   )

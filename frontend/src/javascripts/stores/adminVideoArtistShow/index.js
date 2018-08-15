@@ -17,6 +17,7 @@ const state = {
 const mutations = {
   addDefinition(state, index) {
     let defArray = state.definitionArray
+    defArray.forEach((definition, i) => { definition.index = i })
 
     defArray.splice(index + 1, 0, {
       regex: '', category_id: defArray[0].category_id, index: index + 1
@@ -27,12 +28,11 @@ const mutations = {
     state.definitionArray = _.orderBy(defArray, 'index')
   },
   removeDefinition(state, index) {
-    const definitionArray = state.definitionArray
-    state.definitionArray = definitionArray.filter(function(definition) {
+    let defArray = state.definitionArray
+    defArray.forEach((definition, i) => { definition.index = i })
+
+    state.definitionArray = defArray.filter(function(definition) {
       return definition.index !== index
-    })
-    state.definitionArray.forEach((definition, i) => {
-      definition.index = i
     })
   },
 }
