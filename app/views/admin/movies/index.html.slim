@@ -1,6 +1,6 @@
 .page-header
   .row
-    .well.bs-component#admin-movie
+    .bs-component#admin-movie
       = render 'admin/error_message'
       = form_for([:admin, @movie], class: 'form-horizontal') do |f|
         fieldset
@@ -59,7 +59,8 @@
             .row.text-right
               .form-group
                 = f.submit '作成', class: 'btn btn-primary'
-
+.row.text-center
+  = "現在の動画数：#{Movie.active.count}"
 
 #admin-movie-list
   .row.text-right

@@ -39,8 +39,8 @@ export default Vue.extend({
           <td>
             <div>
               {{ channelTitle(movie) }}
-              [<a target="_blank" :href=channelAdminUrl(movie) target="_blank">管理画面</a>]
-              [<a target="_blank" :href="movie.channel_url" target="_blank">本家</a>]
+              [<a target="_blank" :href=channelAdminUrl(movie)>管理画面</a>]
+              [<a target="_blank" :href="movie.channel_url">本家</a>]
             </div>
             <div>{{ movie.title }}</div>
             <div v-for="loc in movie.locations">
