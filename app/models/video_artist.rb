@@ -33,7 +33,7 @@ class VideoArtist < ApplicationRecord
   delegate :timeline_url, to: :twitter_accounts
 
   enum auto_movie_registration_type: {
-    no: 0,
+    ignore: 0,
     all: 1,
     if_definition_exists: 2,
   }, _prefix: true

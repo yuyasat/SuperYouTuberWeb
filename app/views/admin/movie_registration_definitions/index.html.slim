@@ -9,22 +9,27 @@
             th 動画自動登録タイプ
             th 正規表現定義
             th id
+            th 作成日
         tbody
           - @video_artists.each do |va|
             tr
               - if va.movie_registration_definitions.blank?
-                th[colspan="5"] = link_to va.title, admin_video_artist_path(va), target: '_blank'
+                th[colspan="2"] = link_to va.title, admin_video_artist_path(va), target: '_blank'
+                td = va.auto_movie_registration_type_i18n
+                td[colspan="3"]
               - else
                 th{rowspan="#{va.movie_registration_definitions.length}"} = link_to va.title, admin_video_artist_path(va), target: '_blank'
                 - va.movie_registration_definitions.each.with_index do |definition, i|
                   - if i == 0
                     td = definition.category.name
-                    td = definition.video_artist.auto_movie_registration_type
+                    td = va.auto_movie_registration_type_i18n
                     td = definition.definition
                     td = definition.id
+                    td = definition.created_at.strftime("%F %T")
                   - else
-                   tr
-                     td = definition.category.name
-                     td = definition.video_artist.auto_movie_registration_type
-                     td = definition.definition
-                     td = definition.id
+                    tr
+                      td = definition.category.name
+                      td = definition.video_artist.auto_movie_registration_type_i18n
+                      td = definition.definition
+                      td = definition.id
+                      td = definition.created_at.strftime("%F %T")

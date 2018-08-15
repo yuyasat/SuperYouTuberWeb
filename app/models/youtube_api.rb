@@ -133,14 +133,14 @@ class YoutubeApi
     va = channel.is_a?(VideoArtist) ? channel : VideoArtist.find_by(channel: channel)
     parameters = {
       channelId: va.channel, key: ENV['GOOGLE_YOUTUBE_DATA_KEY'], part: 'id,snippet',
-      order: 'date', maxResults: va.auto_movie_registration_type_no? ? 1 : 3,
+      order: 'date', maxResults: va.auto_movie_registration_type_ignore? ? 1 : 3,
     }
     res = Typhoeus.get("#{URL}/search", params: parameters)
     items = JSON.parse(res.body)['items']
     if items.blank?
       Bugsnag.notify(response: res.inspect)
     end
-    save_items_with_defined_category!(items, va) unless va.auto_movie_registration_type_no?
+    save_items_with_defined_category!(items, va) unless va.auto_movie_registration_type_ignore?
 
     latest_published_at = items.max { |item|
       Time.zone.parse(item.dig("snippet", "publishedAt"))

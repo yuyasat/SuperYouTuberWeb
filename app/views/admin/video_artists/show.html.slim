@@ -30,7 +30,7 @@
           .row.admin-form
             .form-group
               label.col-xs-4.control-label.small for="video_artist_description" 動画自動登録タイプ
-              = f.select :auto_movie_registration_type, VideoArtist.auto_movie_registration_types.keys, {}, class: 'form-controll col-xs-8 admin-text'
+              = f.select :auto_movie_registration_type, VideoArtist.auto_movie_registration_types_i18n.invert, {}, class: 'form-controll col-xs-8 admin-text'
           .row.admin-form
             .row{v-for="(def, index) in definitionArray" v-cloak=""}
               movie-registration-definition[:definition="def" :index="index" :category-list=Category.html_options(with_root: false)]
