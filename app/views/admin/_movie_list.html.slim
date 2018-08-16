@@ -11,6 +11,7 @@ table.table.table-striped.table-hover.admin.small
       th チャンネル/タイトル
       th 公開時刻
       th 作成時刻
+      th 最終更新日
   tbody
     - movies.each do |movie|
       tr
@@ -32,6 +33,7 @@ table.table.table-striped.table-hover.admin.small
             = raw movie.locations.map { |loc| "#{loc.latitude}, #{loc.longitude}" }.join('<br>')
         td = movie.published_at&.strftime("%F %T")
         td = movie.created_at.strftime("%F %T")
+        td = movie.updated_at.strftime("%F %T")
 
 .row.text-right
   = paginate movies

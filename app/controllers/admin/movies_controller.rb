@@ -10,7 +10,7 @@ class Admin::MoviesController < AdminController
   end
 
   def deleted
-    @movies = Movie.deleted.order(published_at: :desc).page(params[:page]).per(100)
+    @movies = Movie.deleted.order(updated_at: :desc).page(params[:page]).per(100)
   end
 
   def show
