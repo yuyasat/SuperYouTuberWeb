@@ -172,6 +172,7 @@ class VideoArtist < ApplicationRecord
   end
 
   def movie_registration_definitions_changed?(new_movie_registration_definitions)
+    return movie_registration_definitions.present? if new_movie_registration_definitions.blank?
     movie_registration_definitions.sort_by { |d|
       [d.category_id, d.definition]
     }.map { |mrd|

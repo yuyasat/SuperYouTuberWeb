@@ -10,9 +10,14 @@ class Admin::VideoArtistUpdateForm
     video_artist.assign_attributes(
       video_artist_params.except(:movie_registration_definitions_attributes)
     )
-    @movie_registration_definitions = movie_registration_definitions_params.select do |k, v|
-      v[:definition].present? && v[:category_id].present?
-    end.values.map { |p| MovieRegistrationDefinition.new(p) }
+    @movie_registration_definitions =
+      if movie_registration_definitions_params.blank?
+        []
+      else
+        movie_registration_definitions_params.select do |k, v|
+          v[:definition].present? && v[:category_id].present?
+        end.values.map { |p| MovieRegistrationDefinition.new(p) }
+      end
   end
 
   def save
