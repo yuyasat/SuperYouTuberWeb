@@ -6,7 +6,7 @@ table.table.table-striped.table-hover.admin.small
     tr
       th id
       th サムネイル
-      th 動画キー
+      th 動画キー/自動
       th カテゴリ/ステータス
       th チャンネル/タイトル
       th 公開時刻
@@ -19,7 +19,10 @@ table.table.table-striped.table-hover.admin.small
         td
           = link_to movie_path(movie), alt: movie.title, target: '_blank' do
             = image_tag movie.default_url
-        td = link_to movie.key, movie.url, alt: movie.title, target: '_blank'
+        td
+          = link_to movie.key, movie.url, alt: movie.title, target: '_blank'
+          br
+          = movie.registered_type_i18n
         td
           = raw movie.categories.map { |cat| link_to cat.name, admin_category_path(cat), target: '_blank' }.join(', ')
           br

@@ -17,7 +17,7 @@ export default Vue.extend({
         <tr>
           <th>id<i @click="sortBy('id')" class="fa" :class="idOrderClass"></i></th>
           <th>サムネイル</th>
-          <th>動画キー</th>
+          <th>動画キー/自動</th>
           <th>カテゴリ/ステータス</th>
           <th>チャンネル/タイトル</th>
           <th>公開時刻<i @click="sortBy('published_at')" class="fa" :class="publishedAtOrderClass"></i></th>
@@ -33,7 +33,8 @@ export default Vue.extend({
             </a>
           </td>
           <td>
-            <a :alt="movie.title" target="_blank" :href="movie.url">{{ movie.key }}</a>
+            <a :alt="movie.title" target="_blank" :href="movie.url">{{ movie.key }}</a><br>
+            {{ movie.registered_type_i18n }}
           </td>
           <td v-html="categoryLinksAndStatus(movie)"></td>
           <td>

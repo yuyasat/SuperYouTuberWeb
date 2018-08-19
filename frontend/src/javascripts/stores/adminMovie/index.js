@@ -5,7 +5,6 @@ import axios from 'axios';
 const initialLatLongArray = function() {
   if (gon.movie_locations.length !== 0) { return gon.movie_locations }
 
-
   const hasMappableCategory = gon.movie_categories.filter(function(c) {
     return _.includes(gon.map_category_ids, c.id)
   }).length > 0
