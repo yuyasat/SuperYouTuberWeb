@@ -5,7 +5,11 @@ import axios from 'axios';
 const initialLatLongArray = function() {
   if (gon.movie_locations.length !== 0) { return gon.movie_locations }
 
-  if (_.includes(gon.map_category_ids, parseInt(gon.default_category))) {
+
+  const hasMappableCategory = gon.movie_categories.filter(function(c) {
+    return _.includes(gon.map_category_ids, c.id)
+  }).length > 0
+  if (_.includes(gon.map_category_ids, parseInt(gon.default_category)) || hasMappableCategory) {
     return [{ latitude: '', longitude: '', index: 0 }]
   } else {
     return []
