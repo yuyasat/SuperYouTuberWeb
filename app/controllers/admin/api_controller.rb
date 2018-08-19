@@ -19,7 +19,7 @@ class Admin::ApiController < AdminController
 
   def movies
     movies_json = searched_movies.as_json(
-                    methods: %i(default_url channel_url),
+                    methods: %i(default_url channel_url status_i18n),
                     include: {
                       video_artist: { only: %i(id title) },
                       categories: { only: %i(id name) },

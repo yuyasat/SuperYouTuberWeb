@@ -18,7 +18,7 @@ export default Vue.extend({
           <th>id<i @click="sortBy('id')" class="fa" :class="idOrderClass"></i></th>
           <th>サムネイル</th>
           <th>動画キー</th>
-          <th>カテゴリ</th>
+          <th>カテゴリ/ステータス</th>
           <th>チャンネル/タイトル</th>
           <th>公開時刻<i @click="sortBy('published_at')" class="fa" :class="publishedAtOrderClass"></i></th>
           <th>作成時刻<i @click="sortBy('created_at')" class="fa" :class="createdAtOrderClass"></i></th>
@@ -35,7 +35,7 @@ export default Vue.extend({
           <td>
             <a :alt="movie.title" target="_blank" :href="movie.url">{{ movie.key }}</a>
           </td>
-          <td v-html="categoryLinks(movie)"></td>
+          <td v-html="categoryLinksAndStatus(movie)"></td>
           <td>
             <div>
               {{ channelTitle(movie) }}
@@ -104,10 +104,10 @@ export default Vue.extend({
       return movie.video_artist === undefined ?
         movie.channel : `/admin/video_artists/${movie.video_artist.id}`
     },
-    categoryLinks(movie) {
+    categoryLinksAndStatus(movie) {
       return movie.categories.map((cat) => {
         return `<a href="/admin/categories/${cat.id}" target="_blank">${cat.name}</a>`
-      }).join(', ')
+      }).join(', ') + `<br>${movie.status_i18n}`
     }
   },
 })
