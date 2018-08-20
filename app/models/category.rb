@@ -5,7 +5,7 @@ class Category < ApplicationRecord
   has_many :movie_categories, dependent: :destroy
   has_many :movies, through: :movie_categories
   has_many :children, -> { order(:display_order, :created_at) }, class_name: 'Category', foreign_key: :parent_id
-  has_many :movie_registration_definitions
+  has_many :movie_registration_definitions, dependent: :destroy
 
   before_create :set_full_name, if: -> { full_name.blank? }
   before_create :set_display_order

@@ -17,4 +17,18 @@ RSpec.describe Category, type: :model do
       it { is_expected.to be false }
     end
   end
+
+  describe '#movie_registration_definitions' do
+    let(:category) { create(:category, :category_97) }
+    let(:video_artist) { create(:video_artist, :softvolley) }
+    let!(:movie_registration_definition) {
+      create(:movie_registration_definition, video_artist: video_artist, category: category)
+    }
+
+    it 'movie_registration_definitions are also destroyed' do
+      expect { category.destroy }.to change {
+        category.movie_registration_definitions.count
+      }.from(1).to(0)
+    end
+  end
 end
