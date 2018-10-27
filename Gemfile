@@ -32,7 +32,7 @@ gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '6.x'
 gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '6.x'
 gem 'graphql'
 # for kanji, kana, romaji
-# gem 'kakasi'
+gem 'kakasi'
 gem 'romkan'
 gem 'yen'
 
