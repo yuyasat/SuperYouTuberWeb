@@ -1,4 +1,7 @@
 .l-main-content.is-no-breadcrumb.is-mobile-menu-show
+  - if newyear?
+    a.page-head-pr[href='/categories/407']
+      img src=(asset_path 'newyear_banner.png') alt='' /
   - if @featured_movies.present?
     .l-container.l-mb-xs-20.l-mb-lg-50
       .l-row
