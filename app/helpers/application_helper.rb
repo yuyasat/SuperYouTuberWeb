@@ -20,4 +20,8 @@ module ApplicationHelper
       "#{v}#{k == :months ? k[0].upcase : k[0]}"
     }.join.presence || 0
   end
+
+  def newyear?
+    Time.current.between?("2019-01-01".in_time_zone, "2019-01-07".in_time_zone.end_of_day)
+  end
 end
