@@ -1,11 +1,17 @@
 - content_for :title do
   = t('.title', title: @movie.title)
 - content_for :description do
-  = t('.description', title: @movie.title, category: @movie.categories.first.name)
+  - if @movie.categories.present?
+    = t('.description', title: @movie.title, category: @movie.categories.first.name)
+  - else
+    = t('.description_no_category', title: @movie.title)
 - content_for :og_title do
   = t('.title', title: @movie.title)
 - content_for :og_description do
-  = t('.description', title: @movie.title, category: @movie.categories.first.name)
+  - if @movie.categories.present?
+    = t('.description', title: @movie.title, category: @movie.categories.first.name)
+  - else
+    = t('.description_no_category', title: @movie.title)
 - content_for :og_image do
   = @movie.mqdefault_url
 

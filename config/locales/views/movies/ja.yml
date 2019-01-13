@@ -3,3 +3,4 @@ ja:
     show:
       title: "%{title}のYouTube動画 - SuperYouTuber"
       description: "%{title}の動画紹介（「%{category}」カテゴリ） - SuperYouTuber"
+      description_no_category: "%{title}の動画紹介 - SuperYouTuber"
