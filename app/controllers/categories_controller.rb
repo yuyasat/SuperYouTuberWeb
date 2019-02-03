@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   def index
-    @category_movies = Movie.grouped_by_categories(num: 6)
-    @root_category = Category.root.not_special
+    @category_movies = Movie.grouped_by_categories_except_adult(num: 8)
+    @root_category = Category.root.not_special.except_adult
                              .where(id: @category_movies.keys.map(&:id)).sort_by_display_order
   end
 

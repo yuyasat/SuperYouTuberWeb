@@ -97,6 +97,10 @@ class Movie < ApplicationRecord
     ).compact
   end
 
+  def self.grouped_by_categories_except_adult(num: 10)
+    grouped_by_categories(num: num, target_category: Category.except_adult)
+  end
+
   def self.channels_order_by_latest_published
     Rails.cache.fetch("#{self.name}.#{__method__}", expires_in: 3.hours) do
       Movie.all.order(published_at: :desc)

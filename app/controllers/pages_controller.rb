@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     @featured_movies = Movie.active.joins(:featured_movies).merge(FeaturedMovie.active)
                             .includes(:video_artist).shuffle
     @latest_movies = Movie.active.order(published_at: :desc).limit(8)
-    @category_movies = Movie.grouped_by_categories(num: 8)
+    @category_movies = Movie.grouped_by_categories_except_adult(num: 8)
     @mobile_menu_show = true;
   end
 

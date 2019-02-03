@@ -15,7 +15,7 @@
                 = f.text_field :name, class: 'form-controll col-xs-8 admin-text', disabled: @category.special_root?
                 - if @category.special_root?
                   .col-sm-12.text-left
-                    | マップとミュージックPVはカテゴリ名を変更できません。
+                    | マップ、ミュージックPV、成人向けはカテゴリ名を変更できません。
             .row
               .form-group
                 label.col-xs-4.control-label for="category_parent_id" 親カテゴリ

@@ -26,6 +26,8 @@ class Category < ApplicationRecord
     where(id: Category.find_by(name: 'マップ').all_children_categories)
   }
   scope :musicable, -> { where(id: Category.music.all_children_categories) }
+  scope :adult, -> { where(id: Category.adult.all_children_categories) }
+  scope :except_adult, -> { where.not(id: Category.adult.all_children_categories) }
 
   def root?
     parent_id == 0
@@ -44,7 +46,7 @@ class Category < ApplicationRecord
   end
 
   def special_root?
-    name.in?(%|マップ ミュージックPV|)
+    name.in?(%|マップ ミュージックPV 成人向け|)
   end
 
   def special_secondary?
@@ -57,6 +59,10 @@ class Category < ApplicationRecord
 
   def music?
     ancestor_categories(only_id: false).first.name == 'ミュージックPV'
+  end
+
+  def adult?
+    Category.find_by(name: '成人向け').all_children_categories.include?(id)
   end
 
   def main_video_artist
@@ -95,6 +101,10 @@ class Category < ApplicationRecord
 
   def self.music
     find_by(name: 'ミュージックPV')
+  end
+
+  def self.adult
+    find_by(name: '成人向け')
   end
 
   def self.grouped_category_ids
