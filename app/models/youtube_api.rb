@@ -145,9 +145,13 @@ class YoutubeApi
 
     latest_published_at = items.max { |item|
       Time.zone.parse(item.dig("snippet", "publishedAt"))
-    }.dig('snippet', 'publishedAt')
+    }&.dig('snippet', 'publishedAt')
+    if latest_published_at.blank?
+      return
+    else
+      Bugsnag.notify(video_artist: va.inspect)
+    end
     va.latest_published_at = latest_published_at
-    va.movies
     va.save!
   end
 
