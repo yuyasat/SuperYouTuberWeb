@@ -139,7 +139,7 @@ class YoutubeApi
     res = Typhoeus.get("#{URL}/search", params: parameters)
     items = JSON.parse(res.body)['items']
     if items.blank?
-      Bugsnag.notify(response: res.inspect)
+    #  Bugsnag.notify(response: res.inspect)
     end
     save_items_with_defined_category!(items, va) unless va.auto_movie_registration_type_ignore?
 
