@@ -149,7 +149,7 @@ class YoutubeApi
     if latest_published_at.blank?
       return
     else
-      Bugsnag.notify(video_artist: va.inspect)
+      # Bugsnag.notify(video_artist: va.inspect)
     end
     va.latest_published_at = latest_published_at
     va.save!
