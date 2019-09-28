@@ -130,6 +130,7 @@ class YoutubeApi
     mv_titles
   end
 
+  # NOTE: APIが正しく動かない（RSSから取得するものを利用する）
   def self.update_latest_published_at(channel)
     va = channel.is_a?(VideoArtist) ? channel : VideoArtist.find_by(channel: channel)
     parameters = {
@@ -163,5 +164,50 @@ class YoutubeApi
       next if mrd.blank? && video_artist.auto_movie_registration_type_if_definition_exists?
       save_items!([item], mrd&.category, false, true)
     end
+  end
+
+  def self.update_latest_published_at_from_rss(channel)
+    va = channel.is_a?(VideoArtist) ? channel : VideoArtist.find_by(channel: channel)
+    url = "https://www.youtube.com/feeds/videos.xml?channel_id=#{va.channel}"
+    res = Typhoeus.get(url)
+    body = Hash.from_xml(res.body)
+    items = body.dig('feed', 'entry')
+    save_items_with_defined_category_from_rss!(items, va) unless va.auto_movie_registration_type_ignore?
+
+    latest_published_at = items.map { |item| Time.zone.parse(item.dig('published')) }.max
+    va.latest_published_at = latest_published_at
+    va.save!
+  end
+
+  def self.save_items_with_defined_category_from_rss!(items, video_artist)
+    items.each do |item|
+      mrd = video_artist.movie_registration_definitions.find do |m|
+        /#{m.definition}/ =~ item['title']
+      end
+      next if mrd.blank? && video_artist.auto_movie_registration_type_if_definition_exists?
+      save_items_from_rss!([item], mrd&.category, false, true)
+    end
+  end
+
+  def self.save_items_from_rss!(items, category, dry_run, auto = false)
+    mv_titles = []
+    items.each do |item|
+      m = Movie.find_or_initialize_by(key: item['id'].split(':').last)
+      next if m.persisted?
+      m.title = item['title']
+      m.description = item.dig('group', 'description')
+      m.url = "https://www.youtube.com/watch?v=#{m.key}"
+      m.published_at = Time.zone.parse(item['published'])
+      m.channel = item['channelId']
+      m.categories << category if m.categories.blank? && category.present?
+      m.status = 'invisible' if category.blank?
+      m.registered_type = 'auto' if auto
+
+      mv_titles << "#{m.key}, #{m.title}"
+      unless dry_run
+        puts "!!!!CAUTION!!!!#{m.inspect}: #{m.errors.full_messages}" unless m.save
+      end
+    end
+    mv_titles
   end
 end

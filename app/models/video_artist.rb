@@ -197,12 +197,12 @@ class VideoArtist < ApplicationRecord
   end
 
   def self.update_latest_published_at(channel = nil)
-    return YoutubeApi.update_latest_published_at(channel) if channel.present?
+    return YoutubeApi.update_latest_published_at_from_rss(channel) if channel.present?
 
     where('latest_published_at > ?', Time.current - 30.days).or(
       where(latest_published_at: nil)
     ).find_each do |va|
-      YoutubeApi.update_latest_published_at(va.channel)
+      YoutubeApi.update_latest_published_at_from_rss(va.channel)
     end
   end
 
