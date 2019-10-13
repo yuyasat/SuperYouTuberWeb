@@ -18,6 +18,9 @@
         - if (ads_top = @advertisements.memory_scope(browser, top: true).sample).present?
           .l-col-md-6
             - if ads_top.script_tag?
+              / paddingをとるためのdummy
+              .title.is-size-m.l-mb-xs-10.l-mb-md-20
+                .title__inner
               div = raw ads_top.content
               .ad__sponsored__text 広告
             - else
