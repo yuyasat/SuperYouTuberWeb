@@ -21,8 +21,8 @@
               / paddingをとるためのdummy
               .title.is-size-m.l-mb-xs-10.l-mb-md-20
                 .title__inner
-              div = raw ads_top.content
-              .ad__sponsored__text 広告
+              div[style="text-align: center;"] = raw ads_top.content
+              .ad__sponsored__text__center 広告
             - else
               .ad.is-top-banner
                 .ad__inner
