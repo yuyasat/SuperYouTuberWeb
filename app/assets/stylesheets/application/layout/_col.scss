@@ -16,6 +16,7 @@
       @for $i from 1 through 12 {
         &-#{$mq}-#{$i} {
           width: #{100% / 12 * $i};
+          min-width: 280px;
         }
       }
     }
