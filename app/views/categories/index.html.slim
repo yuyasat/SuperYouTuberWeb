@@ -33,6 +33,11 @@
               .l-col-md-4
                 = link_to category_path(cat1), class: 'button is-width-full' do
                   span もっと見る
+            - if (ad = @advertisements.memory_scope(browser, i, middle: true, category: cat1).sample).present?
+              .infeed-ad
+                .ad.is-oblong
+                  .ad__inner
+                    = raw ad.content
 
     / .page-header
     /   .col-lg-3.col-md-3.col-sm-3
