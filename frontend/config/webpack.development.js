@@ -6,15 +6,6 @@ module.exports = {
   devtool: 'inline-source-map',
   entry: {
     application: './src/javascripts/application.js',
-    honoka: './src/javascripts/honoka.js',
-    adminMovie: './src/javascripts/admin/Movie',
-    adminMovieList: './src/javascripts/admin/MovieList',
-    adminCategory: './src/javascripts/admin/Category',
-    adminCategoryShow: './src/javascripts/admin/Category/Show',
-    adminVideoArtist: './src/javascripts/admin/VideoArtist',
-    adminVideoArtistShow: './src/javascripts/admin/VideoArtist/Show',
-    spots: './src/javascripts/spots',
-    spots_categories: './src/javascripts/spots_categories',
   },
   output: {
     path: path.resolve(__dirname, '../../app/assets/javascripts'),

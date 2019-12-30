@@ -1,13 +1,13 @@
-import _ from 'lodash'
+import _ from 'lodash';
 
 export function queryToObject (queryString) {
-  var query = (queryString || window.location.search).substring(1)
+  var query = (queryString || window.location.search).substring(1);
   if (!query) {
-    return false
+    return false;
   }
   return _.chain(query.split('&'))
-          .map((params) => {
-            const p = params.split('=');
-            return [p[0], decodeURIComponent(p[1])]
-          }).fromPairs().value()
+    .map((params) => {
+      const p = params.split('=');
+      return [p[0], decodeURIComponent(p[1])];
+    }).fromPairs().value();
 }

@@ -1,16 +1,16 @@
 {
   "presets": [
-    ["env", {
-      "targets": {
-        "browsers": ["last 2 versions", "ie >= 11"]
+    [
+      "@babel/preset-env",
+      {
+        "targets": [
+          "last 2 versions",
+          "ie >= 11"
+        ],
+        "useBuiltIns": "usage",
+        "corejs": 2,
       }
-    }],
-    ["stage-3"],
-  ],
-
-  "env": {
-    "test": {
-      "plugins": ["istanbul"]
-    }
-  }
+    ]
+  ]
 }
+
