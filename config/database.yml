@@ -1,29 +1,21 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
-  adapter: postgis
+  adapter: postgresql
   encoding: unicode
-  pool: 5
-  database: <%= ENV['RDS_DB_NAME'] || 'yt_summary_development' %>
-  username: <%= ENV['RDS_USERNAME'] || 'yt_summary' %>
-  password: <%= ENV['RDS_PASSWD'] || 'yt_summary' %>
-  host: <%= ENV['RDS_HOSTNAME'] || 'localhost' %>
-  schema_search_path: public
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool:      <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host:      <%= ENV.fetch('PGHOST', 'localhost') %>
+  port:      <%= ENV.fetch('PGPORT', '5432') %>
+  database:  <%= ENV.fetch('PGDATABASE', 'relay_development')  %>
+  username:  <%= ENV.fetch('PGUSER', 'relay') %>
+  password:  <%= ENV.fetch('PGPASSWORD', 'relay') %>
 
 development:
   <<: *default
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: <%= ENV['RDS_DB_NAME'] || 'yt_summary_test' %>
+  database: relay_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default
-  port: <%= ENV['RDS_PORT'] %>

@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.5.0'
+ruby '~> 2.6.5'
 
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 6.0.2'
 gem 'pg'
 gem 'sassc-rails'
 gem 'uglifier', '>= 1.3.0'
@@ -11,12 +11,12 @@ gem 'turbolinks'
 gem 'therubyracer'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'devise'
+gem 'sorcery'
 gem 'slim-rails'
 gem 'draper'
 gem 'kaminari'
 gem 'gon'
-gem 'unicorn'
+gem 'puma'
 gem 'typhoeus'
 gem 'config'
 gem "bugsnag", "~> 6.8"
@@ -24,17 +24,9 @@ gem 'browser'
 gem 'nokogiri'
 gem "rgeo-proj4"
 gem 'activerecord-import'
-gem 'activerecord-postgis-adapter'
 gem 'enum_help'
 gem 'rails_12factor', group: :production
 gem 'sitemap_generator'
-gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '6.x'
-gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '6.x'
-gem 'graphql'
-# for kanji, kana, romaji
-gem 'kakasi'
-gem 'romkan'
-gem 'yen'
 
 group :development do
   gem 'web-console', '~> 2.0'

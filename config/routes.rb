@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  if Rails.env.development?
-    mount GraphiQL::Rails::Engine, at: "/graphiql", graphql_path: "/internal/graphql"
-  end
-
-  devise_for :users
   root 'pages#index'
   get 'privacy-policy' => 'pages#privacy_policy'
   get 'contact' => 'pages#contact'
@@ -12,77 +7,12 @@ Rails.application.routes.draw do
   get 'sitemap' => 'pages#sitemap'
   get 'component-library' => 'pages#component_library' if Rails.env.development?
 
-  resources :categories, only: %i(index show) do
-    collection do
-      get ':cat1/:cat2', action: :show
-      get ':cat1/:cat2/:cat3', action: :show
-    end
-  end
-
-  resources :movies, only: %i(show)
-
-  resources :video_artists, path: 'youtubers', only: %i(index show)
-
-  resources :music, only: %i(index show) do
-    collection do
-      get ':cat2', action: :show
-      get ':cat2/:cat3', action: :show
-    end
-  end
-
-  resources :search, only: :index
-
-  namespace :spots do
-    resources :categories, only: %i(index show) do
-      collection do
-        get ':cat2', action: :show
-        get ':cat2/:cat3', action: :show
-      end
-    end
-  end
-
   namespace :internal do
     namespace :api do
-      get :movie_location
     end
-    post 'graphql', to: "graphql#execute"
   end
 
   namespace :admin do
-    resources :movies, only: %i(index show create update) do
-      collection do
-        get :auto_registered
-        get :deleted
-      end
-    end
-    resources :featured_movies, only: %i(index show create update)
-    resources :categories, only: %i(index show create update) do
-      post :sort
-      collection do
-        post :sort_root_category
-        get 'sort', action: :index_sort
-        get 'dashboard', action: :index_dashboard
-      end
-      member do
-        get 'sort', action: :show_sort
-      end
-    end
-    resources :video_artists, only: %i(show update) do
-      collection do
-        get :sns
-        get :manager
-        put :update_latest_published_at
-      end
-    end
-    resources :advertisements, only: %i(index create update)
-    resources :movie_registration_definitions, only: %i(index)
-    namespace :api do
-      get :movies
-      get :movie_info
-      get :movie_exists
-      get :children_categories
-      post :video_artist
-    end
   end
 
   get '/404' => 'errors#render_404'
