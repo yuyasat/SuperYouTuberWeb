@@ -5,10 +5,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :set_categories
-  before_action :retrieve_advertisement, unless: :admin?
-  before_action :configure_permitted_parameters, if: :devise_controller?
-
   unless Rails.env.development?
     # Errors are checkd from bottom
     rescue_from StandardError, with: :render_500
@@ -35,28 +31,7 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up) do |user_params|
-      user_params.permit(:email, :password, :nickname)
-    end
-    devise_parameter_sanitizer.permit(:account_update) do |user_params|
-      user_params.permit(:email, :password, :nickname, :password_confirmation, :current_password)
-    end
-  end
-
   private
-
-  def set_categories
-    @top_categories = Category.root.sort_by_display_order
-  end
-
-  def retrieve_advertisement
-    path = request.path == '/search' ? request.fullpath : request.path
-    @advertisements = AdvertisementsDecorator.decorate(
-      Advertisement.active.match_type_perfect.where(path: request.path).presence ||
-      Advertisement.active.match_type_regex.where("'#{path}' ~ path")
-    )
-  end
 
   def clear_session_errors
     session[:errors] = []

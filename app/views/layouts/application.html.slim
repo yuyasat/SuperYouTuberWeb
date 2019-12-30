@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    = render 'tags/google_adsense' unless admin?
+    = render 'tags/google_adsense'
     = render 'tags/gtm_head'
     title = content_for?(:title) ? yield(:title) : t('pages.index.title')
     meta[name='description' content="#{content_for?(:description) ? yield(:description) : t('pages.index.description') }"]
@@ -17,11 +17,7 @@ html
 
     = Gon::Base.render_data({})
 
-    - if admin?
-      = stylesheet_link_tag 'application_admin', media: 'all', 'data-turbolinks-track' => true
-      = javascript_include_tag 'honoka', 'data-turbolinks-track' => true
-    - else
-      = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
 
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
 
@@ -30,14 +26,8 @@ html
     link rel="icon" type="image/png"href="/favicon.png"
     link rel="apple-touch-icon" href="apple-touch-icon.png"
     meta[name="viewport" content="width=device-width,initial-scale=1, user-scalable=no"]
-    = render 'tags/nend_overlay'
   body
     = render 'tags/gtm_body'
-    = render admin? ? 'layouts/admin_header' : 'layouts/header'
-    - if admin?
-      .container
-        = yield
-    - else
-      = yield
-    = render admin? ? 'layouts/admin_footer' : 'layouts/footer'
-    = render 'tags/nend_closing_body'
+    = render 'layouts/header'
+    = yield
+    = render 'layouts/footer'

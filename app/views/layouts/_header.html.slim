@@ -34,10 +34,10 @@
           .menu
             ul.menu__list[itemscope itemtype="http://www.schema.org/SiteNavigationElement"]
               - [\
-                  ['youtuber', 'user', 'YouTuber', video_artists_path], \
-                  ['category', 'list', 'カテゴリ一覧', categories_path], \
-                  ['map', 'map', 'マップ', spots_categories_path], \
-                  ['music', 'music', 'ミュージック', music_index_path], \
+                  ['youtuber', 'user', 'YouTuber', '/'], \
+                  ['category', 'list', 'カテゴリ一覧', '/'], \
+                  ['map', 'map', 'マップ', '/'], \
+                  ['music', 'music', 'ミュージック', '/'], \
                 ].each do |key, icon, label, url|
                 li.menu__item[itemprop="name"]
                   a[href=url itemprop="url"]

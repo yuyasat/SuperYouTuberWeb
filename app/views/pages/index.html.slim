@@ -1,7 +1,4 @@
 .l-main-content.is-no-breadcrumb.is-mobile-menu-show
-  - if newyear?
-    a.page-head-pr[href='/categories/407']
-      img src=(asset_path 'newyear_banner.png') alt='' /
   - if @featured_movies.present?
     .l-container.l-mb-xs-20.l-mb-lg-50
       .l-row
@@ -37,7 +34,7 @@
     .l-row
       = render 'module/infeed_ad_block',
                num: 4, movies: @latest_movies,
-               sample_ad: @advertisements.memory_scope(browser, infeed: true, latest_published: true).sample,
+               sample_ad: [],
                clazz: 'l-col-sm-6 l-col-md-4 l-col-lg-3 l-mb-xs-10 l-mb-lg-20'
 
   - @category_movies.each.with_index(1) do |(cat1, movies), i|
